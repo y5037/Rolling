@@ -57,7 +57,8 @@ logs
 **/*.back.*
 
 node_modules
-node_modules/*
+node_modules/
+node_modules/.cache
 bower_components
 
 *.sublime*
