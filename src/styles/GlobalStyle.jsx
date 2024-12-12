@@ -208,7 +208,7 @@ button {
 /* 가운데영역 */
 .container{
 
-  max-width: 1248px;
+  max-width: 1200px;
   margin: 0 auto;
   padding:0 24px;
 
