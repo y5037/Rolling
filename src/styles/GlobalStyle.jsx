@@ -1,8 +1,18 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle = `
+const GlobalStyle = createGlobalStyle `
 
 /* 폰트 */
+
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/assets/fonts/pretendard/Pretendard-Light.woff2) format('woff2'),
+    url(/assets/fonts/pretendard/Pretendard-Light.woff) format('woff'),
+    url(/assets/fonts/pretendard/Pretendard-Light.otf) format('opentype');
+}
+
 @font-face {
   font-family: 'Pretendard';
   font-style: normal;
@@ -10,6 +20,15 @@ const GlobalStyle = createGlobalStyle = `
   src: url(/assets/fonts/pretendard/Pretendard-Regular.woff2) format('woff2'),
     url(/assets/fonts/pretendard/Pretendard-Regular.woff) format('woff'),
     url(/assets/fonts/pretendard/Pretendard-Regular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/assets/fonts/pretendard/Pretendard-Medium.woff2) format('woff2'),
+    url(/assets/fonts/pretendard/Pretendard-Medium.woff) format('woff'),
+    url(/assets/fonts/pretendard/Pretendard-Medium.otf) format('opentype');
 }
 
 @font-face {
