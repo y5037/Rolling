@@ -27,7 +27,6 @@ $ npm start
 | <img src="https://github.com/user-attachments/assets/1dbe35e8-cc98-41cc-9896-6b57cfbf19c3" alt="윤혜림" width="150"> | <img src="https://github.com/user-attachments/assets/de44ec88-f9bc-419b-bbbd-5c2cec0ef837" alt="박인건" width="150"> | <img src="https://github.com/user-attachments/assets/25801447-963d-4fde-bf70-955170ddcb01" alt="박상석" width="150"> | <img src="https://github.com/user-attachments/assets/13bb6a45-b16e-471d-aaf1-9d7cad1b721a" alt="정혜연" width="150"> | <img src="https://github.com/user-attachments/assets/9658debc-4235-46b2-b26a-354facac2556" alt="강동우" width="150"> |
 | 팀장 | 팀원 | 팀원 | 팀원 | 팀원 |
 | [GitHub](https://github.com/y5037) | [GitHub](https://github.com/parkingun) | [GitHub](https://github.com/pss7) | [GitHub](https://github.com/yeon0036) | [GitHub](https://github.com/ghkjiop92) |
-![스크린샷 2024-12-12 오후 10 23 24]()
 
 <br/>
 
@@ -63,8 +62,6 @@ $ npm start
 | StyledComponents    |  <img src="https://github.com/user-attachments/assets/c9b26078-5d79-40cc-b120-69d9b3882786" alt="StyledComponents" width="100">| 6.1.12   |
 
 <br/>
-![image](https://github.com/user-attachments/assets/da829bd1-2a5f-4fb2-9e66-9c84bfeec827)
-![image](https://github.com/user-attachments/assets/9ea3071d-6998-486d-bf27-0903e9a106a3)
 
 ## 4.3 Backend
 |  |  |  |
