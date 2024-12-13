@@ -1,6 +1,7 @@
 import { API_URL } from "../constant/VariableSettings";
 
 async function GetPostCard() {
+  console.log({ API_URL });
   const response = await fetch(`${API_URL}/12-4/recipients/`);
 
   if (!response.ok) {
