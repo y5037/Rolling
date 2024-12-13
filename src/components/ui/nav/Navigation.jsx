@@ -9,7 +9,7 @@ const LinkButton = styled(OutlinedButton)`
 `;
 
 const Logo = styled.img`
-  width: 107px;
+  width: 106px;
   height: 42px;
 `;
 
