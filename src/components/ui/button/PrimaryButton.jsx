@@ -3,14 +3,14 @@ import styled from "styled-components";
 const PrimaryButton = styled.button`
   margin: 20px;
   padding: ${({ size }) => (size === "small" ? "7px 16px" : "14px 24px")};
-  color: #ffffff;
+  color: var(--White);
   font-size: ${({ size }) => (size === "small" ? "16px" : "18px")};
   font-weight: ${({ size }) => (size === "small" ? "300" : "600")};
   line-height: ${({ size }) => (size === "small" ? "26px" : "28px")};
   border-radius: 12px;
   border: 2px solid transparent;
   box-sizing: border-box;
-  background-color: #9935ff;
+  background-color: var(--Primary);
   cursor: pointer;
 
   &:hover {
@@ -19,12 +19,12 @@ const PrimaryButton = styled.button`
 
   &:disabled {
     background-color: var(--Gray300);
-    color: #ffffff;
+    color: var(--White);
   }
 
-  &:pressed {
+  &:active {
     background-color: var(--Purple800);
-    color: #ffffff;
+    color: var(--White);
   }
 
   &:focus {

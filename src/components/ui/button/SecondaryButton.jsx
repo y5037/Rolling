@@ -3,14 +3,14 @@ import styled from "styled-components";
 const SecondaryButton = styled.button`
   margin: 20px;
   padding: 7px 16px;
-  color: #9935ff;
+  color: var(--Primary);
   font-size: 16px;
   font-weight: 300;
   line-height: 26px;
   border-radius: 12px;
-  border: 2px solid #9935ff;
+  border: 2px solid var(--Primary);
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: var(--White);
   cursor: pointer;
 
   &:hover {
@@ -21,17 +21,18 @@ const SecondaryButton = styled.button`
 
   &:disabled {
     background-color: var(--Gray300);
-    color: #ffffff;
+    color: var(--Primary)
+    border: 2px solid transparent;
   }
 
-  &:pressed {
+  &:active {
     background-color: var(--Purple100);
     color: var(--Purple600);
     border-color: var(--Purple800);
   }
 
   &:focus {
-    background-color: #ffffff;
+    background-color: var(--White);
     border: 2px solid var(--Purple800);
   }
 `;
