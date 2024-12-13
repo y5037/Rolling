@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle `
+const GlobalStyle = createGlobalStyle`
 
 /* 폰트 */
 
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle `
 /* 색상 변수 */
  :root {
 
-  --Primary: #9935FF 
+  --Primary: #9935FF;
   --Purple100: #F8F0FF;
   --Purple200: #ECD9FF;
   --Purple300: #DCB9FF;
@@ -226,10 +226,13 @@ button {
 
 /* 가운데영역 */
 .container{
-
   max-width: 1200px;
   margin: 0 auto;
-  padding:0 24px;
+
+   /* Tablet, Mobile */
+   @media (max-width:1248px) {
+    padding:0 24px;
+  }
 
 }
 
