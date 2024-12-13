@@ -5,7 +5,7 @@ const PrimaryButton = styled.button`
   padding: ${({ size }) => (size === "small" ? "7px 16px" : "14px 24px")};
   color: var(--White);
   font-size: ${({ size }) => (size === "small" ? "16px" : "18px")};
-  font-weight: ${({ size }) => (size === "small" ? "300" : "600")};
+  font-weight: ${({ size }) => (size === "small" ? "regular" : "bold")};
   line-height: ${({ size }) => (size === "small" ? "26px" : "28px")};
   border-radius: 12px;
   border: 2px solid transparent;

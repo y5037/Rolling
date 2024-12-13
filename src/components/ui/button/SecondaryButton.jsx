@@ -5,7 +5,7 @@ const SecondaryButton = styled.button`
   padding: 7px 16px;
   color: var(--Primary);
   font-size: 16px;
-  font-weight: 300;
+  font-weight: regular;
   line-height: 26px;
   border-radius: 12px;
   border: 2px solid var(--Primary);
