@@ -50,7 +50,7 @@ const SelectOption = styled.button`
     transform: translateY(-50%);
     width: 14px;
     height: 8px;
-    background: url(/images/select_arrow_icon01.png)no-repeat;
+    background: url(/images/select/select_arrow_icon01.png)no-repeat;
 
   }
 
@@ -64,7 +64,7 @@ const SelectOption = styled.button`
 
  &:disabled::after{
 
-    background: url(/images/select_arrow_icon02.png)no-repeat;
+    background: url(/images/select/select_arrow_icon02.png)no-repeat;
 
  }
 
