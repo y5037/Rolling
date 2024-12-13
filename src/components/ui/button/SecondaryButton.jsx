@@ -19,13 +19,13 @@ const SecondaryButton = styled.button`
     border-color: var(--Purple700);
   }
 
-  &:active {
+  &:disabled {
     background-color: var(--Gray300);
     color: var(--Primary)
     border: 2px solid transparent;
   }
 
-  &:pressed {
+  &:active {
     background-color: var(--Purple100);
     color: var(--Purple600);
     border-color: var(--Purple800);
