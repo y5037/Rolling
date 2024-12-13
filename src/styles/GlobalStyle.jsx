@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle `
+const GlobalStyle = createGlobalStyle`
 
 /* 폰트 */
 
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle `
 /* 색상 변수 */
  :root {
 
-  --Primary: #9935FF 
+  --Primary: #9935FF;
   --Purple100: #F8F0FF;
   --Purple200: #ECD9FF;
   --Purple300: #DCB9FF;
@@ -72,14 +72,14 @@ const GlobalStyle = createGlobalStyle `
   --Green500: #2BA600;
 
   --Gray100: #F6F6F6;
-  --Gray100: #EEEEEE;
-  --Gray100: #CCCCCC;
-  --Gray100: #999999;
-  --Gray100: #555555;
-  --Gray100: #4A4A4A;
-  --Gray100: #3A3A3A;
-  --Gray100: #2B2B2B;
-  --Gray100: #181818;
+  --Gray200: #EEEEEE;
+  --Gray300: #CCCCCC;
+  --Gray400: #999999;
+  --Gray500: #555555;
+  --Gray600: #4A4A4A;
+  --Gray700: #3A3A3A;
+  --Gray800: #2B2B2B;
+  --Gray900: #181818;
 
   --White: #FFFFFf;
   --Black: #000000;
@@ -226,10 +226,13 @@ button {
 
 /* 가운데영역 */
 .container{
-
   max-width: 1200px;
   margin: 0 auto;
-  padding:0 24px;
+
+   /* Tablet, Mobile */
+   @media (max-width:1248px) {
+    padding:0 24px;
+  }
 
 }
 

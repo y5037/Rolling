@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GetPostCard from "../serivces/GetRecipients";
+import GetPostCard from "../../../services/GetRecipients";
 import "./ViewPost.css";
 
 function ViewPost() {
