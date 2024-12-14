@@ -72,14 +72,14 @@ const GlobalStyle = createGlobalStyle`
   --Green500: #2BA600;
 
   --Gray100: #F6F6F6;
-  --Gray100: #EEEEEE;
-  --Gray100: #CCCCCC;
-  --Gray100: #999999;
-  --Gray100: #555555;
-  --Gray100: #4A4A4A;
-  --Gray100: #3A3A3A;
-  --Gray100: #2B2B2B;
-  --Gray100: #181818;
+  --Gray200: #EEEEEE;
+  --Gray300: #CCCCCC;
+  --Gray400: #999999;
+  --Gray500: #555555;
+  --Gray600: #4A4A4A;
+  --Gray700: #3A3A3A;
+  --Gray800: #2B2B2B;
+  --Gray900: #181818;
 
   --White: #FFFFFf;
   --Black: #000000;
