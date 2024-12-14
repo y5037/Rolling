@@ -9,7 +9,6 @@ const Container = styled.div`
   background-color: var(--White);
 
   border-radius: 16px;
-  }
 `;
 
 const MessageCardTop = styled.div`

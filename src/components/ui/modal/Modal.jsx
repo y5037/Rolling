@@ -1,123 +1,176 @@
 import styled from "styled-components";
-
-const Title = styled.h1`
-  with: 600px;
-  heiht: 476px;
-  font-size: 35px;
-  color: #9c27b0;
-  margin-bottom: 115px;
-`;
-
-const Wrapper = styled.div`
-  padding: 5em;
-  background: #9c27b0;
-  text-align: center;
-  color: yellow;
-  margin-bottom: 115px;
-`;
+import defaultImg from "../../../assets/images/common/defaultProfile.png";
+import iconTrashImg from "../../../assets/images/modal/trash.svg";
+import Badge from "../badge/Badge";
 
 const ModalContainer = styled.div`
-  width: 600px;
-  height: 476px;
-  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw * (600 / 1920));
+  min-width: 600px;
+  padding: 40px;
+  border-radius: 16px;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10000;
-`;
-
-const DialogBox = styled.div`
-  width: 600px;
-  height: 476px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  border-radius: 10px;
+  z-index: 20;
+  background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
-  background-color: white;
-  z-index: 10001;
-  padding: 20px;
-  overflow: auto;
+
+  @media (max-width: 768px) {
+    min-width: 85%;
+  }
 `;
 
 const Backdrop = styled.div`
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-`;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
 
-const Content = styled.div`
-  width: 520px;
-  height: 256px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* 위쪽 여백을 채워 아래로 밀어내기 */
-  justify-content: flex-end; /* 하단으로 정렬 */
-`;
-
-const Input = styled.textarea`
-  with: 520px;
-  height: 256px;
-  padding: 40px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  resize: vertical;
-  overflow-y: auto;
-`;
-
-const Button = styled.button`
-  background-color: #9c27b0;
-  color: white;
-  width: 120px;
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
+  &::-webkit-scrollbar {
+    display: none;
+    overflow-y: visible;
+  }
 `;
 
 const DateText = styled.p`
   font-size: 14px;
-  color: #777;
+  font-weight: 400;
+  color: var(--Gray400);
   margin-top: 0;
+`;
+
+const ContentText = styled.p`
+  height: calc(100vh * (255 / 1200));
+  overflow-y: scroll;
+  padding: 15px 10px 15px 0;
+  font-size: 18px;
+  border-top: 1px solid var(--Gray200);
+  color: var(--Gray600);
+  font-weight: 400;
+`;
+
+const Button = styled.button`
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 25px;
+  cursor: pointer;
+  align-self: center;
+  background: var(--Primary);
+  color: var(--White);
+`;
+
+const ModalHead = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+`;
+
+const HeadLeft = styled.div`
+  display: flex;
+  flex: 1;
+`;
+
+const HeadRight = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const UserNameContainer = styled.div``;
+
+const UserName = styled.p`
+  margin-bottom: 2px;
+  font-size: 20px;
+  font-weight: 400;
+`;
+
+const Strong = styled.span`
+  font-weight: 600;
+`;
+
+const ProfileImgContainer = styled.div`
+  width: 56px;
+  height: 56px;
+  margin-right: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+`;
+
+const ProfileImg = styled.img.attrs({
+  // 프로필 이미지 데이터 작업 시 이미지 경로를 prop으로 받아서 이쪽으로 연결 작업 해주시면 됩니다. _12.14 혜림
+  src: defaultImg,
+})`
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+`;
+
+const BtnTrash = styled.div`
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  margin-top: -5px;
+  padding: 8px;
+  line-height: 40px;
+  border: 1px solid var(--Gray300);
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
+const TrashImg = styled.img.attrs({
+  src: iconTrashImg,
+})`
+  display: block;
+  width: 100%;
 `;
 
 const Modal = () => {
   const currentDate = new Date().toLocaleDateString();
-
+  const date = currentDate.slice(0, 12);
   return (
     <>
       <Backdrop />
       <ModalContainer>
-        <DialogBox>
-          <Title>메시지 카드 작성</Title>
-          <DateText>{currentDate}</DateText>
-
-          <Content>
-            <Input placeholder="메시지를 입력하세요" />
-            <Button>확인</Button>
-          </Content>
-        </DialogBox>
+        <ModalHead>
+          <HeadLeft>
+            <ProfileImgContainer>
+              <ProfileImg />
+            </ProfileImgContainer>
+            <UserNameContainer>
+              <UserName>
+                From. <Strong>김동훈</Strong>
+              </UserName>
+              <Badge $value="type1">동료</Badge>
+            </UserNameContainer>
+          </HeadLeft>
+          <HeadRight>
+            <DateText>{date}</DateText>
+            <BtnTrash>
+              <TrashImg />
+            </BtnTrash>
+          </HeadRight>
+        </ModalHead>
+        <ContentText>
+          코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또
+          하세요! 코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심
+          또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두
+          조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력
+          모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강,
+          체력 모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요.
+          건강, 체력 모두 조심 또 하세요!
+        </ContentText>
+        <Button>확인</Button>
       </ModalContainer>
     </>
   );
 };
 
-const App = () => {
-  return (
-    <Wrapper>
-      <Modal />
-    </Wrapper>
-  );
-};
-
-export default App;
+export default Modal;
