@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 const PrimaryButton = styled.button`
-  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
   padding: ${({ size }) => (size === "small" ? "7px 16px" : "14px 24px")};
+  width: 100%;
   color: var(--White);
   font-size: ${({ size }) => (size === "small" ? "16px" : "18px")};
-  font-weight: ${({ size }) => (size === "small" ? "300" : "600")};
+  font-weight: ${({ size }) => (size === "small" ? "regular" : "bold")};
   line-height: ${({ size }) => (size === "small" ? "26px" : "28px")};
   border-radius: 12px;
   border: 2px solid transparent;
