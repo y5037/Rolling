@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
 import iconTrashImg from "../../../assets/images/modal/trash.svg";
-import Badge from "../badge/Badge";
+import RelationBadge from "../badge/Relation";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -148,7 +148,7 @@ const Modal = () => {
               <UserName>
                 From. <Strong>김동훈</Strong>
               </UserName>
-              <Badge $value="type1">동료</Badge>
+              <RelationBadge $value="type1">동료</RelationBadge>
             </UserNameContainer>
           </HeadLeft>
           <HeadRight>
