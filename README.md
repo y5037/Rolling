@@ -24,8 +24,6 @@ $ npm start
 <br/>
 <br/>
 
-<<<<<<< HEAD
-
 # 1. Project Overview (프로젝트 개요)
 
 - 프로젝트 이름: 롤링
@@ -124,8 +122,6 @@ project/
 ├── .gitignore               # Git 무시 파일 목록
 └── README.md                # 프로젝트 개요 및 사용법
 ```
-
-=======
 
 # 2. Team Members (팀원 및 팀 소개)
 
