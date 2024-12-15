@@ -2,6 +2,8 @@ import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
 import iconTrashImg from "../../../assets/images/modal/trash.svg";
 import RelationBadge from "../badge/Relation";
+import DeleteIconButton from "../button/DeleteIconButton";
+import PrimaryButton from "../button/PrimaryButton";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -43,6 +45,10 @@ const DateText = styled.p`
   font-weight: 400;
   color: var(--Gray400);
   margin-top: 0;
+
+  @media (max-width: 480px) {
+    margin-top: 7px;
+  }
 `;
 
 const ContentText = styled.p`
@@ -55,16 +61,18 @@ const ContentText = styled.p`
   font-weight: 400;
 `;
 
-const Button = styled.button`
+const Button = styled(PrimaryButton)`
   width: 120px;
   height: 40px;
   border: none;
   border-radius: 6px;
-  margin-top: 25px;
+  margin: 25px 0 0 0;
   cursor: pointer;
   align-self: center;
   background: var(--Primary);
   color: var(--White);
+  font-size: 16px;
+  font-weight: 400;
 `;
 
 const ModalHead = styled.div`
@@ -81,6 +89,10 @@ const HeadLeft = styled.div`
 const HeadRight = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const UserNameContainer = styled.div``;
@@ -97,6 +109,7 @@ const Strong = styled.span`
 
 const ProfileImgContainer = styled.div`
   width: 56px;
+  min-width: 56px;
   height: 56px;
   margin-right: 15px;
   border-radius: 50%;
@@ -113,23 +126,9 @@ const ProfileImg = styled.img.attrs({
   display: inline-block;
 `;
 
-const BtnTrash = styled.div`
-  width: 40px;
-  height: 40px;
+const BtnTrash = styled(DeleteIconButton)`
   margin-left: 15px;
   margin-top: -5px;
-  padding: 8px;
-  line-height: 40px;
-  border: 1px solid var(--Gray300);
-  border-radius: 8px;
-  cursor: pointer;
-`;
-
-const TrashImg = styled.img.attrs({
-  src: iconTrashImg,
-})`
-  display: block;
-  width: 100%;
 `;
 
 const Modal = () => {
@@ -153,9 +152,7 @@ const Modal = () => {
           </HeadLeft>
           <HeadRight>
             <DateText>{date}</DateText>
-            <BtnTrash>
-              <TrashImg />
-            </BtnTrash>
+            <BtnTrash />
           </HeadRight>
         </ModalHead>
         <ContentText>
