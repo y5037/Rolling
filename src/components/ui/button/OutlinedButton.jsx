@@ -30,9 +30,9 @@ const OutlinedButton = styled.button`
   }
 
   & > span > img {
-    width: ${(props) => props.iconWidth || "22px"};
-    height: ${(props) => props.iconHeight || "21px"};
-    margin-right: ${(props) => (props.iconUrl ? "10px" : "0")};
+    width: ${(props) => (props.smallIcon ? "18px;" : "22px")};
+    height: ${(props) => (props.smallIcon ? "17px" : "21px")};
+    margin-right: 10px;
   }
 
   &:hover {
