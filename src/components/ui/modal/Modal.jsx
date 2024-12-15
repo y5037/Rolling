@@ -2,6 +2,7 @@ import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
 import iconTrashImg from "../../../assets/images/modal/trash.svg";
 import RelationBadge from "../badge/Relation";
+import DeleteIconButton from "../button/DeleteIconButton";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -113,23 +114,9 @@ const ProfileImg = styled.img.attrs({
   display: inline-block;
 `;
 
-const BtnTrash = styled.div`
-  width: 40px;
-  height: 40px;
+const BtnTrash = styled(DeleteIconButton)`
   margin-left: 15px;
   margin-top: -5px;
-  padding: 8px;
-  line-height: 40px;
-  border: 1px solid var(--Gray300);
-  border-radius: 8px;
-  cursor: pointer;
-`;
-
-const TrashImg = styled.img.attrs({
-  src: iconTrashImg,
-})`
-  display: block;
-  width: 100%;
 `;
 
 const Modal = () => {
@@ -153,9 +140,7 @@ const Modal = () => {
           </HeadLeft>
           <HeadRight>
             <DateText>{date}</DateText>
-            <BtnTrash>
-              <TrashImg />
-            </BtnTrash>
+            <BtnTrash />
           </HeadRight>
         </ModalHead>
         <ContentText>
