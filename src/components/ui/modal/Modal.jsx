@@ -45,6 +45,10 @@ const DateText = styled.p`
   font-weight: 400;
   color: var(--Gray400);
   margin-top: 0;
+
+  @media (max-width: 480px) {
+    margin-top: 7px;
+  }
 `;
 
 const ContentText = styled.p`
@@ -85,6 +89,10 @@ const HeadLeft = styled.div`
 const HeadRight = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const UserNameContainer = styled.div``;
@@ -101,6 +109,7 @@ const Strong = styled.span`
 
 const ProfileImgContainer = styled.div`
   width: 56px;
+  min-width: 56px;
   height: 56px;
   margin-right: 15px;
   border-radius: 50%;
