@@ -3,6 +3,7 @@ import defaultImg from "../../../assets/images/common/defaultProfile.png";
 import iconTrashImg from "../../../assets/images/modal/trash.svg";
 import RelationBadge from "../badge/Relation";
 import DeleteIconButton from "../button/DeleteIconButton";
+import PrimaryButton from "../button/PrimaryButton";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -56,16 +57,18 @@ const ContentText = styled.p`
   font-weight: 400;
 `;
 
-const Button = styled.button`
+const Button = styled(PrimaryButton)`
   width: 120px;
   height: 40px;
   border: none;
   border-radius: 6px;
-  margin-top: 25px;
+  margin: 25px 0 0 0;
   cursor: pointer;
   align-self: center;
   background: var(--Primary);
   color: var(--White);
+  font-size: 16px;
+  font-weight: 400;
 `;
 
 const ModalHead = styled.div`
