@@ -15,22 +15,22 @@ function PostHead() {
   const sharedRef = useRef(null);
 
   // 클릭 이벤트 영역 외 클릭 시 DropContainer 비활성화
-  // 아래 코드를 진행하려고 했으나 이모지 버튼 클릭 시 숫자를 바로 확인할 수 없음과 복사 불가능, Toast가 출력되기 전에 이벤트가 사라지는 등의 이슈가 발생되어 영역 외 클릭 시 DropContainer 비활성화 작업을 보류합니다. _12.16 혜림
-  // useEffect(() => {
-  //   function handleFocus(e) {
-  //     if (
-  //       (emojiRef.current && !emojiRef.current.contains(e.target)) ||
-  //       (sharedRef.current && !sharedRef.current.contains(e.target))
-  //     ) {
-  //       setEmojiDrop(false);
-  //       setSharedDrop(false);
-  //     }
-  //   }
-  //   window.addEventListener("mouseup", handleFocus, true);
-  //   return () => {
-  //     window.removeEventListener("mouseup", handleFocus, true);
-  //   };
-  // }, [emojiRef, sharedRef]);
+  // 아래 코드를 진행하려고 했으나 이모지 버튼 클릭 시 숫자를 바로 확인할 수 없음과 Toast가 출력되기 전에 이벤트가 사라지는 등의 이슈가 발생되어 영역 외 클릭 시 DropContainer 비활성화 작업을 보류합니다. _12.16 혜림
+  useEffect(() => {
+    const handleFocus = (e) => {
+      if (
+        (emojiRef.current && !emojiRef.current.contains(e.target)) ||
+        (sharedRef.current && !sharedRef.current.contains(e.target))
+      ) {
+        setEmojiDrop(false);
+        setSharedDrop(false);
+      }
+    };
+    window.addEventListener("mouseup", handleFocus, true);
+    return () => {
+      window.removeEventListener("mouseup", handleFocus, true);
+    };
+  }, []);
 
   // 이모지 Drop Container 활성화/비활성화
   const handleEmojiDropDown = () => {

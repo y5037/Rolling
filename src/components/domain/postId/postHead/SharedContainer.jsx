@@ -9,7 +9,7 @@ function SharedContainer() {
   return (
     <ul className={styles.sharedContainer}>
       <li>카카오톡 공유</li>
-      <li onClick={handleCopyUrl}>URL 공유</li>
+      <li onMouseDown={handleCopyUrl}>URL 공유</li>
     </ul>
   );
 }
