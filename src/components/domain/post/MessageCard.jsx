@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
-import Badge from "../../ui/badge/Badge";
+import Badge from "../../ui/badge/Relation";
 
 const Container = styled.div`
   width: 384px;
@@ -82,7 +82,7 @@ const MessageCreateAt = styled.p`
 function MessageCard({ image }) {
   return (
     <Container>
-      <MessageCardTop>
+      <MessageCardTop className="messageCardTop">
         <MessageCardProfile src={image || defaultImage} alt="프로필 이미지" />
         <MessageSenderForm>
           <MessageSenderInfo>
@@ -92,12 +92,12 @@ function MessageCard({ image }) {
           <Badge></Badge>
         </MessageSenderForm>
       </MessageCardTop>
-      <MessageContent>
+      <MessageContent className="messageContent">
         (테스트용) 자바스크립트 말줄임 처리 필요!!! 자바스크립트 말줄임 처리
         필요!!! 자바스크립트 말줄임 처리 필요!!!
         (테스트용)11111111aaaaaaㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ!!!!!
       </MessageContent>
-      <MessageCreateAt>2024.01.01</MessageCreateAt>
+      <MessageCreateAt className="messageDate">2024.01.01</MessageCreateAt>
     </Container>
   );
 }
