@@ -1,6 +1,6 @@
 import styles from "./PostHead.module.css";
 
-function SharedContainer() {
+function SharedContainer({ handleToastShow }) {
   const currentUrl = window.location.href;
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(currentUrl);
@@ -9,7 +9,14 @@ function SharedContainer() {
   return (
     <ul className={styles.sharedContainer}>
       <li>카카오톡 공유</li>
-      <li onMouseDown={handleCopyUrl}>URL 공유</li>
+      <li
+        onMouseDown={() => {
+          handleCopyUrl();
+          handleToastShow();
+        }}
+      >
+        URL 공유
+      </li>
     </ul>
   );
 }

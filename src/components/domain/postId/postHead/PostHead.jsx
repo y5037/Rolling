@@ -6,13 +6,16 @@ import iconArrowDown from "../../../../assets/images/postHead/arrow_down.svg";
 import iconShared from "../../../../assets/images/postHead/shared.svg";
 import EmojiContainer from "./EmojiContainer";
 import SharedContainer from "./SharedContainer";
+import Toast from "../../../ui/toast/Toast";
 
 function PostHead() {
   const [emojiDrop, setEmojiDrop] = useState(false);
   const [sharedDrop, setSharedDrop] = useState(false);
+  const [urlCopy, setUrlCopy] = useState(false);
 
   const emojiRef = useRef(null);
   const sharedRef = useRef(null);
+  const urlCopyRef = useRef(null);
 
   // 클릭 이벤트 영역 외 클릭 시 DropContainer 비활성화
   // 아래 코드를 진행하려고 했으나 이모지 버튼 클릭 시 숫자를 바로 확인할 수 없음과 Toast가 출력되기 전에 이벤트가 사라지는 등의 이슈가 발생되어 영역 외 클릭 시 DropContainer 비활성화 작업을 보류합니다. _12.16 혜림
@@ -48,9 +51,17 @@ function PostHead() {
       setSharedDrop(false);
     }
   };
+  const handleToastShow = () => {
+    setUrlCopy(true);
+    setTimeout(() => setUrlCopy(false), 3000);
+  };
+  const handleToastHide = () => {
+    setUrlCopy(false);
+  };
 
   return (
     <>
+      {urlCopy ? <Toast handleToastHide={handleToastHide} /> : ""}
       <div className={styles.headBar}>
         <div className={styles.container}>
           <div className={styles.contents}>
@@ -94,7 +105,12 @@ function PostHead() {
                 ref={sharedRef}
               >
                 <img src={iconShared} alt="공유하기" />
-                {sharedDrop && <SharedContainer />}
+                {sharedDrop && (
+                  <SharedContainer
+                    urlCopyRef={urlCopyRef}
+                    handleToastShow={handleToastShow}
+                  />
+                )}
               </div>
             </div>
           </div>
