@@ -44,14 +44,14 @@ const UrlText = styled.span`
   margin-left: 12px; /* 체크박스 아이콘과 'URL' 텍스트 사이의 간격을 12px로 설정 */
 `;
 
-const Toast = () => {
+const Toast = ({ handleToastHide }) => {
   return (
     <ToastWrapper>
       <TextWrapper>
         <Icon $none src={completedIcon} alt="Completed" />
         <UrlText>URL이 복사되었습니다!</UrlText>
       </TextWrapper>
-      <Icon src={closeIcon} alt="Close" />
+      <Icon src={closeIcon} alt="Close" onMouseDown={handleToastHide} />
     </ToastWrapper>
   );
 };
