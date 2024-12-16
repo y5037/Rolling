@@ -66,6 +66,7 @@
   margin-bottom: 45px;
 }
 /* 여기 수정 필요 */
+
 .SelectBackground button:focus-within {
   color: var(--Primary);
   background-color: var(--White);
@@ -96,6 +97,7 @@
   border-radius: 12px;
   border: none;
 }
+
 .SubmitBtn:disabled {
   background-color: grey;
 }
