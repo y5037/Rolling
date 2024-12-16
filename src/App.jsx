@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
 import GlobalStyle from "./styles/GlobalStyle";
-import PostHead from "./components/domain/postId/postHead/PostHead";
 
 function App() {
   return (
@@ -11,7 +10,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/posthead" element={<PostHead />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
