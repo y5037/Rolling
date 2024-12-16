@@ -35,9 +35,9 @@ const emojiButton = [
   },
 ];
 
-function EmojiContainer() {
+function EmojiContainer({ emojiRef }) {
   return (
-    <ul className={styles.emojiContainer}>
+    <ul className={styles.emojiContainer} ref={emojiRef}>
       {emojiButton.map((item, i) => {
         return (
           <li key={i}>

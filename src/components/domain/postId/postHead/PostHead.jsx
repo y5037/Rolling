@@ -18,14 +18,12 @@ function PostHead() {
   const urlCopyRef = useRef(null);
 
   // 클릭 이벤트 영역 외 클릭 시 DropContainer 비활성화
-  // 아래 코드를 진행하려고 했으나 이모지 버튼 클릭 시 숫자를 바로 확인할 수 없음과 Toast가 출력되기 전에 이벤트가 사라지는 등의 이슈가 발생되어 영역 외 클릭 시 DropContainer 비활성화 작업을 보류합니다. _12.16 혜림
   useEffect(() => {
     const handleFocus = (e) => {
-      if (
-        (emojiRef.current && !emojiRef.current.contains(e.target)) ||
-        (sharedRef.current && !sharedRef.current.contains(e.target))
-      ) {
+      if (emojiRef.current && !emojiRef.current.contains(e.target)) {
         setEmojiDrop(false);
+      }
+      if (sharedRef.current && !sharedRef.current.contains(e.target)) {
         setSharedDrop(false);
       }
     };
@@ -43,6 +41,7 @@ function PostHead() {
       setEmojiDrop(false);
     }
   };
+  
   // 공유하기 Drop Container 활성화/비활성화
   const handleSharedDropDown = () => {
     if (!sharedDrop) {
@@ -51,10 +50,14 @@ function PostHead() {
       setSharedDrop(false);
     }
   };
+
+  // URL 복사하기 클릭 시 관련 Toast 활성화/비활성화
   const handleToastShow = () => {
     setUrlCopy(true);
-    setTimeout(() => setUrlCopy(false), 3000);
+    const timer = setTimeout(() => setUrlCopy(false), 3000);
+    clearTimeout(timer);
   };
+
   const handleToastHide = () => {
     setUrlCopy(false);
   };
@@ -93,10 +96,9 @@ function PostHead() {
                   src={iconArrowDown}
                   alt="이모티콘 보기"
                   className={emojiDrop ? styles.active : ""}
-                  ref={emojiRef}
                   onClick={handleEmojiDropDown}
                 />
-                {emojiDrop && <EmojiContainer />}
+                {emojiDrop && <EmojiContainer emojiRef={emojiRef} />}
               </div>
               <div className={styles.line}></div>
               <div
