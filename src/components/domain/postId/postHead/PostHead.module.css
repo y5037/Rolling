@@ -136,12 +136,25 @@
     flex: 1;
   }
 }
+.chooseReaction > div {
+  transition: 0.2s;
+}
+.chooseReaction > div:hover {
+  background: var(--Gray500);
+}
+.chooseReaction img {
+  transition: 0.2s;
+}
+.chooseReaction img.active {
+  transform: rotate(-180deg);
+}
 .line {
   margin: 0 15px;
   height: 30px;
   border-right: 1px solid var(--Gray200);
 }
 .sharedLink {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0 15px;
@@ -150,12 +163,14 @@
   border: 1px solid var(--Gray300);
   border-radius: 6px;
   align-content: center;
-}
 
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+}
 .sharedLink img {
   margin-top: -3px;
 }
-
 .chooseReaction div,
 .chooseReaction img,
 .chooseBackdrop,
@@ -166,7 +181,7 @@
 /* EmojiContainer */
 .emojiContainer {
   width: calc(100vw * (450 / 1200));
-  max-width: 312px;
+  max-width: 320px;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
@@ -190,10 +205,9 @@
     min-width: 280px;
   }
 }
-
 .emojiContainer li {
   width: 22%;
-  height: 38px;
+  height: 36px;
   padding-top: 2px;
   display: flex;
   justify-content: center;
@@ -202,7 +216,33 @@
   background: rgba(0, 0, 0, 0.54);
   color: var(--White);
   cursor: pointer;
+  transition: 0.2s;
+}
+.emojiContainer li:hover {
+  background: var(--Gray500);
 }
 .emojiContainer li p:first-child {
   margin-right: 3px;
+}
+
+/* SharedContainer */
+.sharedContainer {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  min-width: max-content;
+  border-radius: 8px;
+  border: 1px solid var(--Gray400);
+  background: var(--White);
+  box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
+  overflow: hidden;
+  color: var(--Gray900);
+  font-weight: 400;
+}
+.sharedContainer li {
+  padding: 10px 25px;
+  transition: 0.2s;
+}
+.sharedContainer li:hover {
+  background: var(--Gray100);
 }
