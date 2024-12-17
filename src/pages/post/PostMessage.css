@@ -1,6 +1,6 @@
 .container {
-  margin: 111px auto 0;
-  width: 500px; /* 중앙 정렬 및 최대 너비 설정 */
+  margin: 0 auto;
+  width: 720px;
 }
 
 .input-container {
@@ -31,8 +31,7 @@
 .textarea-wrapper {
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 5px;
-  transition: border-color 0.3s;
+  padding: 10px;
 }
 
 .textarea-wrapper.error-border {
@@ -45,7 +44,6 @@ textarea {
   border: none;
   outline: none;
   resize: none;
-  font-size: 14px;
   box-sizing: border-box;
 }
 
