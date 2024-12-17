@@ -6,12 +6,11 @@ import testImage from "../../../assets/images/button/enabled.png";
 
 function CreatePost() {
   const colors = ["orange", "purple", "blue", "green"];
-  // const images = [testImage, testImage, testImage, testImage];
-
   const [name, setName] = useState("");
   const [isNameStatus, setIsNameStatus] = useState(false);
   const [selectedOption, setSelectedOption] = useState("color");
-  const [selectBackground, setSelectBackground] = useState("orange");
+  const [background, setBackground] = useState(colors);
+  const [selectBackground, setSelectBackground] = useState(background[0]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -33,6 +32,21 @@ function CreatePost() {
   const handleBlur = () => {
     setIsNameStatus(true);
   };
+
+  const handleLoadbackgroundImages = async () => {
+    const response = await GetBackgoundImages();
+    setBackground(response.imageUrls);
+    setSelectBackground([background]);
+    // console.log(response.imageUrls);
+  };
+
+  useEffect(() => {
+    if (selectedOption === "color") {
+      setBackground(colors);
+    } else if (selectedOption === "image") {
+      handleLoadbackgroundImages();
+    }
+  }, [selectedOption]);
 
   return (
     <form className="Container" onSubmit={handleSubmit}>
@@ -74,23 +88,24 @@ function CreatePost() {
             value="image"
             type="button"
             onClick={() => handleOptionClick("image")}
+            // onChange={handleLoadbackgroundImages}
           >
             이미지
           </button>
         </div>
         <div className="BackgroundOption">
-          {colors.map((color) => (
-            <div className="test">
+          {background.map((background) => (
+            <div className="BackgroundForm">
               <PostBackground
                 className={`Background ${
-                  selectBackground === color ? "selected" : ""
+                  selectBackground === background ? "selected" : ""
                 }`}
-                key={color}
-                option="color"
-                value={color}
-                onClick={() => handleBackgroundClick(color)}
+                key={background}
+                option={selectedOption}
+                value={background}
+                onClick={() => handleBackgroundClick(background)}
               />
-              {selectBackground === color && (
+              {selectBackground === background && (
                 <img className="selectBtn" src={testImage} alt="Selected" />
               )}
             </div>
