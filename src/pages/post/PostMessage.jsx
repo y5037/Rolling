@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../styles/GlobalStyle";
 import "./PostMessage.css";
 import Input from "../../../src/components/ui/input/Input";
@@ -28,13 +28,13 @@ function PostMessage() {
   ];
 
   // 버튼 비활성화 여부
-  const isButtonDisabled = !name.trim() || !content.trim();
+  const isButtonDisabled = !name() || !content();
 
   // 제출 핸들러
   const handleSubmit = () => {
     if (isButtonDisabled) {
-      if (!name.trim()) setNameError(true);
-      if (!content.trim()) setContentError(true);
+      if (!name()) setNameError(true);
+      if (!content()) setContentError(true);
     } else {
       setNameError(false);
       setContentError(false);
@@ -58,7 +58,7 @@ function PostMessage() {
               setNameError(false);
             }}
             onBlur={() => {
-              if (!name.trim()) setNameError(true);
+              if (!name()) setNameError(true);
             }}
             className={`input-field ${nameError ? "error-border" : ""}`}
           />
@@ -95,7 +95,7 @@ function PostMessage() {
                 setContentError(false);
               }}
               onBlur={() => {
-                if (!content.trim()) setContentError(true);
+                if (!content()) setContentError(true);
               }}
               placeholder="내용을 입력해 주세요"
             />
