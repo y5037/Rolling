@@ -41,6 +41,14 @@
   font-size: 16px;
   font-weight: 400;
 }
+
+.VerifyName {
+  color: #dc3a3a;
+  font-size: 12px;
+  font-weight: 400;
+  padding-left: 12px;
+}
+
 .BackgroundInfo {
   margin-bottom: 45px;
 }
@@ -67,7 +75,7 @@
 }
 /* 여기 수정 필요 */
 
-.SelectBackground button:focus-within {
+.SelectBackground button.selected {
   color: var(--Primary);
   background-color: var(--White);
 
