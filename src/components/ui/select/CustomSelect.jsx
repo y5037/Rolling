@@ -42,6 +42,7 @@ const SelectOption = styled.button`
     transform: translateY(-50%);
     width: 14px;
     height: 8px;
+
     background: url(${selectArrowIcon}) no-repeat;
   }
 
@@ -79,9 +80,13 @@ const OptionItem = styled.li`
   }
 `;
 
-export default function CustomSelect({ disabled }) {
+export default function CustomSelect({
+  options = [],
+  defaultValue = "Placeholder",
+  disabled,
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Placeholder");
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -93,29 +98,23 @@ export default function CustomSelect({ disabled }) {
   }
 
   return (
-    <>
-      <DropdownContainer>
-        <SelectOption
-          onClick={toggleDropdown}
-          className={isOpen ? "active" : ""}
-          disabled={disabled ? "disabled" : ""}
-        >
-          {selectedOption}
-        </SelectOption>
-        {isOpen && (
-          <SelectOptionList>
-            <OptionItem onClick={() => handleSelectOption(`TextTextText1`)}>
-              TextTextText1
+    <DropdownContainer>
+      <SelectOption
+        onClick={toggleDropdown}
+        className={isOpen ? "active" : ""}
+        disabled={disabled}
+      >
+        {selectedOption}
+      </SelectOption>
+      {isOpen && (
+        <SelectOptionList>
+          {options.map((option, index) => (
+            <OptionItem key={index} onClick={() => handleSelectOption(option)}>
+              {option}
             </OptionItem>
-            <OptionItem onClick={() => handleSelectOption(`TextTextText2`)}>
-              TextTextText2
-            </OptionItem>
-            <OptionItem onClick={() => handleSelectOption(`TextTextText3`)}>
-              TextTextText3
-            </OptionItem>
-          </SelectOptionList>
-        )}
-      </DropdownContainer>
-    </>
+          ))}
+        </SelectOptionList>
+      )}
+    </DropdownContainer>
   );
 }
