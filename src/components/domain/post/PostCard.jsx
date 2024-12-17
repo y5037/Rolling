@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import GetPostCard from "../../../services/GetRecipients";
-import "./ViewPost.css";
 import styled from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
 
@@ -14,7 +11,6 @@ const Color = {
 const Container = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
 
   background-color: ${({ option, value }) =>
     option === "image" ? "transparent" : Color[value] ?? Color["purple"]};
@@ -24,22 +20,32 @@ const Container = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 
-  width: 275px;
-  height: 260px;
+  width: 100%;
+
+  position: relative;
 
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
+
+  padding: 24px;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
 `;
 
 const PostCardForm = styled.div`
-  padding: 30px 24px 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const PostCardContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 43px;
-
+  flex: 1;
   gap: 12px;
 `;
 
@@ -59,7 +65,7 @@ const PostCardProfileForm = styled.div`
   width: fit-content;
 `;
 
-const PostCardProfileImage = styled.image`
+const PostCardProfileImage = styled.img`
   background-color: var(--Blue200);
   width: 28px;
   height: 28px;
@@ -91,9 +97,9 @@ const ReactionsForm = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  width: 227px;
+  width: 100%;
 
-  border-top: 1px solid grey;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding-top: 17px;
 
   gap: 10px;
@@ -123,29 +129,27 @@ function PostCard() {
     <>
       <Container>
         <PostCardForm>
-          <div>
-            <PostCardContent>
-              <PostCardName>To. 박인건</PostCardName>
-              <PostCardProfileForm>
-                <PostCardProfileImage
-                  src={defaultImage}
-                  alt="프로필 이미지"
-                  index={0}
-                />
-                <PostCardProfileImage
-                  src={defaultImage}
-                  alt="프로필 이미지"
-                  index={1}
-                />
-                <PostCardProfileImage
-                  src={defaultImage}
-                  alt="프로필 이미지"
-                  index={2}
-                />
-              </PostCardProfileForm>
-              <PostCardMessageCount>30명이 작성했어요!</PostCardMessageCount>
-            </PostCardContent>
-          </div>
+          <PostCardContent>
+            <PostCardName>To. 박인건</PostCardName>
+            <PostCardProfileForm>
+              <PostCardProfileImage
+                src={defaultImage}
+                alt="프로필 이미지"
+                // index={0}
+              />
+              <PostCardProfileImage
+                src={defaultImage}
+                alt="프로필 이미지"
+                // index={1}
+              />
+              <PostCardProfileImage
+                src={defaultImage}
+                alt="프로필 이미지"
+                // index={2}
+              />
+            </PostCardProfileForm>
+            <PostCardMessageCount>30명이 작성했어요!</PostCardMessageCount>
+          </PostCardContent>
           <ReactionsForm>
             <ReactionContent>👍 10</ReactionContent>
             <ReactionContent>👍 15</ReactionContent>

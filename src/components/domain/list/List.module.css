@@ -1,0 +1,30 @@
+.carouselContainer {
+  @media (max-width: 1248px) {
+    max-width: fit-content !important;
+    padding: 0 !important;
+  }
+}
+.contents {
+  -webkit-display: flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: calc(env(safe-area-inset-bottom) + 100vh - 64px);
+  margin-top: 64px;
+}
+.secTitle {
+  margin: 50px 0 15px;
+  padding-left: 12px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.section2 {
+  @media (max-width: 1000px) {
+    flex: 1;
+  }
+}
+.buttonContainer {
+  @media (max-width: 1000px) {
+    padding: 0 24px;
+  }
+}
