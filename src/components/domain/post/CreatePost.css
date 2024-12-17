@@ -66,7 +66,7 @@
   margin-bottom: 45px;
 }
 /* 여기 수정 필요 */
-.SelectBackground button:active {
+.SelectBackground button:focus-within {
   color: var(--Primary);
   background-color: var(--White);
 
@@ -84,7 +84,7 @@
   margin-bottom: 69px;
 }
 
-.Submit {
+.SubmitBtn {
   color: var(--White);
   background-color: var(--Primary);
 
@@ -96,6 +96,6 @@
   border-radius: 12px;
   border: none;
 }
-.Submit:disabled {
+.SubmitBtn:disabled {
   background-color: grey;
 }

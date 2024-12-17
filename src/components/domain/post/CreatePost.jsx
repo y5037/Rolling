@@ -10,16 +10,16 @@ function CreatePost() {
 
   const [name, setName] = useState("");
   const [backgroundOption, setBackgroundOption] = useState([]);
-  const [backgroundValue, setBackgroundValue] = useState(colors);
+  const [backgroundValue, setBackgroundValue] = useState([]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const clickBackgroundOption = async (e) => {
-    setBackgroundOption(e.target.value);
-    // const setBackgroundOption = await GetBackgoundImages();
-  };
+  // const clickBackgroundOption = async (e) => {
+  //   setBackgroundOption(e.target.value);
+  //   const setBackgroundOption = await GetBackgoundImages();
+  // };
 
   // const GetBackgoundValue = () => {
   //   setBackgroundValue(backgroundOption);
@@ -30,13 +30,13 @@ function CreatePost() {
     console.log(name);
   };
 
-  useEffect(() => {
-    if (backgroundOption === "color") {
-      setBackgroundValue(colors);
-    } else if (backgroundOption === "image") {
-      setBackgroundValue(images);
-    }
-  }, [backgroundOption]);
+  // useEffect(() => {
+  //   if (backgroundOption === "color") {
+  //     setBackgroundValue(colors);
+  //   } else if (backgroundOption === "image") {
+  //     setBackgroundValue(images);
+  //   }
+  // }, [backgroundOption]);
 
   return (
     <form className="Container" onSubmit={handleSubmit}>
@@ -58,33 +58,30 @@ function CreatePost() {
         </div>
         <div className="SelectBackground">
           <button
-            className="ColorBackground"
+            className="ColorBackgroundBtn"
             value="color"
             type="button"
-            onClick={clickBackgroundOption}
+
+            // onClick={clickBackgroundOption}
           >
             컬러
           </button>
           <button
-            className="ImageBackground"
+            className="ImageBackgroundBtn"
             value="image"
             type="button"
-            onClick={clickBackgroundOption}
+            // onClick={clickBackgroundOption}
           >
             이미지
           </button>
         </div>
         <div className="BackgoundOption">
-          {backgroundValue.map((value) => (
-            <PostBackground
-              key={value}
-              option={backgroundOption}
-              value={value}
-            />
+          {colors.map((color) => (
+            <PostBackground key={color} option="color" value={color} />
           ))}
         </div>
         <div className="CreateButton">
-          <button className="Submit" type="submit" disabled={!name.trim()}>
+          <button className="SubmitBtn" type="submit" disabled={!name.trim()}>
             생성하기
           </button>
         </div>
