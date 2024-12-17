@@ -1,11 +1,11 @@
 import Navigation from "../../components/ui/nav/Navigation";
-import CreatPost from "../../components/domain/post/CreatePost";
+import CreatePost from "../../components/domain/post/CreatePost";
 
 function PostPage() {
   return (
     <>
-      <Navigation />
-      <CreatPost />
+      <Navigation hide />
+      <CreatePost />
     </>
   );
 }

@@ -36,7 +36,7 @@ const NavigationBar = styled.div`
   box-sizing: border-box;
 `;
 
-function Navigation() {
+function Navigation({ hide }) {
   return (
     <NavigationBar>
       <Content>
