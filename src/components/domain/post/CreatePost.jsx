@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PostBackground from "./PostBackground";
 import GetBackgoundImages from "../../../services/GetBackgroundImages";
 import "./CreatePost.css";
-import testImage from "../../../assets/images/common/defaultProfile.png";
+import testImage from "../../../assets/images/button/enabled.png";
 
 function CreatePost() {
   const colors = ["orange", "purple", "blue", "green"];
@@ -11,8 +11,7 @@ function CreatePost() {
   const [name, setName] = useState("");
   const [isNameStatus, setIsNameStatus] = useState(false);
   const [selectedOption, setSelectedOption] = useState("color");
-  const [backgroundColor, setBackgroundColor] = useState([]);
-  const [backgroundImage, setBackgroundImage] = useState([]);
+  const [selectBackground, setSelectBackground] = useState("orange");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -22,14 +21,9 @@ function CreatePost() {
     setSelectedOption(value);
   };
 
-  // const clickBackgroundOption = async (e) => {
-  //   setBackgroundOption(e.target.value);
-  //   const setBackgroundOption = await GetBackgoundImages();
-  // };
-
-  // const GetBackgoundValue = () => {
-  //   setBackgroundValue(backgroundOption);
-  // };
+  const handleBackgroundClick = (value) => {
+    setSelectBackground(value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,14 +33,6 @@ function CreatePost() {
   const handleBlur = () => {
     setIsNameStatus(true);
   };
-
-  // useEffect(() => {
-  //   if (backgroundOption === "color") {
-  //     setBackgroundValue(colors);
-  //   } else if (backgroundOption === "image") {
-  //     setBackgroundValue(images);
-  //   }
-  // }, [backgroundOption]);
 
   return (
     <form className="Container" onSubmit={handleSubmit}>
@@ -70,7 +56,7 @@ function CreatePost() {
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </p>
         </div>
-        <div className="SelectBackground">
+        <div className="BackgroundOptionBtn">
           <button
             className={`ColorBackgroundBtn ${
               selectedOption === "color" ? "selected" : ""
@@ -92,9 +78,22 @@ function CreatePost() {
             이미지
           </button>
         </div>
-        <div className="BackgoundOption">
+        <div className="BackgroundOption">
           {colors.map((color) => (
-            <PostBackground key={color} option="color" value={color} />
+            <div className="test">
+              <PostBackground
+                className={`Background ${
+                  selectBackground === color ? "selected" : ""
+                }`}
+                key={color}
+                option="color"
+                value={color}
+                onClick={() => handleBackgroundClick(color)}
+              />
+              {selectBackground === color && (
+                <img className="selectBtn" src={testImage} alt="Selected" />
+              )}
+            </div>
           ))}
         </div>
         <div className="CreateButton">
