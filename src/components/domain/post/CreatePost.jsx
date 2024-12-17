@@ -6,14 +6,20 @@ import testImage from "../../../assets/images/common/defaultProfile.png";
 
 function CreatePost() {
   const colors = ["orange", "purple", "blue", "green"];
-  const images = [testImage, testImage, testImage, testImage];
+  // const images = [testImage, testImage, testImage, testImage];
 
   const [name, setName] = useState("");
-  const [backgroundOption, setBackgroundOption] = useState([]);
-  const [backgroundValue, setBackgroundValue] = useState([]);
+  const [isNameStatus, setIsNameStatus] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("color");
+  const [backgroundColor, setBackgroundColor] = useState([]);
+  const [backgroundImage, setBackgroundImage] = useState([]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
+  };
+
+  const handleOptionClick = (value) => {
+    setSelectedOption(value);
   };
 
   // const clickBackgroundOption = async (e) => {
@@ -28,6 +34,10 @@ function CreatePost() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name);
+  };
+
+  const handleBlur = () => {
+    setIsNameStatus(true);
   };
 
   // useEffect(() => {
@@ -48,7 +58,11 @@ function CreatePost() {
             placeholder="받는 사람 이름을 입력해 주세요."
             onChange={handleNameChange}
             value={name}
+            onBlur={handleBlur}
           />
+          {isNameStatus && name === "" && (
+            <p className="VerifyName">값을 입력해주세요.</p>
+          )}
         </div>
         <div className="BackgroundInfo">
           <h2 className="BackgroundInfoTitle">배경화면을 선택해 주세요.</h2>
@@ -58,19 +72,22 @@ function CreatePost() {
         </div>
         <div className="SelectBackground">
           <button
-            className="ColorBackgroundBtn"
+            className={`ColorBackgroundBtn ${
+              selectedOption === "color" ? "selected" : ""
+            }`}
             value="color"
             type="button"
-
-            // onClick={clickBackgroundOption}
+            onClick={() => handleOptionClick("color")}
           >
             컬러
           </button>
           <button
-            className="ImageBackgroundBtn"
+            className={`ImageBackgroundBtn ${
+              selectedOption === "image" ? "selected" : ""
+            }`}
             value="image"
             type="button"
-            // onClick={clickBackgroundOption}
+            onClick={() => handleOptionClick("image")}
           >
             이미지
           </button>
