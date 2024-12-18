@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { SEC1_SLICE_SETTINGS } from "../../../constant/CarouselSettings";
 import Slider from "react-slick";
 import styles from "./List.module.css";
 import PostCard from "./PostCard";
-import { SEC1_SLICE_SETTINGS } from "../../../constant/CarouselSettings";
-import { useEffect, useState } from "react";
 import GetPostCard from "../../../services/GetRecipients";
-import { Link } from "react-router-dom";
 
 function CarouselSec1() {
   const [card, setCard] = useState();

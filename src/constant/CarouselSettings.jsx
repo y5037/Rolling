@@ -72,4 +72,41 @@ export const SEC2_SLICE_SETTINGS = {
   prevArrow: <Sec2PrevArrow />,
   nextArrow: <Sec2NextArrow />,
   useTransform: false, // 깜빡임 제어
+  responsive: [
+    {
+      breakpoint: 1248,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 469,
+      settings: {
+        slidesToShow: 1.3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 400,
+      settings: {
+        slidesToShow: 1.2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 380,
+      settings: {
+        slidesToShow: 1.2,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
