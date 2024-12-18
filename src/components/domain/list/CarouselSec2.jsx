@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 import styles from "./List.module.css";
-import PostCard from "../post/PostCard";
+import PostCard from "./PostCard";
 import { SEC2_SLICE_SETTINGS } from "../../../constant/CarouselSettings";
 
 function CarouselSec2() {
