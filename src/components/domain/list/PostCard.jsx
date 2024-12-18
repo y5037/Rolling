@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
 import Emoji from "../../ui/badge/Emoji";
 
@@ -13,10 +13,15 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-start;
 
-  background-color: ${({ option, value }) =>
-    option === "image" ? "transparent" : Color[value] ?? Color["purple"]};
-  background-image: ${({ option, value }) =>
-    option === "image" ? `url(${value})` : "none"};
+  ${(props) =>
+    props.backgroundImageURL
+      ? css`
+          background-image: url(${(props) => props.backgroundImageURL});
+        `
+      : css`
+          background-color: ${(props) => props.backgroundColor};
+        `};
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -55,7 +60,11 @@ const PostCardContent = styled.div`
 const PostCardName = styled.p`
   color: var(--Gray900);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const PostCardProfileForm = styled.div`
@@ -157,19 +166,29 @@ const EmptyReactionEmoji = styled.div`
 `;
 
 function PostCard({ item }) {
-  const { name, messageCount, recentMessages, topReactions } = item;
+  const {
+    name,
+    messageCount,
+    recentMessages,
+    topReactions,
+    backgroundColor,
+    backgroundImageURL,
+  } = item;
 
   const sliceMessages = recentMessages.slice(0, 3);
   const sliceReactions = topReactions.slice(0, 3);
 
-  // 이미지 경로의 에러 발생 시를 대비
+  // 이미지 경로의 에러 발생시를 대비
   const handleImgError = (e) => {
     e.target.src = defaultImage;
   };
 
   return (
     <>
-      <Container>
+      <Container
+        backgroundColor={backgroundColor}
+        backgroundImageURL={backgroundImageURL}
+      >
         <PostCardForm>
           <PostCardContent>
             <PostCardName>To. {name}</PostCardName>
