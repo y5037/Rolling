@@ -12,7 +12,7 @@ export const SEC1_SLICE_SETTINGS = {
   autoplay: false,
   slidesToShow: 4,
   // centerMode: true,
-  centerPadding: "0px",
+  // centerPadding: "0px",
   slidesToScroll: 4,
   arrows: true,
   prevArrow: <Sec1PrevArrow />,

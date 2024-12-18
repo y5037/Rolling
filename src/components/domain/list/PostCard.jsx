@@ -72,6 +72,7 @@ const PostCardProfileImage = styled.img`
   background-color: var(--Blue200);
   width: 28px;
   height: 28px;
+  object-fit: cover;
 
   border: 1.5px solid var(--White);
   border-radius: 30px;
@@ -84,8 +85,8 @@ const PostCardProfileImage = styled.img`
   position: absolute;
 
   /* 이미지 겹치기: 인덱스에 따라 왼쪽으로 일정량 이동 */
-  ${({ index }) => `
-    left: ${index * 16}px;
+  ${({ $index }) => `
+    left: ${$index * 16}px;
   `}
 `;
 
@@ -101,6 +102,7 @@ const ReactionsForm = styled.div`
   align-items: center;
 
   width: 100%;
+  min-width: 215px;
 
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding-top: 17px;
@@ -108,36 +110,74 @@ const ReactionsForm = styled.div`
   gap: 10px;
 `;
 
-function PostCard() {
+const EmptyReaction = styled.div`
+  min-width: 65px;
+  height: 36px;
+  line-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px;
+  border-radius: 32px;
+  background: rgba(0, 0, 0, 0.54);
+  color: var(--White);
+`;
+
+const EmptyReactionEmoji = styled.div`
+  margin-right: 5px;
+`;
+
+function PostCard({ item }) {
+  const { name, messageCount, recentMessages, topReactions } = item;
+
+  const sliceMessages = recentMessages.slice(0, 3);
+  const sliceReactions = topReactions.slice(0, 3);
+
+  // 이미지 경로의 에러 발생 시를 대비
+  const handleImgError = (e) => {
+    e.target.src = defaultImage;
+  };
+
   return (
     <>
       <Container>
         <PostCardForm>
           <PostCardContent>
-            <PostCardName>To. 박인건</PostCardName>
+            <PostCardName>To. {name}</PostCardName>
             <PostCardProfileForm>
-              <PostCardProfileImage
-                src={defaultImage}
-                alt="프로필 이미지"
-                // index={0}
-              />
-              <PostCardProfileImage
-                src={defaultImage}
-                alt="프로필 이미지"
-                // index={1}
-              />
-              <PostCardProfileImage
-                src={defaultImage}
-                alt="프로필 이미지"
-                // index={2}
-              />
+              {sliceMessages.length > 0 ? (
+                sliceMessages.map((item, i) => {
+                  const { id, profileImageURL } = item;
+                  return (
+                    <PostCardProfileImage
+                      key={id}
+                      src={profileImageURL}
+                      alt="프로필 이미지"
+                      onError={handleImgError}
+                      $index={i}
+                    />
+                  );
+                })
+              ) : (
+                <PostCardProfileImage src={defaultImage} alt="프로필 이미지" />
+              )}
             </PostCardProfileForm>
-            <PostCardMessageCount>30명이 작성했어요!</PostCardMessageCount>
+            <PostCardMessageCount>
+              {messageCount}명이 작성했어요!
+            </PostCardMessageCount>
           </PostCardContent>
           <ReactionsForm>
-            <Emoji />
-            <Emoji />
-            <Emoji />
+            {sliceReactions.length > 0 ? (
+              sliceReactions.map((item) => {
+                return <Emoji key={item.id} item={item} />;
+              })
+            ) : (
+              <>
+                <EmptyReaction>
+                  <EmptyReactionEmoji>😅</EmptyReactionEmoji>0
+                </EmptyReaction>
+              </>
+            )}
           </ReactionsForm>
         </PostCardForm>
       </Container>
