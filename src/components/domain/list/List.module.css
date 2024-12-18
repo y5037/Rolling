@@ -17,6 +17,12 @@
   padding-left: 12px;
   font-size: 24px;
   font-weight: 600;
+
+  @media (max-width: 1248px) {
+    padding-left: 24px;
+  }
+}
+.section1 {
 }
 .section2 {
   @media (max-width: 1000px) {

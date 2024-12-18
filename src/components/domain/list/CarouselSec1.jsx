@@ -15,6 +15,13 @@ function CarouselSec1() {
           <PostCard />
           <PostCard />
           <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
         </Slider>
       </div>
     </>

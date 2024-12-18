@@ -23,6 +23,7 @@ const Container = styled.div`
 
   width: 100%;
   min-width: fit-content;
+  max-height: 300px;
 
   position: relative;
 

@@ -18,6 +18,45 @@ export const SEC1_SLICE_SETTINGS = {
   prevArrow: <Sec1PrevArrow />,
   nextArrow: <Sec1NextArrow />,
   useTransform: false, // 깜빡임 제어
+  initialSlide: 0,
+  edgeFriction: 0.15,
+  responsive: [
+    {
+      breakpoint: 1248,
+      settings: {
+        slidesToShow: 2.5,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1.5,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 469,
+      settings: {
+        slidesToShow: 1.3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 400,
+      settings: {
+        slidesToShow: 1.2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 380,
+      settings: {
+        slidesToShow: 1.2,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
 export const SEC2_SLICE_SETTINGS = {

@@ -25,6 +25,7 @@ const Content = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 1248px) {
+    max-width: none;
     padding: 0 24px;
   }
 `;

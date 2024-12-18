@@ -9,6 +9,10 @@
   -webkit-display: flex;
   display: flex;
   justify-content: space-evenly;
+
+  @media (max-width: 1248px) {
+    justify-content: space-between;
+  }
 }
 .slick-prev:before,
 .slick-next:before {
@@ -48,6 +52,10 @@
 }
 .slick-track > div {
   margin: 0 15px;
+
+  @media (max-width: 1248px) {
+    margin: 0 24px;
+  }
 }
 /* .slick-track > div:first-child {
   margin-left: 0;
