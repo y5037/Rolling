@@ -3,7 +3,7 @@ import logoImg from "../../../assets/images/nav/logo.svg";
 import OutlinedButton from "../button/OutlinedButton";
 
 const LinkButton = styled(OutlinedButton)`
-  display: ${(props) => (props.hide ? "none" : "block")};
+  display: ${(props) => (props.$hide ? "none" : "block")};
   min-width: 157px;
   height: 42px;
 `;
@@ -41,13 +41,13 @@ const NavigationBar = styled.div`
   background: var(--White);
 `;
 
-function Navigation({ hide }) {
+function Navigation({ $hide }) {
   return (
     <NavigationBar>
       <Content>
         <Logo src={logoImg} alt="Rolling" />
         {/* hide 속성의 유무에 따라 버튼이 활성화/비활성화 됩니다. _12.13 혜림 */}
-        <LinkButton>롤링 페이퍼 만들기</LinkButton>
+        <LinkButton $hide={$hide}>롤링 페이퍼 만들기</LinkButton>
       </Content>
     </NavigationBar>
   );

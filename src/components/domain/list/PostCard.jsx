@@ -12,8 +12,19 @@ const Container = styled.div`
           background-image: url(${(props) => props.$backgroundImageURL});
         `
       : css`
-          background-color: ${(props) => props.$backgroundColor};
-        `};
+          background-color: ${(props) => {
+            switch (props.$backgroundColor) {
+              case "beige":
+                return "var(--Beige200)";
+              case "purple":
+                return "var(--Purple200)";
+              case "blue":
+                return "var(--Blue200)";
+              case "green":
+                return "var(--Green200)";
+            }
+          }};
+        `}
 
   background-size: cover;
   background-position: center;
@@ -37,10 +48,25 @@ const Container = styled.div`
   }
 `;
 
+const BackgroundPattern = styled.div`
+  ${(props) =>
+    props.$backgroundImageURL &&
+    css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+    `}
+`;
+
 const PostCardForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const PostCardContent = styled.div`
@@ -51,7 +77,15 @@ const PostCardContent = styled.div`
 `;
 
 const PostCardName = styled.p`
-  color: var(--Gray900);
+  ${(props) =>
+    props.$backgroundImageURL
+      ? css`
+          color: var(--White);
+        `
+      : css`
+          color: var(--Gray900);
+        `}
+
   font-size: 24px;
   font-weight: 600;
 
@@ -122,7 +156,15 @@ const PostCardImgCount = styled.div`
 `;
 
 const PostCardMessageCount = styled.p`
-  color: var(--Gray700);
+  ${(props) =>
+    props.$backgroundImageURL
+      ? css`
+          color: var(--White);
+        `
+      : css`
+          color: var(--Gray700);
+        `}
+
   font-size: 16px;
   font-weight: 400;
 `;
@@ -182,21 +224,28 @@ function PostCard({ item }) {
         $backgroundColor={backgroundColor}
         $backgroundImageURL={backgroundImageURL}
       >
+        <BackgroundPattern
+          $backgroundImageURL={backgroundImageURL}
+        ></BackgroundPattern>
         <PostCardForm>
           <PostCardContent>
-            <PostCardName>To. {name}</PostCardName>
+            <PostCardName $backgroundImageURL={backgroundImageURL}>
+              To. {name}
+            </PostCardName>
             <PostCardProfileForm>
               {sliceMessages.length > 0 ? (
                 sliceMessages.map((item) => {
                   const { id, profileImageURL } = item;
                   return (
-                    <PostCardProfileImage key={id}>
-                      <img
-                        onError={handleImgError}
-                        src={profileImageURL}
-                        alt="프로필 이미지"
-                      />
-                    </PostCardProfileImage>
+                    <>
+                      <PostCardProfileImage key={id}>
+                        <img
+                          onError={handleImgError}
+                          src={profileImageURL}
+                          alt="프로필 이미지"
+                        />
+                      </PostCardProfileImage>
+                    </>
                   );
                 })
               ) : (
@@ -204,7 +253,7 @@ function PostCard({ item }) {
               )}
               <PostCardImgCount>+{messageCount}</PostCardImgCount>
             </PostCardProfileForm>
-            <PostCardMessageCount>
+            <PostCardMessageCount $backgroundImageURL={backgroundImageURL}>
               {messageCount}명이 작성했어요!
             </PostCardMessageCount>
           </PostCardContent>
