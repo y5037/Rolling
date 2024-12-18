@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Color = {
-  orange: "var(--Beige100)",
+  beige: "var(--Beige100)",
   purple: "var(--Purple200)",
   blue: "var(--Blue200)",
   green: "var(--Green200)",
