@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PostBackground from "./PostBackground";
 import GetBackgoundImages from "../../../services/GetBackgroundImages";
 import enableImage from "../../../assets/images/button/enabled.png";
 import "./CreatePost.css";
+import PostRecipients from "../../../services/PostRecipients";
 
 function CreatePost() {
+  // 롤링 페이저 생성 후 페이지 이동을 위함.
+  const navigate = useNavigate();
+
   // 배경 컬러를 설정하기 위함.
-  const colors = ["orange", "purple", "blue", "green"];
+  const colors = ["beige", "purple", "blue", "green"];
 
   // 받는 사람 입력을 위함.
   const [name, setName] = useState("");
@@ -34,7 +39,6 @@ function CreatePost() {
     setIsNameStatus(true);
   };
 
-  /* ****************************************************************************************** */
   // 배경화면 옵션(컬러, 이미지) 클릭 처리
   const handleOptionClick = (value) => {
     setSelectedOption(value);
@@ -50,10 +54,10 @@ function CreatePost() {
   // 설정할 배경화면 클릭 처리 (컬러, 이미지)
   const handleBackgroundClick = (value) => {
     if (selectedOption === "color") {
-      console.log("배경 컬러 선택 시: ", value);
+      // console.log("배경 컬러 선택 시: ", value);
       setSelectBackgroundColor(value);
     } else if (selectedOption === "image") {
-      console.log("배경 이미지 선택 시: ", value);
+      // console.log("배경 이미지 선택 시: ", value);
       setSelectBackgroundImage(value);
     }
   };
@@ -74,13 +78,31 @@ function CreatePost() {
     setBackground(colors);
   }, [selectedOption]);
 
-  /* ****************************************************************************************** */
-
   // [생성하기] 버튼 클릭 시 Post API 동작을 위함.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit 결과: ", name);
-    // console.log("submit 배경 결과: ", selectBackground);
+
+    let backgroundColor = "";
+    let backgroundImageURL = "";
+    let createPostResponse = "";
+    // console.log("submit 결과: ", name);
+    if (selectedOption === "color") {
+      backgroundColor = selectBackgroundColor;
+      // console.log("submit 배경 결과: ", backgroundColor);
+      createPostResponse = await PostRecipients({
+        name,
+        backgroundColor,
+      });
+    } else if (selectedOption === "image") {
+      backgroundImageURL = selectBackgroundImage;
+      // console.log("submit 배경 결과: ", backgroundImageURL);
+      createPostResponse = await PostRecipients({
+        name,
+        backgroundImageURL,
+      });
+    }
+
+    navigate(`/post/${createPostResponse.id}`);
   };
 
   return (
