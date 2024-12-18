@@ -4,7 +4,7 @@ import CreatePost from "../../components/domain/post/CreatePost";
 function PostPage() {
   return (
     <>
-      <Navigation hide />
+      <Navigation $hide />
       <CreatePost />
     </>
   );
