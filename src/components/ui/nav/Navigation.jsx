@@ -11,7 +11,7 @@ const LinkButton = styled(OutlinedButton)`
 
 const Logo = styled.img`
   width: 106px;
-  height: 42px;
+  display: block;
 `;
 
 const Content = styled.div`
