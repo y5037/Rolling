@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
-import PostPage from "./pages/post/PostPage";
+import CreatePage from "./pages/post/CreatePost";
 import GlobalStyle from "./styles/GlobalStyle";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/post" element={<PostPage />} />
+          <Route path="/post" element={<CreatePage />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
