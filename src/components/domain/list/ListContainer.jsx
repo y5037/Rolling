@@ -1,7 +1,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./List.module.css";
-import "./Carouse.css";
+import "./Carousel.css";
 import CarouselSec1 from "./CarouselSec1";
 import CarouselSec2 from "./CarouselSec2";
 import PrimaryButton from "../../ui/button/PrimaryButton";
