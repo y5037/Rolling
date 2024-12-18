@@ -1,6 +1,5 @@
 import iconPrevButton from "../../../assets/images/list/arrow_left.svg";
 import iconNextButton from "../../../assets/images/list/arrow_right.svg";
-import styles from "./List.module.css";
 
 export const Sec1PrevArrow = (props) => {
   const { className, onClick, currentSlide } = props;
