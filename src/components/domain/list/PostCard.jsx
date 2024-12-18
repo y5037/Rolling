@@ -7,12 +7,12 @@ const Container = styled.div`
   justify-content: flex-start;
 
   ${(props) =>
-    props.backgroundImageURL
+    props.$backgroundImageURL
       ? css`
-          background-image: url(${(props) => props.backgroundImageURL});
+          background-image: url(${(props) => props.$backgroundImageURL});
         `
       : css`
-          background-color: ${(props) => props.backgroundColor};
+          background-color: ${(props) => props.$backgroundColor};
         `};
 
   background-size: cover;
@@ -179,8 +179,8 @@ function PostCard({ item }) {
   return (
     <>
       <Container
-        backgroundColor={backgroundColor}
-        backgroundImageURL={backgroundImageURL}
+        $backgroundColor={backgroundColor}
+        $backgroundImageURL={backgroundImageURL}
       >
         <PostCardForm>
           <PostCardContent>
