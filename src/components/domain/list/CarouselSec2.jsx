@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function CarouselSec2() {
-  const [card, setCard] = useState();
+  const [cardList, setCardList] = useState();
 
   const handleLoad = async () => {
     try {
       const { results } = await GetPostCard();
-      setCard(results);
+      setCardList(results);
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +27,8 @@ function CarouselSec2() {
       <div className={`${styles.section} ${styles.section2}`}>
         <p className={styles.secTitle}>최근에 만든 롤링 페이퍼 ⭐️️</p>
         <Slider {...SEC2_SLICE_SETTINGS}>
-          {card &&
-            card.map((item) => {
+          {cardList &&
+            cardList.map((item) => {
               return (
                 <Link key={item.id} to={`/${item.id}`}>
                   <PostCard item={item} />

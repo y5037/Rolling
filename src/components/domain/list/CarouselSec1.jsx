@@ -7,7 +7,7 @@ import PostCard from "./PostCard";
 import GetPostCard from "../../../services/GetRecipients";
 
 function CarouselSec1() {
-  const [card, setCard] = useState();
+  const [cardList, setCardList] = useState();
 
   const handleLoad = async () => {
     try {
@@ -18,7 +18,7 @@ function CarouselSec1() {
       );
       // 인기순 8개만 출력
       const popularity = sortedData.slice(0, 9);
-      setCard(popularity);
+      setCardList(popularity);
     } catch (error) {
       console.log(error);
     }
@@ -33,8 +33,8 @@ function CarouselSec1() {
       <div className={`${styles.section} ${styles.section1}`}>
         <p className={styles.secTitle}>인기 롤링 페이퍼 🔥</p>
         <Slider {...SEC1_SLICE_SETTINGS}>
-          {card &&
-            card.map((item) => {
+          {cardList &&
+            cardList.map((item) => {
               return (
                 <Link key={item.id} to={`/${item.id}`}>
                   <PostCard item={item} />
