@@ -3,7 +3,7 @@ import defaultImage from "../../../assets/images/common/defaultProfile.png";
 import Emoji from "../../ui/badge/Emoji";
 
 const Color = {
-  orange: "var(--Beige100)",
+  beige: "var(--Beige100)",
   purple: "var(--Purple200)",
   blue: "var(--Blue200)",
   green: "var(--Green200)",
@@ -128,7 +128,14 @@ const EmptyReactionEmoji = styled.div`
 `;
 
 function PostCard({ item }) {
-  const { name, messageCount, recentMessages, topReactions } = item;
+  const {
+    name,
+    messageCount,
+    recentMessages,
+    topReactions,
+    backgroundColor,
+    backgroundImageURL,
+  } = item;
 
   const sliceMessages = recentMessages.slice(0, 3);
   const sliceReactions = topReactions.slice(0, 3);
@@ -138,9 +145,14 @@ function PostCard({ item }) {
     e.target.src = defaultImage;
   };
 
+  console.log(item);
+
   return (
     <>
-      <Container>
+      <Container
+        backgroundColor={backgroundColor}
+        backgroundImageURL={backgroundImageURL}
+      >
         <PostCardForm>
           <PostCardContent>
             <PostCardName>To. {name}</PostCardName>
