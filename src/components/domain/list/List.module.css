@@ -17,6 +17,10 @@
   padding-left: 12px;
   font-size: 24px;
   font-weight: 600;
+
+  @media (max-width: 1248px) {
+    padding-left: 24px;
+  }
 }
 .section2 {
   @media (max-width: 1000px) {
@@ -24,7 +28,15 @@
   }
 }
 .buttonContainer {
+  text-align: center;
   @media (max-width: 1000px) {
     padding: 0 24px;
+  }
+}
+.buttonContainer a {
+  display: inline-flex;
+
+  @media (max-width: 1000px) {
+    display: block;
   }
 }
