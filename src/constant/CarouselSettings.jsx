@@ -11,8 +11,6 @@ export const SEC1_SLICE_SETTINGS = {
   speed: 500,
   autoplay: false,
   slidesToShow: 4,
-  // centerMode: true,
-  // centerPadding: "0px",
   slidesToScroll: 4,
   arrows: true,
   prevArrow: <Sec1PrevArrow />,
@@ -65,7 +63,6 @@ export const SEC2_SLICE_SETTINGS = {
   autoplay: true,
   autoplaySpeed: 1000,
   slidesToShow: 4,
-  // centerMode: true,
   centerPadding: "0px",
   slidesToScroll: 1,
   arrows: true,
@@ -76,35 +73,28 @@ export const SEC2_SLICE_SETTINGS = {
     {
       breakpoint: 1248,
       settings: {
-        slidesToShow: 4,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 1000,
+      settings: {
+        slidesToShow: 2,
         slidesToScroll: 1,
       },
     },
     {
       breakpoint: 768,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 2,
         slidesToScroll: 1,
       },
     },
     {
-      breakpoint: 469,
+      breakpoint: 625,
       settings: {
-        slidesToShow: 1.3,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 400,
-      settings: {
-        slidesToShow: 1.2,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 380,
-      settings: {
-        slidesToShow: 1.2,
+        slidesToShow: 1,
         slidesToScroll: 1,
       },
     },

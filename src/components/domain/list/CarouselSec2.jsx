@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 function CarouselSec2() {
   const [card, setCard] = useState();
-  console.log(card);
 
   const handleLoad = async () => {
     try {

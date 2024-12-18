@@ -66,28 +66,57 @@ const PostCardProfileForm = styled.div`
   display: flex;
   position: relative;
   width: fit-content;
+  background: transparent;
+
+  & div:nth-of-type(2) {
+    position: absolute;
+    left: 16px;
+  }
+  & div:nth-of-type(3) {
+    position: absolute;
+    left: 32px;
+  }
+  & div:nth-of-type(4) {
+    position: absolute;
+    left: 48px;
+  }
 `;
 
-const PostCardProfileImage = styled.img`
-  background-color: var(--Blue200);
+const PostCardProfileImage = styled.div`
   width: 28px;
   height: 28px;
-  object-fit: cover;
-
+  overflow: hidden;
   border: 1.5px solid var(--White);
   border-radius: 30px;
+  box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
 
-  background-image: ${({ image }) => `url(${image || defaultImage})`};
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
 
-  position: absolute;
+  background: var(--White);
 
   /* 이미지 겹치기: 인덱스에 따라 왼쪽으로 일정량 이동 */
-  ${({ $index }) => `
-    left: ${$index * 16}px;
-  `}
+  /* ${({ $index }) => `
+    left: ${$index * -16}px;
+  `} */
+
+  & > img {
+    width: 100%;
+    object-fit: cover;
+  }
+`;
+
+const PostCardImgCount = styled.div`
+  width: max-content;
+  /* position: absolute;
+  right: ${({ $right }) => ($right ? "-15px" : 0)}; */
+  min-width: 28px;
+  height: 28px;
+  line-height: 30px;
+  padding: 0 6px;
+  background: var(--White);
+  border-radius: 30px;
+  color: var(--Gray500);
+  font-weight: 400;
 `;
 
 const PostCardMessageCount = styled.p`
@@ -128,14 +157,7 @@ const EmptyReactionEmoji = styled.div`
 `;
 
 function PostCard({ item }) {
-  const {
-    name,
-    messageCount,
-    recentMessages,
-    topReactions,
-    backgroundColor,
-    backgroundImageURL,
-  } = item;
+  const { name, messageCount, recentMessages, topReactions } = item;
 
   const sliceMessages = recentMessages.slice(0, 3);
   const sliceReactions = topReactions.slice(0, 3);
@@ -145,34 +167,30 @@ function PostCard({ item }) {
     e.target.src = defaultImage;
   };
 
-  console.log(item);
-
   return (
     <>
-      <Container
-        backgroundColor={backgroundColor}
-        backgroundImageURL={backgroundImageURL}
-      >
+      <Container>
         <PostCardForm>
           <PostCardContent>
             <PostCardName>To. {name}</PostCardName>
             <PostCardProfileForm>
               {sliceMessages.length > 0 ? (
-                sliceMessages.map((item, i) => {
+                sliceMessages.map((item) => {
                   const { id, profileImageURL } = item;
                   return (
-                    <PostCardProfileImage
-                      key={id}
-                      src={profileImageURL}
-                      alt="프로필 이미지"
-                      onError={handleImgError}
-                      $index={i}
-                    />
+                    <PostCardProfileImage key={id}>
+                      <img
+                        onError={handleImgError}
+                        src={profileImageURL}
+                        alt="프로필 이미지"
+                      />
+                    </PostCardProfileImage>
                   );
                 })
               ) : (
                 <PostCardProfileImage src={defaultImage} alt="프로필 이미지" />
               )}
+              <PostCardImgCount>+{messageCount}</PostCardImgCount>
             </PostCardProfileForm>
             <PostCardMessageCount>
               {messageCount}명이 작성했어요!

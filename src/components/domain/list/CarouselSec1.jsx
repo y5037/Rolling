@@ -16,16 +16,16 @@ function CarouselSec1() {
       const sortedData = results.sort(
         (a, b) => b.messageCount - a.messageCount
       );
-      setCard(sortedData);
+      // 인기순 8개만 출력
+      const popularity = sortedData.slice(0, 9);
+      setCard(popularity);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    handleLoad({
-      limit: 8,
-    });
+    handleLoad();
   }, []);
 
   return (

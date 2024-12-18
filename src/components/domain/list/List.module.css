@@ -22,15 +22,21 @@
     padding-left: 24px;
   }
 }
-.section1 {
-}
 .section2 {
   @media (max-width: 1000px) {
     flex: 1;
   }
 }
 .buttonContainer {
+  text-align: center;
   @media (max-width: 1000px) {
     padding: 0 24px;
+  }
+}
+.buttonContainer a {
+  display: inline-flex;
+
+  @media (max-width: 1000px) {
+    display: block;
   }
 }
