@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
+import Emoji from "../../ui/badge/Emoji";
 
 const Color = {
   orange: "var(--Beige100)",
@@ -21,6 +22,7 @@ const Container = styled.div`
   background-repeat: no-repeat;
 
   width: 100%;
+  min-width: fit-content;
 
   position: relative;
 
@@ -105,25 +107,6 @@ const ReactionsForm = styled.div`
   gap: 10px;
 `;
 
-const ReactionContent = styled.p`
-  color: var(--White);
-  background-color: rgba(0, 0, 0, 0.54);
-
-  font-size: 16px;
-  font-weight: 400;
-
-  width: fit-content;
-  max-width: 65px;
-  height: 36px;
-
-  border-radius: 32px;
-  padding: 8px 12px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 function PostCard() {
   return (
     <>
@@ -151,9 +134,9 @@ function PostCard() {
             <PostCardMessageCount>30명이 작성했어요!</PostCardMessageCount>
           </PostCardContent>
           <ReactionsForm>
-            <ReactionContent>👍 10</ReactionContent>
-            <ReactionContent>👍 15</ReactionContent>
-            <ReactionContent>👍 23</ReactionContent>
+            <Emoji />
+            <Emoji />
+            <Emoji />
           </ReactionsForm>
         </PostCardForm>
       </Container>
