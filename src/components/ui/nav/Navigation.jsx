@@ -19,11 +19,15 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  padding: 0 24px;
   margin: 0 auto;
   height: 64px;
   line-height: 64px;
   box-sizing: border-box;
+
+  @media (max-width: 1248px) {
+    max-width: none;
+    padding: 0 24px;
+  }
 `;
 
 const NavigationBar = styled.div`
@@ -34,6 +38,7 @@ const NavigationBar = styled.div`
   border-bottom: 1px solid var(--Gray300);
   z-index: 1;
   box-sizing: border-box;
+  background: var(--White);
 `;
 
 function Navigation({ hide }) {
@@ -42,7 +47,7 @@ function Navigation({ hide }) {
       <Content>
         <Logo src={logoImg} alt="Rolling" />
         {/* hide 속성의 유무에 따라 버튼이 활성화/비활성화 됩니다. _12.13 혜림 */}
-        <LinkButton hide>롤링 페이퍼 만들기</LinkButton>
+        <LinkButton>롤링 페이퍼 만들기</LinkButton>
       </Content>
     </NavigationBar>
   );

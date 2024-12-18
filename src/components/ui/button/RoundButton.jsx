@@ -51,6 +51,14 @@ export function PlusButton({ className }) {
   );
 }
 
+export function HomeButton({ className }) {
+  return (
+    <RoundButton className={className}>
+      <Icon src={plus} alt="home button" />
+    </RoundButton>
+  );
+}
+
 export function CheckButton({ className }) {
   return (
     <RoundButton className={className}>

@@ -1,0 +1,140 @@
+.postBodyWrap {
+
+  margin-top: 132px;
+  padding: 54px 0 246px;
+  height: 100vh;
+  background-color: var(--Beige200);
+
+  @media (max-width: 767px) {
+
+    padding: 54px 0 246px;
+
+    @media (max-width: 576px) {
+
+      padding: 23px 0 246px;
+
+    }
+
+  }
+
+  .postMessageList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px 2%;
+
+    @media (max-width: 767px) {
+
+      gap: 16px 2.2%;
+
+    }
+
+    li {
+      width: 32%;
+
+      @media (max-width: 767px) {
+
+        width: 48.88%;
+
+        @media (max-width: 576px) {
+
+          width: 100%;
+
+        }
+
+      }
+
+      a {
+
+        display: block;
+        height: 100%;
+
+        &>div {
+          width: 100%;
+          height: 100%;
+        }
+
+        .messageCardTop {
+          p {
+            font-size: 16px;
+          }
+        }
+
+        .messageContent {
+          width: auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+
+          @media (max-width: 576px) {
+
+            margin-bottom: 21px;
+            height: 46px;
+            font-size: 15px;
+            -webkit-line-clamp: 2;
+
+          }
+
+        }
+
+        .messageDate {
+
+          @media (max-width: 576px) {
+            margin: 16px 24px 24px 24px;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .buttonContainer {
+
+    display: flex;
+    justify-content: flex-end;
+
+    .delBtn {
+      width: auto;
+      margin: 0 0 20px;
+    }
+
+  }
+
+}
+
+.linkList {
+  opacity: 0;
+  position: fixed;
+  bottom: 20px;
+  right: 24px;
+  transition: all .5s;
+  z-index: -999;
+
+  @media (max-width: 1200px) {
+    bottom: 24px;
+
+    @media (max-width: 576px) {
+      display: flex;
+      flex-direction: column;
+      gap: 18px 0;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    z-index: 999;
+  }
+
+  .homeBtn {
+    display: none;
+
+    @media (max-width: 576px) {
+      display: flex;
+    }
+  }
+
+}
