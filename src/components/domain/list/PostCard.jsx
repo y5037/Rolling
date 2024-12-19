@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
 import Emoji from "../../ui/badge/Emoji";
+import pattern1 from "../../../assets/images/list/pattern_01.png";
+import pattern2 from "../../../assets/images/list/pattern_02.png";
+import pattern3 from "../../../assets/images/list/pattern_03.png";
+import pattern4 from "../../../assets/images/list/pattern_04.png";
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +52,7 @@ const Container = styled.div`
   }
 `;
 
-const BackgroundPattern = styled.div`
+const BackgroundCover = styled.div`
   ${(props) =>
     props.$backgroundImageURL &&
     css`
@@ -60,6 +64,12 @@ const BackgroundPattern = styled.div`
       background: rgba(0, 0, 0, 0.5);
       border-radius: 16px;
     `}
+`;
+
+const BackgroundPattern = styled.img`
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;
 
 const PostCardForm = styled.div`
@@ -210,6 +220,13 @@ function PostCard({ item }) {
     backgroundImageURL,
   } = item;
 
+  const BACKGOUNR_COLOR_PATTERN = {
+    purple: pattern1,
+    beige: pattern2,
+    blue: pattern3,
+    green: pattern4,
+  };
+
   const sliceMessages = recentMessages.slice(0, 3);
   const sliceReactions = topReactions.slice(0, 3);
 
@@ -224,9 +241,24 @@ function PostCard({ item }) {
         $backgroundColor={backgroundColor}
         $backgroundImageURL={backgroundImageURL}
       >
-        <BackgroundPattern
-          $backgroundImageURL={backgroundImageURL}
-        ></BackgroundPattern>
+        {backgroundImageURL && (
+          <BackgroundCover
+            $backgroundImageURL={backgroundImageURL}
+          ></BackgroundCover>
+        )}
+        {!backgroundImageURL && (
+          <BackgroundPattern
+            src={
+              backgroundColor === "purple"
+                ? pattern1
+                : backgroundColor === "beige"
+                ? pattern2
+                : backgroundColor === "blue"
+                ? pattern3
+                : pattern4
+            }
+          ></BackgroundPattern>
+        )}
         <PostCardForm>
           <PostCardContent>
             <PostCardName $backgroundImageURL={backgroundImageURL}>
@@ -251,7 +283,9 @@ function PostCard({ item }) {
               ) : (
                 <PostCardProfileImage src={defaultImage} alt="프로필 이미지" />
               )}
-              <PostCardImgCount>+{messageCount}</PostCardImgCount>
+              <PostCardImgCount>
+                +{messageCount >= 3 ? Number(messageCount - 3) : 0}
+              </PostCardImgCount>
             </PostCardProfileForm>
             <PostCardMessageCount $backgroundImageURL={backgroundImageURL}>
               {messageCount}명이 작성했어요!

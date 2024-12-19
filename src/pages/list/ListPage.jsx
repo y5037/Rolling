@@ -4,7 +4,7 @@ import Navigation from "../../components/ui/nav/Navigation";
 function ListPage() {
   return (
     <>
-      <Navigation $hide />
+      <Navigation />
       <ListContainer />
     </>
   );
