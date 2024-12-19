@@ -37,14 +37,18 @@ function CarouselSec1() {
       <div className={`${styles.section} ${styles.section1}`}>
         <p className={styles.secTitle}>인기 롤링 페이퍼 🔥</p>
         <Slider {...SEC1_SLICE_SETTINGS}>
-          {cardList &&
+          {cardList ? (
             cardList.map((item) => {
               return (
                 <Link key={item.id} to={`/post/${item.id}`}>
                   <PostCard item={item} />
                 </Link>
               );
-            })}
+            })
+          ) : (
+            <div></div>
+          )}
+          {/* 데이터 부족으로 넣은 테스트 코드입니다 (추후 삭제 필요 _12.18 혜림) */}
         </Slider>
       </div>
     </>

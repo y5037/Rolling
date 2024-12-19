@@ -16,7 +16,6 @@ export const SEC1_SLICE_SETTINGS = {
   prevArrow: <Sec1PrevArrow />,
   nextArrow: <Sec1NextArrow />,
   useTransform: false, // 깜빡임 제어
-  initialSlide: 0,
   edgeFriction: 0.15,
   responsive: [
     {
@@ -75,6 +74,8 @@ export const SEC2_SLICE_SETTINGS = {
       settings: {
         slidesToShow: 3,
         slidesToScroll: 1,
+        pauseOnFocus: false,
+        pauseOnHover: false,
       },
     },
     {
@@ -82,6 +83,8 @@ export const SEC2_SLICE_SETTINGS = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
+        pauseOnFocus: false,
+        pauseOnHover: false,
       },
     },
     {
@@ -89,6 +92,8 @@ export const SEC2_SLICE_SETTINGS = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
+        pauseOnFocus: false,
+        pauseOnHover: false,
       },
     },
     {
@@ -96,6 +101,8 @@ export const SEC2_SLICE_SETTINGS = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+        pauseOnFocus: false,
+        pauseOnHover: false,
       },
     },
   ],
