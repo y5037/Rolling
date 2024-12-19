@@ -18,6 +18,7 @@ const ArrowButton = styled.button`
   background-color: var(--White);
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  transition: all 0.1s ease;
 `;
 
 export function LeftArrowButton({ className }) {
