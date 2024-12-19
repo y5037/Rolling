@@ -21,11 +21,12 @@ const EmojiContainer = styled.div`
   background: rgba(0, 0, 0, 0.54);
 `;
 
-function Emoji() {
+function Emoji({ item }) {
+  const { emoji, count } = item ?? {};
   return (
     <EmojiContainer>
-      <EmojiIcon>🥹</EmojiIcon>
-      <LikeNum>22</LikeNum>
+      <EmojiIcon>{emoji}</EmojiIcon>
+      <LikeNum>{count}</LikeNum>
     </EmojiContainer>
   );
 }
