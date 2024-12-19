@@ -57,3 +57,6 @@
     margin: 0 24px;
   }
 }
+.is-dragging {
+  pointer-events: none;
+}
