@@ -2,13 +2,6 @@ import styled, { css } from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
 import Emoji from "../../ui/badge/Emoji";
 
-const Color = {
-  beige: "var(--Beige100)",
-  purple: "var(--Purple200)",
-  blue: "var(--Blue200)",
-  green: "var(--Green200)",
-};
-
 const Container = styled.div`
   display: flex;
   justify-content: flex-start;
