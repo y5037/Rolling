@@ -2,6 +2,7 @@ import styled from "styled-components";
 import plus from "../../../assets/images/button/plus.png";
 import check from "../../../assets/images/button/check.png";
 import home from "../../../assets/images/button/home.png";
+import { useNavigate } from "react-router-dom";
 
 const Icon = styled.img`
   width: 24px;
@@ -53,8 +54,16 @@ export function PlusButton({ className }) {
 }
 
 export function HomeButton({ className }) {
+
+  const navigate = useNavigate();
+
+  //홈버튼 클릭 시 메인이동 함수
+  function handleClick() {
+    navigate("/");
+  }
+
   return (
-    <RoundButton className={className}>
+    <RoundButton className={className} onClick={handleClick}>
       <Icon src={home} alt="home button" />
     </RoundButton>
   );

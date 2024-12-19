@@ -1,28 +1,41 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import "./PostId.css";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
-import { useEffect, useState } from "react";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
+import { API_URL } from "../../constant/VariableSettings";
 
+import "./PostId.css";
 
 export default function PostId() {
 
-  /*
- const { postId } = useParams();
-  
-  const [message, setRecipients] = useEffect();
+  //리스트페이지 파라미터
+  const { id } = useParams();
 
+  //스크롤 이벤트 상태관리
+  const [btnShow, setBtnShow] = useState(false);
+
+  //데이터 상태관리
+  const [recentMessages, setRecentMessages] = useState([]);
+
+  //데이터 불러오기
   useEffect(() => {
 
     async function getRecipients() {
       try {
-        const response = await fetch(`https://rolling-api.vercel.app/12-4/recipients/${id}`);
+        const response = await fetch(`${API_URL}/12-4/recipients/?results=${id}`);
         const result = await response.json();
-        console.log(result);
-        setRecipients(result.data);
+
+        const recipient = result.results.find((rec) => rec.id === parseInt(id));
+
+        if (recipient && recipient.recentMessages) {
+          setRecentMessages(recipient.recentMessages);
+        } else {
+          setRecentMessages([]);
+        }
+
       } catch (error) {
         console.error('error: ', error);
       }
@@ -30,11 +43,9 @@ export default function PostId() {
 
     getRecipients();
 
-  }, [postId]);
-  */
+  }, [id]);
 
-  const [btnShow, setBtnShow] = useState(false);
-
+  //스크롤이벤트
   useEffect(() => {
 
     const scrollEvent = function scrollShowEvent() {
@@ -47,7 +58,6 @@ export default function PostId() {
 
     window.addEventListener('scroll', scrollEvent);
 
-    
   }, [])
 
   return (
@@ -58,51 +68,43 @@ export default function PostId() {
         <div className="container">
           <div className="postBodyBox">
 
-            <div className="buttonContainer">
-              <PrimaryButton className="delBtn">
-                롤링페이퍼 삭제하기
-              </PrimaryButton>
-            </div>
+            {
+              recentMessages ? (
+                <>
+                  <div className="buttonContainer">
+                    <PrimaryButton className="delBtn">
+                      롤링페이퍼 삭제하기
+                    </PrimaryButton>
+                  </div>
 
-            <ul className="postMessageList">
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-            </ul>
+                  <ul className="postMessageList">
 
+                    {
+                      recentMessages.map((post, i) => {
+                        return (
+                          <li key={i}>
+                            <MessageCard post={post} />
+                          </li>
+                        )
+                      })
+                    }
+
+                  </ul>
+                </>
+              ) : (
+                <p>
+                  데이터가 없습니다.
+                </p>
+              )
+            }
           </div>
         </div>
       </div>
 
       <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li><HomeButton className="homeBtn" /></li>
+        <li>
+          <HomeButton className="homeBtn" />
+        </li>
         <li><PlusButton className="addBtn" /></li>
       </ul>
 
