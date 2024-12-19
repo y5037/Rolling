@@ -47,6 +47,7 @@ export default function PostId() {
 
     window.addEventListener('scroll', scrollEvent);
 
+    
   }, [])
 
   return (
