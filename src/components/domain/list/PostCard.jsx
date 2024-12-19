@@ -45,6 +45,8 @@ const Container = styled.div`
 
   padding: 24px;
 
+  overflow: hidden;
+
   &::after {
     content: "";
     display: block;
