@@ -20,6 +20,43 @@ const LinkButton = styled(PrimaryButton)`
   }
 `;
 
+function blockWhileDragging(isDragging) {
+  let slides = document.getElementsByClassName("slick-slide");
+
+  if (isDragging) {
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.add("is-dragging"); // is-dragging 클래스 추가
+    }
+  } else {
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("is-dragging"); // is-dragging 클래스 제거
+    }
+  }
+}
+
+// mousedown 여부를 판단할 변수
+let isMouseDown = false;
+
+// mousedown 이벤트에서 isMouseDown을 true로 변환
+document.addEventListener("mousedown", () => {
+  isMouseDown = true;
+});
+
+// mousemove 이벤트에서 isMouseDown을 판단해 blockWhileDragging 함수 실행
+document.addEventListener("mousemove", () => {
+  if (isMouseDown) {
+    blockWhileDragging(true);
+  } else {
+    blockWhileDragging(false);
+  }
+});
+
+// mouseup 이벤트에서 mousedown 이전 상태로 초기화
+document.addEventListener("mouseup", () => {
+  isMouseDown = false;
+  blockWhileDragging(false);
+});
+
 function ListContainer() {
   return (
     <div className={`container ${styles.carouselContainer}`}>

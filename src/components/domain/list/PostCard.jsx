@@ -1,26 +1,34 @@
 import styled, { css } from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
 import Emoji from "../../ui/badge/Emoji";
-
-const Color = {
-  beige: "var(--Beige100)",
-  purple: "var(--Purple200)",
-  blue: "var(--Blue200)",
-  green: "var(--Green200)",
-};
+import pattern1 from "../../../assets/images/list/pattern_01.png";
+import pattern2 from "../../../assets/images/list/pattern_02.png";
+import pattern3 from "../../../assets/images/list/pattern_03.png";
+import pattern4 from "../../../assets/images/list/pattern_04.png";
 
 const Container = styled.div`
   display: flex;
   justify-content: flex-start;
 
   ${(props) =>
-    props.backgroundImageURL
+    props.$backgroundImageURL
       ? css`
-          background-image: url(${(props) => props.backgroundImageURL});
+          background-image: url(${(props) => props.$backgroundImageURL});
         `
       : css`
-          background-color: ${(props) => props.backgroundColor};
-        `};
+          background-color: ${(props) => {
+            switch (props.$backgroundColor) {
+              case "beige":
+                return "var(--Beige200)";
+              case "purple":
+                return "var(--Purple200)";
+              case "blue":
+                return "var(--Blue200)";
+              case "green":
+                return "var(--Green200)";
+            }
+          }};
+        `}
 
   background-size: cover;
   background-position: center;
@@ -37,6 +45,8 @@ const Container = styled.div`
 
   padding: 24px;
 
+  overflow: hidden;
+
   &::after {
     content: "";
     display: block;
@@ -44,10 +54,31 @@ const Container = styled.div`
   }
 `;
 
+const BackgroundCover = styled.div`
+  ${(props) =>
+    props.$backgroundImageURL &&
+    css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+    `}
+`;
+
+const BackgroundPattern = styled.img`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`;
+
 const PostCardForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const PostCardContent = styled.div`
@@ -58,7 +89,15 @@ const PostCardContent = styled.div`
 `;
 
 const PostCardName = styled.p`
-  color: var(--Gray900);
+  ${(props) =>
+    props.$backgroundImageURL
+      ? css`
+          color: var(--White);
+        `
+      : css`
+          color: var(--Gray900);
+        `}
+
   font-size: 24px;
   font-weight: 600;
 
@@ -129,7 +168,15 @@ const PostCardImgCount = styled.div`
 `;
 
 const PostCardMessageCount = styled.p`
-  color: var(--Gray700);
+  ${(props) =>
+    props.$backgroundImageURL
+      ? css`
+          color: var(--White);
+        `
+      : css`
+          color: var(--Gray700);
+        `}
+
   font-size: 16px;
   font-weight: 400;
 `;
@@ -175,6 +222,13 @@ function PostCard({ item }) {
     backgroundImageURL,
   } = item;
 
+  const BACKGOUNR_COLOR_PATTERN = {
+    purple: pattern1,
+    beige: pattern2,
+    blue: pattern3,
+    green: pattern4,
+  };
+
   const sliceMessages = recentMessages.slice(0, 3);
   const sliceReactions = topReactions.slice(0, 3);
 
@@ -186,32 +240,56 @@ function PostCard({ item }) {
   return (
     <>
       <Container
-        backgroundColor={backgroundColor}
-        backgroundImageURL={backgroundImageURL}
+        $backgroundColor={backgroundColor}
+        $backgroundImageURL={backgroundImageURL}
       >
+        {backgroundImageURL && (
+          <BackgroundCover
+            $backgroundImageURL={backgroundImageURL}
+          ></BackgroundCover>
+        )}
+        {!backgroundImageURL && (
+          <BackgroundPattern
+            src={
+              backgroundColor === "purple"
+                ? pattern1
+                : backgroundColor === "beige"
+                ? pattern2
+                : backgroundColor === "blue"
+                ? pattern3
+                : pattern4
+            }
+          ></BackgroundPattern>
+        )}
         <PostCardForm>
           <PostCardContent>
-            <PostCardName>To. {name}</PostCardName>
+            <PostCardName $backgroundImageURL={backgroundImageURL}>
+              To. {name}
+            </PostCardName>
             <PostCardProfileForm>
               {sliceMessages.length > 0 ? (
                 sliceMessages.map((item) => {
                   const { id, profileImageURL } = item;
                   return (
-                    <PostCardProfileImage key={id}>
-                      <img
-                        onError={handleImgError}
-                        src={profileImageURL}
-                        alt="프로필 이미지"
-                      />
-                    </PostCardProfileImage>
+                    <>
+                      <PostCardProfileImage key={id}>
+                        <img
+                          onError={handleImgError}
+                          src={profileImageURL}
+                          alt="프로필 이미지"
+                        />
+                      </PostCardProfileImage>
+                    </>
                   );
                 })
               ) : (
                 <PostCardProfileImage src={defaultImage} alt="프로필 이미지" />
               )}
-              <PostCardImgCount>+{messageCount}</PostCardImgCount>
+              <PostCardImgCount>
+                +{messageCount >= 3 ? Number(messageCount - 3) : 0}
+              </PostCardImgCount>
             </PostCardProfileForm>
-            <PostCardMessageCount>
+            <PostCardMessageCount $backgroundImageURL={backgroundImageURL}>
               {messageCount}명이 작성했어요!
             </PostCardMessageCount>
           </PostCardContent>
