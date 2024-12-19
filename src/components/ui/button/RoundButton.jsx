@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import plus from "../../../assets/images/button/plus.png";
 import check from "../../../assets/images/button/check.png";
+import home from "../../../assets/images/button/home.png";
 
 const Icon = styled.img`
   width: 24px;
@@ -54,7 +55,7 @@ export function PlusButton({ className }) {
 export function HomeButton({ className }) {
   return (
     <RoundButton className={className}>
-      <Icon src={plus} alt="home button" />
+      <Icon src={home} alt="home button" />
     </RoundButton>
   );
 }

@@ -5,6 +5,7 @@ import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import { useEffect, useState } from "react";
+import PostHead from "../../components/domain/postId/postHead/PostHead";
 
 
 export default function PostId() {
@@ -46,11 +47,13 @@ export default function PostId() {
 
     window.addEventListener('scroll', scrollEvent);
 
+    
   }, [])
 
   return (
     <>
       <Navigation />
+      <PostHead />
       <div className="postBodyWrap">
         <div className="container">
           <div className="postBodyBox">
