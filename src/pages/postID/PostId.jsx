@@ -22,7 +22,7 @@ export default function PostId() {
   const { id } = useParams();
 
   //스크롤 이벤트 상태관리
-  const [btnShow, setBtnShow] = useState(true);
+  const [btnShow, setBtnShow] = useState(false);
 
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
@@ -60,10 +60,10 @@ export default function PostId() {
   useEffect(() => {
 
     const scrollEvent = function scrollShowEvent() {
-      if (window.scrollY > 0) {
-        setBtnShow(false);
-      } else {
+      if (window.scrollY > 50) {
         setBtnShow(true);
+      } else {
+        setBtnShow(false);
       }
     }
 
