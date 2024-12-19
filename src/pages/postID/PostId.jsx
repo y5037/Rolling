@@ -46,7 +46,10 @@ export default function PostId() {
 
       } catch (error) {
         console.error('error: ', error);
+      } finally {
+        setLoading(false); // 데이터 로딩 완료 후 로딩 상태 해제
       }
+
     }
 
     getRecipients();
@@ -65,8 +68,6 @@ export default function PostId() {
     }
 
     window.addEventListener('scroll', scrollEvent);
-
-    setLoading(false);
 
   }, [])
 
