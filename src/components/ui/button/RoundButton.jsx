@@ -53,14 +53,7 @@ export function PlusButton({ className }) {
   );
 }
 
-export function HomeButton({ className }) {
-
-  const navigate = useNavigate();
-
-  //홈버튼 클릭 시 메인이동 함수
-  function handleClick() {
-    navigate("/");
-  }
+export function HomeButton({ className, handleClick }) {
 
   return (
     <RoundButton className={className} onClick={handleClick}>

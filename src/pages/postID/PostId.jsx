@@ -1,6 +1,6 @@
 import MessageCard from "../../components/domain/post/MessageCard";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
@@ -11,14 +11,22 @@ import "./PostId.css";
 
 export default function PostId() {
 
+  const navigate = useNavigate();
+
+  //홈버튼 클릭 시 메인이동 함수
+  function handleClick() {
+    navigate("/");
+  }
+
   //리스트페이지 파라미터
   const { id } = useParams();
 
   //스크롤 이벤트 상태관리
-  const [btnShow, setBtnShow] = useState(false);
+  const [btnShow, setBtnShow] = useState(true);
 
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //데이터 불러오기
   useEffect(() => {
@@ -49,14 +57,16 @@ export default function PostId() {
   useEffect(() => {
 
     const scrollEvent = function scrollShowEvent() {
-      if (window.scrollY > 50) {
-        setBtnShow(true);
-      } else {
+      if (window.scrollY > 0) {
         setBtnShow(false);
+      } else {
+        setBtnShow(true);
       }
     }
 
     window.addEventListener('scroll', scrollEvent);
+
+    setLoading(false);
 
   }, [])
 
@@ -69,42 +79,46 @@ export default function PostId() {
           <div className="postBodyBox">
 
             {
-              recentMessages ? (
-                <>
-                  <div className="buttonContainer">
-                    <PrimaryButton className="delBtn">
-                      롤링페이퍼 삭제하기
-                    </PrimaryButton>
-                  </div>
 
-                  <ul className="postMessageList">
-
-                    {
-                      recentMessages.map((post, i) => {
-                        return (
-                          <li key={i}>
-                            <MessageCard post={post} />
-                          </li>
-                        )
-                      })
-                    }
-
-                  </ul>
-                </>
-              ) : (
+              loading ? (
                 <p>
-                  데이터가 없습니다.
+                  로딩 중
                 </p>
-              )
+              ) :
+                recentMessages.length > 0 ? (
+                  <>
+                    <div className="buttonContainer">
+                      <PrimaryButton className="delBtn">
+                        롤링페이퍼 삭제하기
+                      </PrimaryButton>
+                    </div>
+
+                    <ul className="postMessageList">
+
+                      {
+                        recentMessages.map((post, i) => {
+                          return (
+                            <li key={i}>
+                              <MessageCard post={post} />
+                            </li>
+                          )
+                        })
+                      }
+
+                    </ul>
+                  </>
+                ) : (
+                  <p>
+                    데이터가 없습니다.
+                  </p>
+                )
             }
           </div>
         </div>
       </div>
 
       <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li>
-          <HomeButton className="homeBtn" />
-        </li>
+        <li><HomeButton className="homeBtn" handleClick={handleClick} /></li>
         <li><PlusButton className="addBtn" /></li>
       </ul>
 
