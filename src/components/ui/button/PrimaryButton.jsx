@@ -16,6 +16,7 @@ const PrimaryButton = styled.button`
   box-sizing: border-box;
   background-color: var(--Primary);
   cursor: pointer;
+  transition: all 0.1s ease;
 
   &:hover {
     background-color: var(--Purple600);
