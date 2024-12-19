@@ -7,33 +7,33 @@ const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family: 'Pretendard';
   font-weight: 300;
-  src: url(/assets/fonts/pretendard/Pretendard-Light.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Light.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Light.otf) format('opentype');
+  src: url(/assets/fonts/pretendard/Pretendard-Light.woff2) format('font-woff2'),
+    url(/assets/fonts/pretendard/Pretendard-Light.woff) format('font-woff'),
+    url(/assets/fonts/pretendard/Pretendard-Light.otf) format('font-opentype');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 400;
-  src: url(/assets/fonts/pretendard/Pretendard-Regular.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Regular.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Regular.otf) format('opentype');
+  src: url(/assets/fonts/pretendard/Pretendard-Regular.woff2) format('font-woff2'),
+    url(/assets/fonts/pretendard/Pretendard-Regular.woff) format('font-woff'),
+    url(/assets/fonts/pretendard/Pretendard-Regular.otf) format('font-opentype');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 500;
-  src: url(/assets/fonts/pretendard/Pretendard-Medium.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Medium.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Medium.otf) format('opentype');
+  src: url(/assets/fonts/pretendard/Pretendard-Medium.woff2) format('font-woff2'),
+    url(/assets/fonts/pretendard/Pretendard-Medium.woff) format('font-woff'),
+    url(/assets/fonts/pretendard/Pretendard-Medium.otf) format('font-opentype');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 600;
-  src: url(/assets/fonts/pretendard/Pretendard-Bold.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Bold.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Bold.otf) format('opentype');
+  src: url(/assets/fonts/pretendard/Pretendard-Bold.woff2) format('font-woff2'),
+    url(/assets/fonts/pretendard/Pretendard-Bold.woff) format('font-woff'),
+    url(/assets/fonts/pretendard/Pretendard-Bold.otf) format('font-opentype');
 }
 
 /* 색상 변수 */
