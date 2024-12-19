@@ -30,7 +30,7 @@ function CarouselSec2() {
           {card &&
             card.map((item) => {
               return (
-                <Link key={item.id} to={`/${item.id}`}>
+                <Link key={item.id} to={`/post/${item.id}`}>
                   <PostCard item={item} />
                 </Link>
               );

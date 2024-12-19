@@ -43,47 +43,41 @@
 
       }
 
-      a {
-
-        display: block;
+      &>div {
+        width: 100%;
         height: 100%;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
 
-        &>div {
-          width: 100%;
-          height: 100%;
+      .messageCardTop {
+        p {
+          font-size: 16px;
         }
+      }
 
-        .messageCardTop {
-          p {
-            font-size: 16px;
-          }
-        }
+      .messageContent {
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
 
-        .messageContent {
-          width: auto;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
+        @media (max-width: 576px) {
 
-          @media (max-width: 576px) {
-
-            margin-bottom: 21px;
-            height: 46px;
-            font-size: 15px;
-            -webkit-line-clamp: 2;
-
-          }
+          margin-bottom: 21px;
+          height: 46px;
+          font-size: 15px;
+          -webkit-line-clamp: 2;
 
         }
 
-        .messageDate {
+      }
 
-          @media (max-width: 576px) {
-            margin: 16px 24px 24px 24px;
-          }
+      .messageDate {
 
+        @media (max-width: 576px) {
+          margin: 16px 24px 24px 24px;
         }
 
       }
