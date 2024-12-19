@@ -8,16 +8,18 @@ import GetPostCard from "../../../services/GetRecipients";
 
 function CarouselSec1() {
   const [cardList, setCardList] = useState();
+  const [count, setCount] = useState();
 
-  const handleLoad = async () => {
+  const handleLoad = async (options) => {
     try {
-      const { results } = await GetPostCard();
+      const { results, count } = await GetPostCard(options);
+      setCount(count);
       // 인기순 정렬
       const sortedData = results.sort(
         (a, b) => b.messageCount - a.messageCount
       );
       // 인기순 8개만 출력
-      const popularity = sortedData.slice(0, 9);
+      const popularity = sortedData.slice(0, 8);
       setCardList(popularity);
     } catch (error) {
       console.log(error);
@@ -25,8 +27,10 @@ function CarouselSec1() {
   };
 
   useEffect(() => {
-    handleLoad();
-  }, []);
+    handleLoad({
+      limit: count,
+    });
+  }, [count]);
 
   return (
     <>
@@ -41,11 +45,6 @@ function CarouselSec1() {
                 </Link>
               );
             })}
-          {/* 데이터 부족으로 넣은 테스트 코드입니다 (추후 삭제 필요 _12.18 혜림) */}
-          <div>...</div>
-          <div>...</div>
-          <div>...</div>
-          {/* 여기까지 */}
         </Slider>
       </div>
     </>

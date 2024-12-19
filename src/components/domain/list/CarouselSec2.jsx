@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 
 function CarouselSec2() {
   const [cardList, setCardList] = useState();
+  const [count, setCount] = useState();
 
-  const handleLoad = async () => {
+  const handleLoad = async (options) => {
     try {
-      const { results } = await GetPostCard();
+      const { results, count } = await GetPostCard(options);
+      setCount(count);
       setCardList(results);
     } catch (error) {
       console.log(error);
@@ -19,8 +21,10 @@ function CarouselSec2() {
   };
 
   useEffect(() => {
-    handleLoad();
-  }, []);
+    handleLoad({
+      limit: count,
+    });
+  }, [count]);
 
   return (
     <>
@@ -35,11 +39,6 @@ function CarouselSec2() {
                 </Link>
               );
             })}
-          {/* 데이터 부족으로 넣은 테스트 코드입니다 (추후 삭제 필요 _12.18 혜림) */}
-          <div>...</div>
-          <div>...</div>
-          <div>...</div>
-          {/* 여기까지 */}
         </Slider>
       </div>
     </>
