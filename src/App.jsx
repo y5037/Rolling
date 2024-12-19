@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
 import GlobalStyle from "./styles/GlobalStyle";
-import PostId from "./pages/postID/PostId";
+import ListPage from "./pages/list/ListPage";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/post" element={<PostId />} />
+          <Route path="/list" element={<ListPage />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
