@@ -227,11 +227,11 @@ button {
 /* 가운데영역 */
 .container{
   max-width: 1200px;
-  margin: 0 auto;
 
   /* Tablet, Mobile */
    @media (max-width:1248px) {
-    padding:0 24px;
+    //개별 padding 적용시 이 컴포넌트의 스타일이 항상 최상위에 유지되어 임시로 주석처리함.
+    //padding:0 24px;
   }
 }
 

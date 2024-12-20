@@ -1,5 +1,10 @@
+.navigation {
+  display: block;
+}
+
 .container {
-  margin: 0 auto;
+  margin: 111px auto;
+  padding: 0 24px;
   width: 720px;
 }
 
@@ -55,4 +60,23 @@ textarea {
 
 .error-input {
   border: 1px solid red;
+}
+
+@media (max-width: 500px) {
+  .container {
+    margin: 50px auto;
+    padding: 0 20px;
+    width: 100%;
+
+    .navigation {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%; /* 작은 화면에서 100% */
+    padding: 0 24px; /* 여백유지 */
+  }
 }
