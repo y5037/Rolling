@@ -15,7 +15,7 @@ function EmojiContainer({ emojiRef }) {
       num: 0,
     },
     {
-      emoji: "😂",
+      emoji: "😅",
       num: 0,
     },
     {
