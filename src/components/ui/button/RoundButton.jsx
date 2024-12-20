@@ -18,6 +18,7 @@ const RoundButton = styled.button`
   box-sizing: border-box;
   background-color: var(--Gray500);
   cursor: pointer;
+  transition: all 0.1s ease;
 
   &:hover {
     background-color: var(--Gray600);
