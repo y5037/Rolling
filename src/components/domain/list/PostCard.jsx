@@ -5,6 +5,7 @@ import pattern1 from "../../../assets/images/list/pattern_01.png";
 import pattern2 from "../../../assets/images/list/pattern_02.png";
 import pattern3 from "../../../assets/images/list/pattern_03.png";
 import pattern4 from "../../../assets/images/list/pattern_04.png";
+import React from "react";
 
 const Container = styled.div`
   display: flex;
@@ -270,16 +271,17 @@ function PostCard({ item }) {
               {sliceMessages.length > 0 ? (
                 sliceMessages.map((item) => {
                   const { id, profileImageURL } = item;
+                  console.log(id);
                   return (
-                    <>
-                      <PostCardProfileImage key={id}>
+                    <React.Fragment key={id}>
+                      <PostCardProfileImage>
                         <img
                           onError={handleImgError}
                           src={profileImageURL}
                           alt="프로필 이미지"
                         />
                       </PostCardProfileImage>
-                    </>
+                    </React.Fragment>
                   );
                 })
               ) : (
