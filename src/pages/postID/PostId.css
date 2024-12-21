@@ -1,6 +1,7 @@
 .postBodyWrap {
 
   margin-top: 132px;
+  min-height: 100vh;
   padding: 54px 0 246px;
   background-color: var(--Beige200);
 
@@ -182,10 +183,4 @@
     }
   }
 
-}
-
-#scroll {
-  display: block;
-  text-align: center;
-  /* Center the loading text */
 }

@@ -64,17 +64,18 @@ export default function PostId() {
   //스크롤이벤트
   useEffect(() => {
 
-    const scrollEvent = function scrollShowEvent() {
-      if (window.scrollY > 50) {
-        setBtnShow(true);
-      } else {
-        setBtnShow(false);
+    if (recentMessages.length > 0) {
+      const scrollEvent = function scrollShowEvent() {
+        if (window.scrollY > 50) {
+          setBtnShow(true);
+        } else {
+          setBtnShow(false);
+        }
       }
+      window.addEventListener('scroll', scrollEvent);
     }
 
-    window.addEventListener('scroll', scrollEvent);
-
-  }, [])
+  }, [recentMessages])
 
   //무한스크롤
   useEffect(() => {
