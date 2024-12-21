@@ -14,9 +14,10 @@ function PostHead() {
   const [emojiDrop, setEmojiDrop] = useState(false);
   const [sharedDrop, setSharedDrop] = useState(false);
   const [urlCopy, setUrlCopy] = useState(false);
-  const [timer, setTimer] = useState();
-  const [data, setData] = useState();
-  const [reData, setReData] = useState();
+
+  const [isTimer, setIsTimer] = useState();
+  const [isData, setIsData] = useState();
+  const [countRendering, setCountRendering] = useState();
 
   const emojiRef = useRef(null);
   const sharedRef = useRef(null);
@@ -28,8 +29,8 @@ function PostHead() {
   // 데이터 불러오기
   // 이모지 클릭할 때마다 데이터 호출
   useEffect(() => {
-    GetRecipientsId(userId, setData);
-  }, [reData]);
+    GetRecipientsId(userId, setIsData);
+  }, [countRendering]);
 
   // 클릭 이벤트 영역 외 클릭 시 DropContainer 비활성화
   useEffect(() => {
@@ -69,16 +70,16 @@ function PostHead() {
   const handleToastShow = () => {
     setUrlCopy(true);
     const timer = setTimeout(() => setUrlCopy(false), 3000);
-    setTimer(timer);
+    setIsTimer(timer);
   };
 
   const handleToastHide = () => {
     setUrlCopy(false);
-    clearTimeout(timer);
+    clearTimeout(isTimer);
   };
 
-  const sliceMessages = data?.recentMessages.slice(0, 3);
-  const sliceReactions = data?.topReactions.slice(0, 3);
+  const sliceMessages = isData?.recentMessages.slice(0, 3);
+  const sliceReactions = isData?.topReactions.slice(0, 3);
 
   return (
     <>
@@ -86,11 +87,11 @@ function PostHead() {
       <div className={styles.headBar}>
         <div className={styles.container}>
           <div className={styles.contents}>
-            <p className={styles.toName}>To.{data?.name}</p>
+            <p className={styles.toName}>To.{isData?.name}</p>
             <div className={styles.servicesContainer}>
               <div className={styles.AuthorContainer}>
                 <ul className={styles.list}>
-                  {data?.recentMessages ? (
+                  {isData?.recentMessages ? (
                     sliceMessages.map((item) => {
                       return (
                         <li key={item.id}>
@@ -112,13 +113,13 @@ function PostHead() {
                   )}
                   <li className={styles.num}>
                     +
-                    {data?.messageCount >= 3
-                      ? Number(data?.messageCount - 3)
+                    {isData?.messageCount >= 3
+                      ? Number(isData?.messageCount - 3)
                       : 0}
                   </li>
                 </ul>
                 <p className={styles.numText}>
-                  <span className={styles.strong}>{data?.messageCount}</span>
+                  <span className={styles.strong}>{isData?.messageCount}</span>
                   명이 작성했어요!
                 </p>
                 <div className={styles.line}></div>
@@ -146,7 +147,8 @@ function PostHead() {
                   <EmojiContainer
                     emojiRef={emojiRef}
                     userId={userId}
-                    setReData={setReData}
+                    countRendering={countRendering}
+                    setCountRendering={setCountRendering}
                   />
                 )}
               </div>

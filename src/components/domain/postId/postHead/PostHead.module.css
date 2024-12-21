@@ -165,10 +165,14 @@
   border: 1px solid var(--Gray300);
   border-radius: 6px;
   align-content: center;
+  transition: 0.2s;
 
   @media (max-width: 768px) {
     padding: 0 10px;
   }
+}
+.sharedLink:hover {
+  background-color: var(--Gray100);
 }
 .sharedLink img {
   margin-top: -3px;
@@ -236,16 +240,38 @@
   justify-content: center;
   border-radius: 32px;
   align-items: center;
-  background: rgba(0, 0, 0, 0.54);
+  /* background: rgba(0, 0, 0, 0.54); */
   color: var(--White);
   cursor: pointer;
   transition: 0.2s;
+  font-size: 25px;
+  position: relative;
 }
 .emojiContainer li:hover {
   background: var(--Gray500);
 }
-.emojiContainer li p:first-child {
+/* .emojiContainer li p:first-child {
   margin-right: 3px;
+} */
+.emojiContainer li .fadeBadge {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  opacity: 0;
+  animation: fadeUp 1s ease-in;
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20%, 0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 /* SharedContainer */

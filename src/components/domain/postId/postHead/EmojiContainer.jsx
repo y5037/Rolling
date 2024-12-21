@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./PostHead.module.css";
 import PostReactions from "../../../../services/PostReactions";
 
-function EmojiContainer({ emojiRef, userId, setReData }) {
+function EmojiContainer({
+  emojiRef,
+  userId,
+  countRendering,
+  setCountRendering,
+}) {
   const emojiButton = ["👍", "😍", "🎉", "😅", "🥹", "👻", "🥴", "👿"];
 
   const [isReaction, setIsReactions] = useState();
+  const [countBadge, setCountBadge] = useState();
 
   const handleEmojiClick = (i) => {
     setIsReactions(emojiButton[i]);
@@ -14,7 +20,7 @@ function EmojiContainer({ emojiRef, userId, setReData }) {
   const handleUpdate = async (options) => {
     try {
       const response = await PostReactions(options);
-      setReData(response);
+      setCountRendering(response);
       setIsReactions("");
     } catch (error) {
       console.log(error);
@@ -38,9 +44,19 @@ function EmojiContainer({ emojiRef, userId, setReData }) {
             onClick={(e) => {
               e.stopPropagation();
               handleEmojiClick(i);
+              setCountBadge(i);
+              setCountRendering("");
             }}
           >
             <p className={styles.emoji}>{item}</p>
+            {countBadge === i && (
+              <>
+                {/* 해당 key값은 리렌더링을 위한 임시 값 */}
+                <div key={isReaction} className={styles.fadeBadge}>
+                  {countRendering?.count}
+                </div>
+              </>
+            )}
           </li>
         );
       })}
