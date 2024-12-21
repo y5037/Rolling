@@ -22,10 +22,11 @@ function EmojiContainer({ emojiRef, userId, setReData }) {
   };
 
   useEffect(() => {
-    handleUpdate({
-      userId,
-      emoji: isReaction,
-    });
+    isReaction &&
+      handleUpdate({
+        userId,
+        emoji: isReaction,
+      });
   }, [isReaction]);
 
   return (
