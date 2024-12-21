@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./PostHead.module.css";
 import EmojiBadge from "../../../ui/badge/Emoji";
 import defaultImg from "../../../../assets/images/common/defaultProfile.png";
@@ -8,7 +9,6 @@ import EmojiContainer from "./EmojiContainer";
 import SharedContainer from "./SharedContainer";
 import Toast from "../../../ui/toast/Toast";
 import GetRecipientsId from "../../../../services/GetRecipientsId";
-import { useParams } from "react-router-dom";
 
 function PostHead() {
   const [emojiDrop, setEmojiDrop] = useState(false);
@@ -16,6 +16,7 @@ function PostHead() {
   const [urlCopy, setUrlCopy] = useState(false);
   const [timer, setTimer] = useState();
   const [data, setData] = useState();
+  const [reData, setReData] = useState();
 
   const emojiRef = useRef(null);
   const sharedRef = useRef(null);
@@ -25,9 +26,10 @@ function PostHead() {
   const userId = params.id;
 
   // 데이터 불러오기
+  // 이모지 클릭할 때마다 데이터 호출
   useEffect(() => {
     GetRecipientsId(userId, setData);
-  }, []);
+  }, [reData]);
 
   // 클릭 이벤트 영역 외 클릭 시 DropContainer 비활성화
   useEffect(() => {
@@ -121,16 +123,16 @@ function PostHead() {
                 </p>
                 <div className={styles.line}></div>
               </div>
-              <div className={styles.chooseReaction}>
+              <div
+                className={styles.chooseReaction}
+                onClick={handleEmojiDropDown}
+              >
                 {sliceReactions?.length > 0 ? (
                   sliceReactions.map((item) => {
                     return <EmojiBadge key={item.id} item={item} />;
                   })
                 ) : (
-                  <div
-                    className={styles.emptyReactions}
-                    onClick={handleEmojiDropDown}
-                  >
+                  <div className={styles.emptyReactions}>
                     🥲<p>0</p>
                   </div>
                 )}
@@ -140,7 +142,13 @@ function PostHead() {
                   className={emojiDrop ? styles.active : ""}
                   onClick={handleEmojiDropDown}
                 />
-                {emojiDrop && <EmojiContainer emojiRef={emojiRef} />}
+                {emojiDrop && (
+                  <EmojiContainer
+                    emojiRef={emojiRef}
+                    userId={userId}
+                    setReData={setReData}
+                  />
+                )}
               </div>
               <div className={styles.line}></div>
               <div

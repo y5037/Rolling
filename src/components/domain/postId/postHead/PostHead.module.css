@@ -138,16 +138,11 @@
   align-items: center;
   gap: 8px;
   position: relative;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     flex: 1;
   }
-}
-.chooseReaction > div {
-  transition: 0.2s;
-}
-.chooseReaction > div:hover {
-  background: var(--Gray500);
 }
 .chooseReaction img {
   transition: 0.2s;
