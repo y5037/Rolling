@@ -2,7 +2,6 @@ import styled from "styled-components";
 import plus from "../../../assets/images/button/plus.png";
 import check from "../../../assets/images/button/check.png";
 import home from "../../../assets/images/button/home.png";
-import { useNavigate } from "react-router-dom";
 
 const Icon = styled.img`
   width: 24px;
@@ -45,16 +44,21 @@ const RoundButton = styled.button`
   }
 `;
 
-export function PlusButton({ className }) {
+export function PlusButton({ className, onClick }) {
   return (
-    <RoundButton className={className}>
+    <RoundButton
+      className={className}
+      //메세지 작성 이동 클릭 이벤트 추가
+      onClick={(e) => {
+        onClick(e);
+      }}
+    >
       <Icon src={plus} alt="plus button" />
     </RoundButton>
   );
 }
 
 export function HomeButton({ className, handleClick }) {
-
   return (
     <RoundButton className={className} onClick={handleClick}>
       <Icon src={home} alt="home button" />
