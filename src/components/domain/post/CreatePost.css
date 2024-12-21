@@ -60,7 +60,7 @@
 }
 
 /* 여기 수정 필요 */
-.SelectBackground button {
+.BackgroundOptionBtn button {
   color: var(--Gray900);
   background-color: var(--Gray100);
 
@@ -75,7 +75,7 @@
 }
 /* 여기 수정 필요 */
 
-.SelectBackground button.selected {
+.BackgroundOptionBtn button.selected {
   color: var(--Primary);
   background-color: var(--White);
 
@@ -85,7 +85,7 @@
   border: 2px solid var(--Primary);
 }
 
-.BackgoundOption {
+.BackgroundOption {
   display: flex;
 
   gap: 18px;
@@ -108,4 +108,17 @@
 
 .SubmitBtn:disabled {
   background-color: grey;
+}
+
+.BackgroundForm {
+  width: 100%;
+  position: relative;
+}
+
+.selectBtn {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
