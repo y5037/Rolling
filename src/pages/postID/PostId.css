@@ -183,3 +183,9 @@
   }
 
 }
+
+#scroll {
+  display: block;
+  text-align: center;
+  /* Center the loading text */
+}

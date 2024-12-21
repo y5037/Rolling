@@ -15,19 +15,19 @@ export default function PostId() {
   //링크이동 
   const navigate = useNavigate();
 
-  const [ref, inView] = useInView();
-  const [page, setPage] = useState(1);
-
-  //홈버튼 클릭 시 메인이동 함수
+  //버튼 링크 이동 함수
   function handleHomeClick() {
     navigate("/");
   }
 
-  //홈버튼 클릭 시 메인이동 함수
+  //버튼 링크 이동 함수
   function handleMessageClick() {
     navigate(`/post/${id}/message`);
   }
 
+  //무한스크롤
+  const [ref, inView] = useInView();
+  const [page, setPage] = useState(1);
 
   //리스트페이지 파라미터
   const { id } = useParams();
@@ -76,6 +76,7 @@ export default function PostId() {
 
   }, [])
 
+  //무한스크롤
   useEffect(() => {
 
     if (inView && !loading) {
@@ -137,15 +138,15 @@ export default function PostId() {
             }
           </div>
 
-          <div id="scroll" ref={ref} />
-          {loading && <p>로딩중</p>}
+          <div id="scroll" ref={ref}>
+          </div>
 
         </div>
       </div>
 
       <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li><HomeButton className="homeBtn" handleClick={handleHomeClick} /></li>
-        <li><PlusButton className="addBtn" onClick={handleMessageClick} /></li>
+        <li><HomeButton className="homeBtn" handleHomeClick={handleHomeClick} /></li>
+        <li><PlusButton className="addBtn" handleMessageClick={handleMessageClick} /></li>
       </ul>
 
     </>
