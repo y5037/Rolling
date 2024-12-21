@@ -31,10 +31,10 @@ const Badge = styled.div`
       return type.type4;
     }
   }};
-  padding: 5px 15px;
+  padding: 3px 15px;
   border-radius: 4px;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 400;
   display: inline-block;
   text-align: center;
 `;

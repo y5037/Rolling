@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Color = {
-  orange: "var(--Beige100)",
+  beige: "var(--Beige100)",
   purple: "var(--Purple200)",
   blue: "var(--Blue200)",
   green: "var(--Green200)",
@@ -20,7 +20,7 @@ const PostBackground = styled.button`
   background-repeat: no-repeat;
 
   border-radius: 16px;
-  border: 1px solid none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   }
 `;
 

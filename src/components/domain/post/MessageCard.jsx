@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import defaultImage from "../../../assets/images/common/defaultProfile.png";
-import Badge from "../../ui/badge/Badge";
+import Badge from "../../ui/badge/Relation";
 
 const Container = styled.div`
   width: 384px;
@@ -9,7 +9,6 @@ const Container = styled.div`
   background-color: var(--White);
 
   border-radius: 16px;
-  }
 `;
 
 const MessageCardTop = styled.div`
@@ -80,26 +79,38 @@ const MessageCreateAt = styled.p`
   margin: 16px 24px 16px 24px;
 `;
 
-function MessageCard({ image }) {
+function MessageCard({ post }) {
   return (
     <Container>
-      <MessageCardTop>
-        <MessageCardProfile src={image || defaultImage} alt="프로필 이미지" />
+      <MessageCardTop className="messageCardTop">
+        <MessageCardProfile src={post.profileImageURL || defaultImage} alt="프로필 이미지" />
         <MessageSenderForm>
           <MessageSenderInfo>
             <MessageFrom>From.</MessageFrom>
-            <MessageSender>박인건</MessageSender>
+            <MessageSender>{post.sender}</MessageSender>
           </MessageSenderInfo>
-          <Badge></Badge>
+          <Badge
+            $value={
+              post.relationship === "가족"
+                ? "type3"
+                : post.relationship === "친구"
+                  ? "type4"
+                  : post.relationship === "지인" || post.relationship === "동료"
+                    ? "type1"
+                    : "type2"
+            }
+          >
+            {post.relationship}
+          </Badge>
         </MessageSenderForm>
       </MessageCardTop>
-      <MessageContent>
-        (테스트용) 자바스크립트 말줄임 처리 필요!!! 자바스크립트 말줄임 처리
-        필요!!! 자바스크립트 말줄임 처리 필요!!!
-        (테스트용)11111111aaaaaaㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ!!!!!
+      <MessageContent className="messageContent">
+        {post.content}
       </MessageContent>
-      <MessageCreateAt>2024.01.01</MessageCreateAt>
-    </Container>
+      <MessageCreateAt className="messageDate">
+        {new Date(post.createdAt).toLocaleDateString('ko-KR')}
+      </MessageCreateAt>
+    </Container >
   );
 }
 
