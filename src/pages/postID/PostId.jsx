@@ -9,6 +9,7 @@ import { API_URL } from "../../constant/VariableSettings";
 import { useInView } from 'react-intersection-observer';
 
 import "./PostId.css";
+import Loading from "../../components/ui/loading/Loading";
 
 export default function PostId() {
 
@@ -37,8 +38,9 @@ export default function PostId() {
 
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
+
+  //로딩 상태관리
   const [loading, setLoading] = useState(true);
-  console.log(recentMessages)
 
   //데이터 불러오기
   useEffect(() => {
@@ -52,7 +54,11 @@ export default function PostId() {
       } catch (error) {
         console.error('error: ', error);
       } finally {
-        setLoading(false);
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 700);
+
+        return () => clearTimeout(timer);
       }
 
     }
@@ -97,9 +103,9 @@ export default function PostId() {
             {
 
               loading ? (
-                <p>
-                  로딩중
-                </p>
+
+                <Loading />
+
               ) :
                 recentMessages.length > 0 ? (
                   <>
