@@ -4,6 +4,7 @@ import iconTrashImg from "../../../assets/images/modal/trash.svg";
 import RelationBadge from "../badge/Relation";
 import DeleteIconButton from "../button/DeleteIconButton";
 import PrimaryButton from "../button/PrimaryButton";
+import DeleteMessage from "../../../services/DeleteMessage";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -131,9 +132,25 @@ const BtnTrash = styled(DeleteIconButton)`
   margin-top: -5px;
 `;
 
-const Modal = () => {
+const Modal = ({
+  id = "",
+  sender = "",
+  profileImageURL = "",
+  relationship = "",
+  content = "",
+  createdAt = "",
+}) => {
   const currentDate = new Date().toLocaleDateString();
   const date = currentDate.slice(0, 12);
+
+  const handleDeleteClick = async () => {
+    console.log("======");
+    console.log(id);
+    console.log("======");
+    let messageId = id;
+    const response = await DeleteMessage({ messageId });
+  };
+
   return (
     <>
       <Backdrop />
@@ -141,29 +158,33 @@ const Modal = () => {
         <ModalHead>
           <HeadLeft>
             <ProfileImgContainer>
-              <ProfileImg />
+              <ProfileImg src={profileImageURL} />
             </ProfileImgContainer>
             <UserNameContainer>
               <UserName>
-                From. <Strong>김동훈</Strong>
+                From. <Strong>{sender}</Strong>
               </UserName>
-              <RelationBadge $value="type1">동료</RelationBadge>
+              <RelationBadge
+                $value={
+                  relationship === "지인"
+                    ? "type1"
+                    : relationship === "동료"
+                    ? "type2"
+                    : relationship === "가족"
+                    ? "type3"
+                    : "type4"
+                }
+              >
+                {relationship}
+              </RelationBadge>
             </UserNameContainer>
           </HeadLeft>
           <HeadRight>
-            <DateText>{date}</DateText>
-            <BtnTrash />
+            <DateText>{createdAt}</DateText>
+            <BtnTrash onClick={handleDeleteClick} />
           </HeadRight>
         </ModalHead>
-        <ContentText>
-          코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또
-          하세요! 코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심
-          또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두
-          조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력
-          모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강,
-          체력 모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요.
-          건강, 체력 모두 조심 또 하세요!
-        </ContentText>
+        <ContentText>{content}</ContentText>
         <Button>확인</Button>
       </ModalContainer>
     </>
