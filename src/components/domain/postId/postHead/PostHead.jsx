@@ -140,7 +140,7 @@ function PostHead() {
                   src={iconArrowDown}
                   alt="이모티콘 보기"
                   className={emojiDrop ? styles.active : ""}
-                  onClick={handleEmojiDropDown}
+                  // onClick={handleEmojiDropDown}
                 />
                 {emojiDrop && (
                   <EmojiContainer
