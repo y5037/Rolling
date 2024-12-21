@@ -45,24 +45,24 @@ const RoundButton = styled.button`
   }
 `;
 
-export function PlusButton({ className }) {
+export function PlusButton({ className, handleMessageClick }) {
   return (
-    <RoundButton className={className}>
+    <RoundButton className={className} onClick={handleMessageClick}>
       <Icon src={plus} alt="plus button" />
     </RoundButton>
   );
 }
 
-export function HomeButton({ className, handleClick }) {
+export function HomeButton({ className, handleHomeClick }) {
 
   return (
-    <RoundButton className={className} onClick={handleClick}>
+    <RoundButton className={className} onClick={handleHomeClick}>
       <Icon src={home} alt="home button" />
     </RoundButton>
   );
 }
 
-export function CheckButton({ className }) {
+export function CheckButton({ className, }) {
   return (
     <RoundButton className={className}>
       <Icon src={check} alt="check button" />
