@@ -53,10 +53,10 @@ export function PlusButton({ className }) {
   );
 }
 
-export function HomeButton({ className, handleClick }) {
+export function HomeButton({ className, handleHomeClick }) {
 
   return (
-    <RoundButton className={className} onClick={handleClick}>
+    <RoundButton className={className} onClick={handleHomeClick}>
       <Icon src={home} alt="home button" />
     </RoundButton>
   );

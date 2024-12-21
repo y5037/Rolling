@@ -1,22 +1,33 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
 import { API_URL } from "../../constant/VariableSettings";
+import { useInView } from 'react-intersection-observer';
 
 import "./PostId.css";
 
 export default function PostId() {
 
+  //링크이동 
   const navigate = useNavigate();
 
+  const [ref, inView] = useInView();
+  const [page, setPage] = useState(1);
+
   //홈버튼 클릭 시 메인이동 함수
-  function handleClick() {
+  function handleHomeClick() {
     navigate("/");
   }
+
+  //홈버튼 클릭 시 메인이동 함수
+  function handleMessageClick() {
+    navigate(`/post/${id}/message`);
+  }
+
 
   //리스트페이지 파라미터
   const { id } = useParams();
@@ -27,34 +38,28 @@ export default function PostId() {
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(recentMessages)
 
   //데이터 불러오기
   useEffect(() => {
 
     async function getRecipients() {
       try {
-        const response = await fetch(`${API_URL}/12-4/recipients/?results=${id}`);
+        const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?page=${page}`);
         const result = await response.json();
-
-        const recipient = result.results.find((rec) => rec.id === parseInt(id));
-
-        if (recipient && recipient.recentMessages) {
-          setRecentMessages(recipient.recentMessages);
-        } else {
-          setRecentMessages([]);
-        }
+        setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
 
       } catch (error) {
         console.error('error: ', error);
       } finally {
-        setLoading(false); // 데이터 로딩 완료 후 로딩 상태 해제
+        setLoading(false);
       }
 
     }
 
     getRecipients();
 
-  }, [id]);
+  }, [id, page]);
 
   //스크롤이벤트
   useEffect(() => {
@@ -71,6 +76,14 @@ export default function PostId() {
 
   }, [])
 
+  useEffect(() => {
+
+    if (inView && !loading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+
+  }, [inView, loading])
+
   return (
     <>
       <Navigation />
@@ -83,7 +96,7 @@ export default function PostId() {
 
               loading ? (
                 <p>
-                  로딩 중
+                  로딩중
                 </p>
               ) :
                 recentMessages.length > 0 ? (
@@ -94,19 +107,27 @@ export default function PostId() {
                       </PrimaryButton>
                     </div>
 
-                    <ul className="postMessageList">
+                    <div className="postMessageList">
+
+                      <div className="postMessageBox first">
+                        <Link to={`/post/${id}/message`}>
+                          <div className="LinkIcon">
+                            <span className="blind"></span>
+                          </div>
+                        </Link>
+                      </div>
 
                       {
                         recentMessages.map((post, i) => {
                           return (
-                            <li key={i}>
+                            <div className="postMessageBox" key={i}>
                               <MessageCard post={post} />
-                            </li>
+                            </div>
                           )
                         })
                       }
 
-                    </ul>
+                    </div>
                   </>
                 ) : (
                   <p>
@@ -115,12 +136,16 @@ export default function PostId() {
                 )
             }
           </div>
+
+          <div id="scroll" ref={ref} />
+          {loading && <p>로딩중</p>}
+
         </div>
       </div>
 
       <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li><HomeButton className="homeBtn" handleClick={handleClick} /></li>
-        <li><PlusButton className="addBtn" /></li>
+        <li><HomeButton className="homeBtn" handleClick={handleHomeClick} /></li>
+        <li><PlusButton className="addBtn" onClick={handleMessageClick} /></li>
       </ul>
 
     </>
