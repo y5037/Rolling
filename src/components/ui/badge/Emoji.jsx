@@ -22,7 +22,7 @@ const EmojiContainer = styled.div`
 `;
 
 function Emoji({ item }) {
-  const { emoji, count } = item;
+  const { emoji, count } = item ?? {};
   return (
     <EmojiContainer>
       <EmojiIcon>{emoji}</EmojiIcon>

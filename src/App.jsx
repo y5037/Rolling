@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
 import GlobalStyle from "./styles/GlobalStyle";
 import ListPage from "./pages/list/ListPage";
+import PostHead from "./components/domain/postId/postHead/PostHead";
 
 function App() {
   return (
@@ -12,6 +13,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/list" element={<ListPage />} />
+          <Route />
+          <Route path="/post">
+            <Route path=":id" element={<PostHead />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

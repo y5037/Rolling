@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+import Navigation from "../../components/ui/nav/Navigation";
+import CreatePost from "../../components/domain/post/CreatePost";
+
+function PostPage() {
+  return (
+    <>
+      <Navigation hide />
+      <CreatePost />
+=======
 import { useEffect, useState } from "react";
 import GetPostCard from "../../../services/GetRecipients";
 import "./ViewPost.css";
@@ -42,6 +52,7 @@ function PostPage() {
           </div>
         </div>
       ))}
+>>>>>>> feature/listPage
     </>
   );
 }
