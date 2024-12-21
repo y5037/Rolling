@@ -10,7 +10,6 @@ import { API_URL } from "../../constant/VariableSettings";
 import "./PostId.css";
 
 export default function PostId() {
-
   const navigate = useNavigate();
 
   //홈버튼 클릭 시 메인이동 함수
@@ -30,10 +29,11 @@ export default function PostId() {
 
   //데이터 불러오기
   useEffect(() => {
-
     async function getRecipients() {
       try {
-        const response = await fetch(`${API_URL}/12-4/recipients/?results=${id}`);
+        const response = await fetch(
+          `${API_URL}/12-4/recipients/?results=${id}`
+        );
         const result = await response.json();
 
         const recipient = result.results.find((rec) => rec.id === parseInt(id));
@@ -43,33 +43,37 @@ export default function PostId() {
         } else {
           setRecentMessages([]);
         }
-
       } catch (error) {
-        console.error('error: ', error);
+        console.error("error: ", error);
       } finally {
         setLoading(false); // 데이터 로딩 완료 후 로딩 상태 해제
       }
-
     }
 
     getRecipients();
-
   }, [id]);
 
   //스크롤이벤트
   useEffect(() => {
-
     const scrollEvent = function scrollShowEvent() {
       if (window.scrollY > 50) {
         setBtnShow(true);
       } else {
         setBtnShow(false);
       }
+    };
+
+    window.addEventListener("scroll", scrollEvent);
+  }, []);
+
+  // 메시지 작성 페이지 이동 함수
+  function handleNavigateToPostMessage() {
+    if (!id) {
+      console.error("Recipient ID가 전달되지 않았습니다");
+      return;
     }
-
-    window.addEventListener('scroll', scrollEvent);
-
-  }, [])
+    navigate(`/post/${id}/messages/`);
+  }
 
   return (
     <>
@@ -78,52 +82,49 @@ export default function PostId() {
       <div className="postBodyWrap">
         <div className="container">
           <div className="postBodyBox">
+            {loading ? (
+              <p>로딩 중</p>
+            ) : recentMessages.length > 0 ? (
+              <>
+                <div className="buttonContainer">
+                  <PrimaryButton className="delBtn">
+                    롤링페이퍼 삭제하기
+                  </PrimaryButton>
+                </div>
 
-            {
+                <ul className="postMessageList">
+                  {recentMessages.map((post, i) => {
+                    return (
+                      <li key={i}>
+                        <MessageCard post={post} />
+                      </li>
+                    );
+                  })}
+                </ul>
 
-              loading ? (
-                <p>
-                  로딩 중
-                </p>
-              ) :
-                recentMessages.length > 0 ? (
-                  <>
-                    <div className="buttonContainer">
-                      <PrimaryButton className="delBtn">
-                        롤링페이퍼 삭제하기
-                      </PrimaryButton>
-                    </div>
-
-                    <ul className="postMessageList">
-
-                      {
-                        recentMessages.map((post, i) => {
-                          return (
-                            <li key={i}>
-                              <MessageCard post={post} />
-                            </li>
-                          )
-                        })
-                      }
-
-                    </ul>
-                  </>
-                ) : (
-                  <p>
-                    데이터가 없습니다.
-                  </p>
-                )
-            }
+                <PrimaryButton onClick={handleNavigateToPostMessage}>
+                  메시지 작성하기
+                </PrimaryButton>
+              </>
+            ) : (
+              <p>데이터가 없습니다.</p>
+            )}
           </div>
         </div>
       </div>
 
-      <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li><HomeButton className="homeBtn" handleClick={handleClick} /></li>
-        <li><PlusButton className="addBtn" /></li>
+      <ul className={`linkList ${btnShow ? "active" : ""}`}>
+        <li>
+          <HomeButton className="homeBtn" handleClick={handleClick} />
+        </li>
+        {/* 메세지 작성 페이지 이동 */}
+        <li>
+          <PlusButton
+            className="addBtn"
+            onClick={handleNavigateToPostMessage}
+          />
+        </li>
       </ul>
-
     </>
-  )
-
+  );
 }
