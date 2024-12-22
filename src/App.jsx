@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/main/MainPage";
 import GlobalStyle from "./styles/GlobalStyle";
 import ListPage from "./pages/list/ListPage";
-import PostHead from "./components/domain/postId/postHead/PostHead";
 
 function App() {
   return (
