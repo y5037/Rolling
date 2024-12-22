@@ -14,9 +14,6 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/list" element={<ListPage />} />
           <Route />
-          <Route path="/post">
-            <Route path=":id" element={<PostHead />} />
-          </Route>
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

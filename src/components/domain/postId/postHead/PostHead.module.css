@@ -209,16 +209,12 @@
 .emojiContainer {
   width: calc(100vw * (450 / 1200));
   max-width: 320px;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  gap: 10px 3%;
   position: absolute;
   top: 50px;
   right: 0;
-  padding: 24px;
+  padding: 15px 24px 24px;
   border-radius: 8px;
-  border: 1px solid var(--Gray400);
+  border: 1px solid var(--Gray200);
   background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
 
@@ -232,6 +228,12 @@
     min-width: 280px;
   }
 }
+.emojiContainer ul {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  gap: 10px 3%;
+}
 .emojiContainer li {
   width: 22%;
   height: 36px;
@@ -240,12 +242,18 @@
   justify-content: center;
   border-radius: 32px;
   align-items: center;
-  /* background: rgba(0, 0, 0, 0.54); */
+  background: rgba(0, 0, 0, 0.45);
   color: var(--White);
   cursor: pointer;
   transition: 0.2s;
-  font-size: 25px;
+  font-size: 20px;
   position: relative;
+  color: var(--White);
+  font-weight: 400;
+  font-size: 16px;
+}
+.emojiContainer li p:first-child {
+  margin-right: 2px;
 }
 .emojiContainer li:hover {
   background: var(--Gray500);
@@ -273,6 +281,13 @@
     transform: translate3d(0, 0, 0);
   }
 } */
+.emojiContainer .textBox {
+  -webkit-display: flex;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--Gray400);
+}
 
 /* SharedContainer */
 .sharedContainer {
@@ -281,11 +296,11 @@
   top: 50px;
   min-width: max-content;
   border-radius: 8px;
-  border: 1px solid var(--Gray400);
+  border: 1px solid var(--Gray200);
   background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
   overflow: hidden;
-  color: var(--Gray900);
+  color: var(--Gray500);
   font-weight: 400;
 }
 .sharedContainer li {
@@ -294,4 +309,7 @@
 }
 .sharedContainer li:hover {
   background: var(--Gray100);
+}
+.sharedContainer li img {
+  width: 50px;
 }

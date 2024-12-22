@@ -271,7 +271,6 @@ function PostCard({ item }) {
               {sliceMessages.length > 0 ? (
                 sliceMessages.map((item) => {
                   const { id, profileImageURL } = item;
-                  console.log(id);
                   return (
                     <React.Fragment key={id}>
                       <PostCardProfileImage>

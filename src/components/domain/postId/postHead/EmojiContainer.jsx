@@ -1,22 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./PostHead.module.css";
 import PostReactions from "../../../../services/PostReactions";
 import GetReactions from "../../../../services/GetReactions";
 
-function EmojiContainer({
-  emojiRef,
-  userId,
-  countRendering,
-  setCountRendering,
-}) {
-  const emojiButton = ["👍", "😍", "🎉", "😅", "🥹", "👻", "🥴", "👿"];
+function EmojiContainer({ emojiRef, userId, setCountRendering }) {
+  const EMOJI_BUTTON = [
+    { emoji: "👍", count: 0 },
+    { emoji: "😍", count: 0 },
+    { emoji: "🥴", count: 0 },
+    { emoji: "😅", count: 0 },
+    { emoji: "🥹", count: 0 },
+    { emoji: "🎉", count: 0 },
+    { emoji: "👻", count: 0 },
+    { emoji: "👿", count: 0 },
+  ];
 
   const [isReaction, setIsReactions] = useState();
   const [countBadge, setCountBadge] = useState();
   const [isEmoji, setIsEmoji] = useState();
 
   const handleEmojiClick = (i) => {
-    setIsReactions(emojiButton[i]);
+    setIsReactions(EMOJI_BUTTON[i].emoji);
   };
 
   const handleGetCount = async (options) => {
@@ -24,18 +28,10 @@ function EmojiContainer({
       const response = await GetReactions(options);
       const { results } = response;
       setIsEmoji(results);
-      console.log(results);
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    handleGetCount({
-      userId,
-      isCount: isEmoji,
-    });
-  }, [isReaction]);
 
   const handleUpdate = async (options) => {
     try {
@@ -48,6 +44,10 @@ function EmojiContainer({
   };
 
   useEffect(() => {
+    handleGetCount({
+      userId,
+      isCount: isEmoji,
+    });
     isReaction &&
       handleUpdate({
         userId,
@@ -55,44 +55,44 @@ function EmojiContainer({
       });
   }, [isReaction]);
 
-  console.log(isEmoji);
-
   return (
-    <ul className={styles.emojiContainer} ref={emojiRef}>
-      {emojiButton.map((item, i) => {
-        return (
-          <li
-            key={i}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEmojiClick(i);
-              setCountBadge(i);
-              setCountRendering("");
-            }}
-          >
-            <p className={styles.emoji}>{item}</p>
-            {/* {countBadge === i && (
+    <div className={styles.emojiContainer} ref={emojiRef}>
+      <div className={styles.textBox}>Smileys & People</div>
+      <ul>
+        {EMOJI_BUTTON.map((item, i) => {
+          let { emoji, count } = item;
+          return (
+            <li
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEmojiClick(i);
+                setCountBadge(i);
+                setCountRendering("");
+              }}
+            >
+              <p className={styles.emoji}>{emoji}</p>
+              {/* {countBadge === i && (
               <> */}
-            {/* 해당 key값은 리렌더링을 위한 임시 값 */}
-            {/* <div key={isReaction} className={styles.fadeBadge}>
+              {/* 해당 key값은 리렌더링을 위한 임시 값 */}
+              {/* <div key={isReaction} className={styles.fadeBadge}>
                   {countRendering?.count}
                 </div> */}
-            {/* </> */}
-            {/* )} */}
-            {isEmoji &&
-              isEmoji.map((emoji) => {
-                return (
-                  <>
-                    {item === emoji.emoji && (
-                      <p key={emoji?.id}>{emoji.count}</p>
-                    )}
-                  </>
-                );
-              })}
-          </li>
-        );
-      })}
-    </ul>
+              {/* </> */}
+              {/* )} */}
+              <p>
+                {isEmoji?.map((item) => {
+                  if (emoji === item.emoji) {
+                    count += item.count;
+                  }
+                })}
+                {count}
+              </p>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 
