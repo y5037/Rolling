@@ -6,8 +6,9 @@ import GetMessages from "../../../services/GetMessages";
 // 모달의 뒷 배경 블러처리 후 스크롤 비활성화
 // API 호출하여 모달에 데이터 추가
 
-function MessageModal({ messageId = 16746 }) {
+function MessageModal({ messageId = 16782 }) {
   const [data, setData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLoadMessages = async () => {
     try {
@@ -30,6 +31,15 @@ function MessageModal({ messageId = 16746 }) {
 
   const handleClick = () => {
     handleLoadMessages(messageId);
+    setIsModalOpen(true);
+  };
+
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -37,7 +47,7 @@ function MessageModal({ messageId = 16746 }) {
       <button style={{ width: "100px", height: "100px" }} onClick={handleClick}>
         클릭
       </button>
-      {data ? (
+      {isModalOpen && data ? (
         <Modal
           id={messageId}
           sender={data.sender}
@@ -45,10 +55,9 @@ function MessageModal({ messageId = 16746 }) {
           relationship={data.relationship}
           createdAt={data.createdAt}
           content={data.content}
+          onClose={handleCloseModal}
         ></Modal>
-      ) : (
-        <Modal content="데이터를 가져오지 못했습니다."></Modal>
-      )}
+      ) : null}
     </>
   );
 }
