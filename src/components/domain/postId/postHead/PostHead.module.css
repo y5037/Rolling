@@ -254,13 +254,13 @@
   margin-right: 3px;
 } */
 .emojiContainer li .fadeBadge {
-  position: absolute;
+  /* position: absolute;
   right: 0;
-  top: -20px;
-  opacity: 0;
-  animation: fadeUp 1s ease-in;
+  top: -20px; */
+  /* opacity: 0; */
+  /* animation: fadeUp 1s ease-in; */
 }
-@keyframes fadeUp {
+/* @keyframes fadeUp {
   0% {
     opacity: 0;
     transform: translate3d(0, 20%, 0);
@@ -272,7 +272,7 @@
     opacity: 0;
     transform: translate3d(0, 0, 0);
   }
-}
+} */
 
 /* SharedContainer */
 .sharedContainer {
