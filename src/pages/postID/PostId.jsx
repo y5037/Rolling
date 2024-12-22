@@ -1,22 +1,34 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
 import { API_URL } from "../../constant/VariableSettings";
+import { useInView } from 'react-intersection-observer';
 
 import "./PostId.css";
+import Loading from "../../components/ui/loading/Loading";
 
 export default function PostId() {
 
+  //링크이동 
   const navigate = useNavigate();
 
-  //홈버튼 클릭 시 메인이동 함수
-  function handleClick() {
+  //버튼 링크 이동 함수
+  function handleHomeClick() {
     navigate("/");
   }
+
+  //버튼 링크 이동 함수
+  function handleMessageClick() {
+    navigate(`/post/${id}/message`);
+  }
+
+  //무한스크롤
+  const [ref, inView] = useInView();
+  const [page, setPage] = useState(1);
 
   //리스트페이지 파라미터
   const { id } = useParams();
@@ -26,6 +38,8 @@ export default function PostId() {
 
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
+
+  //로딩 상태관리
   const [loading, setLoading] = useState(true);
 
   //데이터 불러오기
@@ -33,43 +47,50 @@ export default function PostId() {
 
     async function getRecipients() {
       try {
-        const response = await fetch(`${API_URL}/12-4/recipients/?results=${id}`);
+        const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?page=${page}`);
         const result = await response.json();
-
-        const recipient = result.results.find((rec) => rec.id === parseInt(id));
-
-        if (recipient && recipient.recentMessages) {
-          setRecentMessages(recipient.recentMessages);
-        } else {
-          setRecentMessages([]);
-        }
+        setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
 
       } catch (error) {
         console.error('error: ', error);
       } finally {
-        setLoading(false); // 데이터 로딩 완료 후 로딩 상태 해제
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 700);
+
+        return () => clearTimeout(timer);
       }
 
     }
 
     getRecipients();
 
-  }, [id]);
+  }, [id, page]);
 
   //스크롤이벤트
   useEffect(() => {
 
-    const scrollEvent = function scrollShowEvent() {
-      if (window.scrollY > 50) {
-        setBtnShow(true);
-      } else {
-        setBtnShow(false);
+    if (recentMessages.length > 0) {
+      const scrollEvent = function scrollShowEvent() {
+        if (window.scrollY > 50) {
+          setBtnShow(true);
+        } else {
+          setBtnShow(false);
+        }
       }
+      window.addEventListener('scroll', scrollEvent);
     }
 
-    window.addEventListener('scroll', scrollEvent);
+  }, [recentMessages])
 
-  }, [])
+  //무한스크롤
+  useEffect(() => {
+
+    if (inView && !loading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+
+  }, [inView, loading])
 
   return (
     <>
@@ -82,9 +103,9 @@ export default function PostId() {
             {
 
               loading ? (
-                <p>
-                  로딩 중
-                </p>
+
+                <Loading />
+
               ) :
                 recentMessages.length > 0 ? (
                   <>
@@ -94,19 +115,27 @@ export default function PostId() {
                       </PrimaryButton>
                     </div>
 
-                    <ul className="postMessageList">
+                    <div className="postMessageList">
+
+                      <div className="postMessageBox first">
+                        <Link to={`/post/${id}/message`}>
+                          <div className="LinkIcon">
+                            <span className="blind"></span>
+                          </div>
+                        </Link>
+                      </div>
 
                       {
                         recentMessages.map((post, i) => {
                           return (
-                            <li key={i}>
+                            <div className="postMessageBox" key={i}>
                               <MessageCard post={post} />
-                            </li>
+                            </div>
                           )
                         })
                       }
 
-                    </ul>
+                    </div>
                   </>
                 ) : (
                   <p>
@@ -115,12 +144,16 @@ export default function PostId() {
                 )
             }
           </div>
+
+          <div id="scroll" ref={ref}>
+          </div>
+
         </div>
       </div>
 
       <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li><HomeButton className="homeBtn" handleClick={handleClick} /></li>
-        <li><PlusButton className="addBtn" /></li>
+        <li><HomeButton className="homeBtn" handleHomeClick={handleHomeClick} /></li>
+        <li><PlusButton className="addBtn" handleMessageClick={handleMessageClick} /></li>
       </ul>
 
     </>
