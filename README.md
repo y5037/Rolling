@@ -72,11 +72,11 @@ $ npm start
 
 <br/>
 
-## 4.3 Backend
+## 4.3 Release
 
 |      |                                                                                                                    |     |
 | ---- | ------------------------------------------------------------------------------------------------------------------ | --- |
-| Vercel | <img src="https://github.com/user-attachments/assets/eec05496-7033-447b-917c-9e3182f5a11f" alt="Vercel" width="100"> | 39.2.2 |
+| Vercel | <img src="https://github.com/user-attachments/assets/eec05496-7033-447b-917c-9e3182f5a11f" alt="Vercel" width="192"> | 39.2.2 |
 
 <br/>
 
