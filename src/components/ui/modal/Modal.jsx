@@ -139,6 +139,7 @@ const Modal = ({
   relationship = "",
   content = "",
   createdAt = "",
+  onClose,
 }) => {
   const currentDate = new Date().toLocaleDateString();
   const date = currentDate.slice(0, 12);
@@ -151,9 +152,13 @@ const Modal = ({
     const response = await DeleteMessage({ messageId });
   };
 
+  const handleConfirmClick = async () => {
+    if (onClose) onClose(); // 부모의 상태를 업데이트하여 모달 닫기
+  };
+
   return (
     <>
-      <Backdrop />
+      <Backdrop onClick={onClose} />
       <ModalContainer>
         <ModalHead>
           <HeadLeft>
@@ -185,7 +190,7 @@ const Modal = ({
           </HeadRight>
         </ModalHead>
         <ContentText>{content}</ContentText>
-        <Button>확인</Button>
+        <Button onClick={handleConfirmClick}>확인</Button>
       </ModalContainer>
     </>
   );
