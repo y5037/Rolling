@@ -6,13 +6,12 @@ import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
 import { API_URL } from "../../constant/VariableSettings";
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 
 import "./PostId.css";
 import Loading from "../../components/ui/loading/Loading";
 
 export default function PostId() {
-
   const navigate = useNavigate();
 
   //버튼 링크 이동 함수
@@ -93,7 +92,6 @@ export default function PostId() {
     navigate(`/post/${id}/messages/`);
   }
 
-
   return (
     <>
       <Navigation />
@@ -130,14 +128,12 @@ export default function PostId() {
             )}
           </div>
 
-          <div id="scroll" ref={ref}>
-          </div>
-
+          <div id="scroll" ref={ref}></div>
         </div>
       </div>
       <ul className={`linkList ${btnShow ? "active" : ""}`}>
         <li>
-          <HomeButton className="homeBtn" handleClick={handleClick} />
+          <HomeButton className="homeBtn" handleClick={handleHomeClick} />
         </li>
         {/* 메세지 작성 페이지 이동 */}
         <li>
