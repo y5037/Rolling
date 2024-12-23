@@ -1,4 +1,4 @@
-import CreateMain from "../../components/domain/main/CrateMain";
+import CreateMain from "../../components/domain/main/CreateMain";
 
 function MainPage() {
   return (

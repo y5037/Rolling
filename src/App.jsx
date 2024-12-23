@@ -14,10 +14,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/post" element={<CreatePage />} />
           <Route path="/list" element={<ListPage />} />
-          <Route path="/post/:id" element={<PostId />} />
-          <Route path="/post/:id/messages/" element={<PostMessage />} />
+          <Route path="/post/">
+            <Route index element={<CreatePage />} />
+            <Route path=":id" element={<PostId />} />
+            <Route path=":id/messages/" element={<PostMessage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
