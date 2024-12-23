@@ -1,9 +1,3 @@
-.carouselContainer {
-  @media (max-width: 1248px) {
-    max-width: fit-content !important;
-    padding: 0 !important;
-  }
-}
 .contents {
   -webkit-display: flex;
   display: flex;
@@ -11,6 +5,7 @@
   flex-direction: column;
   height: calc(env(safe-area-inset-bottom) + 100vh - 64px);
   margin-top: 64px;
+  min-width: 100%;
 }
 .secTitle {
   margin: 50px 0 15px;
@@ -23,7 +18,7 @@
   }
 }
 .section {
-  min-height: 320px;
+  min-width: 100%;
 }
 .section2 {
   @media (max-width: 1000px) {
