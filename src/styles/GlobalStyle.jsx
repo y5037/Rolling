@@ -223,6 +223,7 @@ button {
 /* 가운데영역 */
 .container{
   max-width: 1200px;
+  margin:0 auto;
 
   /* Tablet, Mobile */
    @media (max-width:1248px) {
