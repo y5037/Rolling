@@ -1,4 +1,4 @@
-<a href="#" target="_blank">
+<a href="https://rolling-three.vercel.app/" target="_blank">
 <img width="100%" alt="배너" src="https://github.com/user-attachments/assets/54167b02-19e1-4db7-b2e7-3bcad59dbeae" />
 </a>
 
@@ -11,7 +11,7 @@
 $ npm start
 ```
 
-[서비스 링크](#)
+[서비스 링크](https://rolling-three.vercel.app/)
 
 <br/>
 <br/>
