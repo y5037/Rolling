@@ -1,55 +1,112 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PostBackground from "./PostBackground";
 import GetBackgoundImages from "../../../services/GetBackgroundImages";
+import enableImage from "../../../assets/images/button/enabled.png";
 import "./CreatePost.css";
-import testImage from "../../../assets/images/common/defaultProfile.png";
+import PostRecipients from "../../../services/PostRecipients";
 
 function CreatePost() {
-  const colors = ["orange", "purple", "blue", "green"];
-  // const images = [testImage, testImage, testImage, testImage];
+  // 롤링 페이저 생성 후 페이지 이동을 위함.
+  const navigate = useNavigate();
 
+  // 배경 컬러를 설정하기 위함.
+  const colors = ["beige", "purple", "blue", "green"];
+
+  // 받는 사람 입력을 위함.
   const [name, setName] = useState("");
-  const [isNameStatus, setIsNameStatus] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("color");
-  const [backgroundColor, setBackgroundColor] = useState([]);
-  const [backgroundImage, setBackgroundImage] = useState([]);
 
+  // 받는 사람의 입력값의 따라서 에러 메시지 처리하기 위함.
+  const [isNameStatus, setIsNameStatus] = useState(false);
+
+  // 배경화면(컬러 / 이미지) 선택을 위함.
+  const [selectedOption, setSelectedOption] = useState("color");
+
+  // 배경화면의 설정값을 담기 위함
+  const [background, setBackground] = useState(colors);
+
+  // 배경화면 리스트 중 선택에 따른 체크박스 처리를 위함.
+  const [selectBackgroundColor, setSelectBackgroundColor] = useState(colors[0]);
+  const [selectBackgroundImage, setSelectBackgroundImage] = useState("");
+
+  // 이름 입력에 대한 이벤트 처리
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const handleOptionClick = (value) => {
-    setSelectedOption(value);
-  };
-
-  // const clickBackgroundOption = async (e) => {
-  //   setBackgroundOption(e.target.value);
-  //   const setBackgroundOption = await GetBackgoundImages();
-  // };
-
-  // const GetBackgoundValue = () => {
-  //   setBackgroundValue(backgroundOption);
-  // };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(name);
-  };
-
+  // 포커스 아웃 시 "받는 사람" 입력값 체크를 위함.
   const handleBlur = () => {
     setIsNameStatus(true);
   };
 
-  // useEffect(() => {
-  //   if (backgroundOption === "color") {
-  //     setBackgroundValue(colors);
-  //   } else if (backgroundOption === "image") {
-  //     setBackgroundValue(images);
-  //   }
-  // }, [backgroundOption]);
+  // 배경화면 옵션(컬러, 이미지) 클릭 처리
+  const handleOptionClick = (value) => {
+    setSelectedOption(value);
+    if (value === "color") {
+      setSelectBackgroundColor(colors[0]);
+      setSelectBackgroundImage("");
+    } else if (value === "image") {
+      setSelectBackgroundColor("");
+      handleLoadbackgroundImages();
+    }
+  };
+
+  // 설정할 배경화면 클릭 처리 (컬러, 이미지)
+  const handleBackgroundClick = (value) => {
+    if (selectedOption === "color") {
+      // console.log("배경 컬러 선택 시: ", value);
+      setSelectBackgroundColor(value);
+    } else if (selectedOption === "image") {
+      // console.log("배경 이미지 선택 시: ", value);
+      setSelectBackgroundImage(value);
+    }
+  };
+
+  // 배경화면을 [이미지]로 선택할 때 API로 데이터를 불러와서 노출.
+  const handleLoadbackgroundImages = async () => {
+    try {
+      const response = await GetBackgoundImages();
+      setBackground(response.imageUrls);
+      setSelectBackgroundImage(response.imageUrls[0]);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  // 선택되는 배경 옵션에 따라서 변경하기 위함.
+  useEffect(() => {
+    setBackground(colors);
+  }, [selectedOption]);
+
+  // [생성하기] 버튼 클릭 시 Post API 동작을 위함.
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let backgroundColor = "";
+    let backgroundImageURL = "";
+    let createPostResponse = "";
+    // console.log("submit 결과: ", name);
+    if (selectedOption === "color") {
+      backgroundColor = selectBackgroundColor;
+      // console.log("submit 배경 결과: ", backgroundColor);
+      createPostResponse = await PostRecipients({
+        name,
+        backgroundColor,
+      });
+    } else if (selectedOption === "image") {
+      backgroundImageURL = selectBackgroundImage;
+      // console.log("submit 배경 결과: ", backgroundImageURL);
+      createPostResponse = await PostRecipients({
+        name,
+        backgroundImageURL,
+      });
+    }
+
+    navigate(`/post/${createPostResponse.id}`);
+  };
 
   return (
-    <form className="Container" onSubmit={handleSubmit}>
+    <div className="Container">
       <div className="Content">
         <div className="RecieverInfo">
           <h2 className="RecieverTo">To.</h2>
@@ -70,7 +127,7 @@ function CreatePost() {
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </p>
         </div>
-        <div className="SelectBackground">
+        <div className="BackgroundOptionBtn">
           <button
             className={`ColorBackgroundBtn ${
               selectedOption === "color" ? "selected" : ""
@@ -92,18 +149,35 @@ function CreatePost() {
             이미지
           </button>
         </div>
-        <div className="BackgoundOption">
-          {colors.map((color) => (
-            <PostBackground key={color} option="color" value={color} />
+        <div className="BackgroundOption">
+          {background.map((bg) => (
+            <div className="BackgroundForm" key={bg}>
+              <PostBackground
+                className={`Background ${
+                  (selectedOption === "color" &&
+                    selectBackgroundColor === bg) ||
+                  (selectedOption === "image" && selectBackgroundImage === bg)
+                    ? "selected"
+                    : ""
+                }`}
+                option={selectedOption}
+                value={bg}
+                onClick={() => handleBackgroundClick(bg)}
+              />
+              {(selectBackgroundColor === bg ||
+                selectBackgroundImage === bg) && (
+                <img className="selectBtn" src={enableImage} alt="Selected" />
+              )}
+            </div>
           ))}
         </div>
-        <div className="CreateButton">
+        <form className="CreateButton" onSubmit={handleSubmit}>
           <button className="SubmitBtn" type="submit" disabled={!name.trim()}>
             생성하기
           </button>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 }
 

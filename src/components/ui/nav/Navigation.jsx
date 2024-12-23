@@ -39,7 +39,7 @@ const NavigationBar = styled.div`
   border-bottom: 1px solid var(--Gray300);
   z-index: 1;
   box-sizing: border-box;
-  background: var(--White);
+  background-color: var(--White);
 `;
 
 function Navigation({ $hide }) {

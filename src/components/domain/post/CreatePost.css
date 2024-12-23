@@ -14,6 +14,15 @@
 
   margin-top: 65px;
   padding: 57px 24px;
+  @media (min-width: 769px) and (max-width: 810px) {
+    width: 768px;
+    padding: 24px;
+  }
+
+  @media (max-width: 768px) {
+    width: 368px;
+    padding: 20px;
+  }
 }
 
 .RecieverInfo {
@@ -34,6 +43,9 @@
 
   border: 1px solid var(--Gray300);
   border-radius: 8px;
+  @media (max-width: 768px) {
+    width: 320px;
+  }
 }
 
 .InputReciever::placeholder {
@@ -60,7 +72,7 @@
 }
 
 /* 여기 수정 필요 */
-.SelectBackground button {
+.BackgroundOptionBtn button {
   color: var(--Gray900);
   background-color: var(--Gray100);
 
@@ -75,7 +87,7 @@
 }
 /* 여기 수정 필요 */
 
-.SelectBackground button.selected {
+.BackgroundOptionBtn button.selected {
   color: var(--Primary);
   background-color: var(--White);
 
@@ -85,12 +97,22 @@
   border: 2px solid var(--Primary);
 }
 
-.BackgoundOption {
+.BackgroundOption {
   display: flex;
 
   gap: 18px;
 
   margin-bottom: 69px;
+
+  @media (max-width: 768px) {
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 0px; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+  }
 }
 
 .SubmitBtn {
@@ -104,8 +126,29 @@
 
   border-radius: 12px;
   border: none;
+
+  @media (min-width: 769px) and (max-width: 810px) {
+    margin-top: 320px;
+  }
+
+  @media (max-width: 768px) {
+    width: 320px;
+  }
 }
 
 .SubmitBtn:disabled {
   background-color: grey;
+}
+
+.BackgroundForm {
+  width: 100%;
+  position: relative;
+}
+
+.selectBtn {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

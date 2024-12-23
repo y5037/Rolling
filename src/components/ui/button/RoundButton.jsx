@@ -2,6 +2,7 @@ import styled from "styled-components";
 import plus from "../../../assets/images/button/plus.png";
 import check from "../../../assets/images/button/check.png";
 import home from "../../../assets/images/button/home.png";
+import { useNavigate } from "react-router-dom";
 
 const Icon = styled.img`
   width: 24px;
@@ -44,23 +45,24 @@ const RoundButton = styled.button`
   }
 `;
 
-export function PlusButton({ className }) {
+export function PlusButton({ className, handleMessageClick }) {
   return (
-    <RoundButton className={className}>
+    <RoundButton className={className} onClick={handleMessageClick}>
       <Icon src={plus} alt="plus button" />
     </RoundButton>
   );
 }
 
-export function HomeButton({ className }) {
+export function HomeButton({ className, handleHomeClick }) {
+
   return (
-    <RoundButton className={className}>
+    <RoundButton className={className} onClick={handleHomeClick}>
       <Icon src={home} alt="home button" />
     </RoundButton>
   );
 }
 
-export function CheckButton({ className }) {
+export function CheckButton({ className, }) {
   return (
     <RoundButton className={className}>
       <Icon src={check} alt="check button" />

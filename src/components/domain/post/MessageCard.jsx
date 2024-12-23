@@ -79,26 +79,38 @@ const MessageCreateAt = styled.p`
   margin: 16px 24px 16px 24px;
 `;
 
-function MessageCard({ image }) {
+function MessageCard({ post }) {
   return (
     <Container>
       <MessageCardTop className="messageCardTop">
-        <MessageCardProfile src={image || defaultImage} alt="프로필 이미지" />
+        <MessageCardProfile src={post.profileImageURL || defaultImage} alt="프로필 이미지" />
         <MessageSenderForm>
           <MessageSenderInfo>
             <MessageFrom>From.</MessageFrom>
-            <MessageSender>박인건</MessageSender>
+            <MessageSender>{post.sender}</MessageSender>
           </MessageSenderInfo>
-          <Badge></Badge>
+          <Badge
+            $value={
+              post.relationship === "가족"
+                ? "type3"
+                : post.relationship === "친구"
+                  ? "type4"
+                  : post.relationship === "지인" || post.relationship === "동료"
+                    ? "type1"
+                    : "type2"
+            }
+          >
+            {post.relationship}
+          </Badge>
         </MessageSenderForm>
       </MessageCardTop>
       <MessageContent className="messageContent">
-        (테스트용) 자바스크립트 말줄임 처리 필요!!! 자바스크립트 말줄임 처리
-        필요!!! 자바스크립트 말줄임 처리 필요!!!
-        (테스트용)11111111aaaaaaㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ!!!!!
+        {post.content}
       </MessageContent>
-      <MessageCreateAt className="messageDate">2024.01.01</MessageCreateAt>
-    </Container>
+      <MessageCreateAt className="messageDate">
+        {new Date(post.createdAt).toLocaleDateString('ko-KR')}
+      </MessageCreateAt>
+    </Container >
   );
 }
 

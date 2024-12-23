@@ -1,54 +1,96 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import "./PostId.css";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
-import { useEffect, useState } from "react";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
+import { API_URL } from "../../constant/VariableSettings";
+import { useInView } from 'react-intersection-observer';
 
+import "./PostId.css";
+import Loading from "../../components/ui/loading/Loading";
 
 export default function PostId() {
 
-  /*
- const { postId } = useParams();
-  
-  const [message, setRecipients] = useEffect();
+  //링크이동 
+  const navigate = useNavigate();
 
+  //버튼 링크 이동 함수
+  function handleHomeClick() {
+    navigate("/");
+  }
+
+  //버튼 링크 이동 함수
+  function handleMessageClick() {
+    navigate(`/post/${id}/message`);
+  }
+
+  //무한스크롤
+  const [ref, inView] = useInView();
+  const [page, setPage] = useState(1);
+
+  //리스트페이지 파라미터
+  const { id } = useParams();
+
+  //스크롤 이벤트 상태관리
+  const [btnShow, setBtnShow] = useState(false);
+
+  //데이터 상태관리
+  const [recentMessages, setRecentMessages] = useState([]);
+
+  //로딩 상태관리
+  const [loading, setLoading] = useState(true);
+
+  //데이터 불러오기
   useEffect(() => {
 
     async function getRecipients() {
       try {
-        const response = await fetch(`https://rolling-api.vercel.app/12-4/recipients/${id}`);
+        const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?page=${page}`);
         const result = await response.json();
-        console.log(result);
-        setRecipients(result.data);
+        setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
+
       } catch (error) {
         console.error('error: ', error);
+      } finally {
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 700);
+
+        return () => clearTimeout(timer);
       }
+
     }
 
     getRecipients();
 
-  }, [postId]);
-  */
+  }, [id, page]);
 
-  const [btnShow, setBtnShow] = useState(false);
-
+  //스크롤이벤트
   useEffect(() => {
 
-    const scrollEvent = function scrollShowEvent() {
-      if (window.scrollY > 50) {
-        setBtnShow(true);
-      } else {
-        setBtnShow(false);
+    if (recentMessages.length > 0) {
+      const scrollEvent = function scrollShowEvent() {
+        if (window.scrollY > 50) {
+          setBtnShow(true);
+        } else {
+          setBtnShow(false);
+        }
       }
+      window.addEventListener('scroll', scrollEvent);
     }
 
-    window.addEventListener('scroll', scrollEvent);
+  }, [recentMessages])
 
-    
-  }, [])
+  //무한스크롤
+  useEffect(() => {
+
+    if (inView && !loading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+
+  }, [inView, loading])
 
   return (
     <>
@@ -58,52 +100,60 @@ export default function PostId() {
         <div className="container">
           <div className="postBodyBox">
 
-            <div className="buttonContainer">
-              <PrimaryButton className="delBtn">
-                롤링페이퍼 삭제하기
-              </PrimaryButton>
-            </div>
+            {
 
-            <ul className="postMessageList">
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <MessageCard />
-                </Link>
-              </li>
-            </ul>
+              loading ? (
 
+                <Loading />
+
+              ) :
+                recentMessages.length > 0 ? (
+                  <>
+                    <div className="buttonContainer">
+                      <PrimaryButton className="delBtn">
+                        롤링페이퍼 삭제하기
+                      </PrimaryButton>
+                    </div>
+
+                    <div className="postMessageList">
+
+                      <div className="postMessageBox first">
+                        <Link to={`/post/${id}/message`}>
+                          <div className="LinkIcon">
+                            <span className="blind"></span>
+                          </div>
+                        </Link>
+                      </div>
+
+                      {
+                        recentMessages.map((post, i) => {
+                          return (
+                            <div className="postMessageBox" key={i}>
+                              <MessageCard post={post} />
+                            </div>
+                          )
+                        })
+                      }
+
+                    </div>
+                  </>
+                ) : (
+                  <p>
+                    데이터가 없습니다.
+                  </p>
+                )
+            }
           </div>
+
+          <div id="scroll" ref={ref}>
+          </div>
+
         </div>
       </div>
 
       <ul className={`linkList ${btnShow ? 'active' : ''}`} >
-        <li><HomeButton className="homeBtn" /></li>
-        <li><PlusButton className="addBtn" /></li>
+        <li><HomeButton className="homeBtn" handleHomeClick={handleHomeClick} /></li>
+        <li><PlusButton className="addBtn" handleMessageClick={handleMessageClick} /></li>
       </ul>
 
     </>
