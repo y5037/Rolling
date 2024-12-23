@@ -8,11 +8,11 @@
   width: 720px;
 }
 
-.input-container {
+.inputContainer {
   margin-bottom: 30px;
 }
 
-.input-field {
+.inputField {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -23,7 +23,7 @@
   transition: border-color 0.3s ease;
 }
 
-.input-field.error-border {
+.inputField.errorBorder {
   border-color: red; /* 에러 시 빨간 테두리 */
 }
 
@@ -33,13 +33,13 @@
   font-weight: bold;
 }
 
-.textarea-wrapper {
+.textareaWrapper {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
 }
 
-.textarea-wrapper.error-border {
+.textareaWrapper.errorBorder {
   border-color: red;
 }
 
@@ -52,13 +52,13 @@ textarea {
   box-sizing: border-box;
 }
 
-.error-message {
+.errorMessage {
   color: red;
   font-size: 12px;
   margin-top: 5px;
 }
 
-.error-input {
+.errorInput {
   border: 1px solid red;
 }
 

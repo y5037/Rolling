@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // useParams로 URL 파라미터 추출
-import "./PostMessage.css";
+import styles from "./PostMessage.module.css";
 import Input from "../../../components/ui/input/Input.jsx";
 import PrimaryButton from "../../../components/ui/button/PrimaryButton.jsx";
 import CustomSelect from "../../../components/ui/select/CustomSelect";
@@ -92,10 +92,10 @@ function PostMessage() {
   return (
     <>
       <Navigation />
-      <div className="container" style={{ marginTop: "111px" }}>
+      <div className={styles.container} style={{ marginTop: "111px" }}>
         {/* 이름 입력 */}
-        <div className="input-container">
-          <h3 className="title">From.</h3>
+        <div className={`${styles.inputContainer}`}>
+          <h3 className={styles.title}>From.</h3>
           <Input
             placeholder="이름을 입력해 주세요."
             value={name}
@@ -106,20 +106,24 @@ function PostMessage() {
             onBlur={() => {
               if (!name) setNameError(true);
             }}
-            className={`input-field ${nameError ? "error-border" : ""}`}
+            className={`${styles.inputField} ${
+              nameError ? styles.errorBorder : ""
+            }`}
           />
-          {nameError && <p className="error-message">이름을 입력해 주세요.</p>}
+          {nameError && (
+            <p className={styles.errorMessage}>이름을 입력해 주세요.</p>
+          )}
         </div>
 
         {/* 프로필 이미지 */}
-        <div className="input-container">
-          <h3 className="title">프로필 이미지</h3>
+        <div className={styles.inputContainer}>
+          <h3 className={styles.title}>프로필 이미지</h3>
           <ProfileImageSelect onSelect={(image) => setProfileImage(image)} />
         </div>
 
         {/* 상대와의 관계 */}
-        <div className="input-container">
-          <h3 className="title">상대와의 관계</h3>
+        <div className={styles.inputContainer}>
+          <h3 className={styles.title}>상대와의 관계</h3>
           <CustomSelect
             defaultValue="친구"
             options={["친구", "지인", "동료", "가족"]}
@@ -129,10 +133,12 @@ function PostMessage() {
         </div>
 
         {/* 내용 입력 */}
-        <div className="input-container">
-          <h3 className="title">내용을 입력해 주세요</h3>
+        <div className={styles.inputContainer}>
+          <h3 className={styles.title}>내용을 입력해 주세요</h3>
           <div
-            className={`textarea-wrapper ${contentError ? "error-border" : ""}`}
+            className={`${styles.textareaWrapper} ${
+              contentError ? styles.errorBorder : ""
+            }`}
           >
             <textarea
               value={content}
@@ -147,13 +153,13 @@ function PostMessage() {
             />
           </div>
           {contentError && (
-            <p className="error-message">내용을 입력해 주세요.</p>
+            <p className={styles.errorMessage}>내용을 입력해 주세요.</p>
           )}
         </div>
 
         {/* 폰트 선택 */}
-        <div className="input-container">
-          <h3 className="title">폰트 선택</h3>
+        <div className={styles.inputContainer}>
+          <h3 className={styles.title}>폰트 선택</h3>
           <CustomSelect
             defaultValue="Noto Sans"
             options={[
