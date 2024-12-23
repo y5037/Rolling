@@ -22,6 +22,9 @@
     padding-left: 24px;
   }
 }
+.section {
+  min-height: 320px;
+}
 .section2 {
   @media (max-width: 1000px) {
     flex: 1;
