@@ -1,0 +1,154 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 768px;
+
+  margin-top: 65px;
+  padding: 57px 24px;
+  @media (min-width: 769px) and (max-width: 810px) {
+    width: 768px;
+    padding: 24px;
+  }
+
+  @media (max-width: 768px) {
+    width: 368px;
+    padding: 20px;
+  }
+}
+
+.RecieverInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 12px;
+  margin-bottom: 50px;
+}
+
+.InputRecieverName {
+  width: 720px;
+  height: 50px;
+
+  padding: 12px 16px;
+
+  border: 1px solid var(--Gray300);
+  border-radius: 8px;
+  @media (max-width: 768px) {
+    width: 320px;
+  }
+}
+
+.InputReciever::placeholder {
+  color: var(--Gray500);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.VerifyName {
+  color: #dc3a3a;
+  font-size: 12px;
+  font-weight: 400;
+  padding-left: 12px;
+}
+
+.BackgroundInfo {
+  margin-bottom: 45px;
+}
+
+.BackgroundDescription {
+  color: var((--Gray500));
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* 여기 수정 필요 */
+.BackgroundOptionBtn button {
+  color: var(--Gray900);
+  background-color: var(--Gray100);
+
+  width: 122px;
+  height: 40px;
+
+  border-radius: 6px;
+
+  padding: 7px 16px;
+
+  margin-bottom: 45px;
+}
+/* 여기 수정 필요 */
+
+.BackgroundOptionBtn button.selected {
+  color: var(--Primary);
+  background-color: var(--White);
+
+  font-size: 16px;
+  font-weight: 700;
+
+  border: 2px solid var(--Primary);
+}
+
+.BackgroundOption {
+  display: flex;
+
+  gap: 18px;
+
+  margin-bottom: 69px;
+
+  @media (max-width: 768px) {
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 0px; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+  }
+}
+
+.SubmitBtn {
+  color: var(--White);
+  background-color: var(--Primary);
+
+  font-size: 18px;
+
+  width: 720px;
+  height: 56px;
+
+  border-radius: 12px;
+  border: none;
+
+  @media (min-width: 769px) and (max-width: 810px) {
+    margin-top: 320px;
+  }
+
+  @media (max-width: 768px) {
+    width: 320px;
+  }
+}
+
+.SubmitBtn:disabled {
+  background-color: grey;
+}
+
+.BackgroundForm {
+  width: 100%;
+  position: relative;
+}
+
+.selectBtn {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

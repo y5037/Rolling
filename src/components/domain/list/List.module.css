@@ -1,0 +1,40 @@
+.contents {
+  -webkit-display: flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: calc(env(safe-area-inset-bottom) + 100vh - 64px);
+  margin-top: 64px;
+  min-width: 100%;
+}
+.secTitle {
+  margin: 50px 0 15px;
+  padding-left: 12px;
+  font-size: 24px;
+  font-weight: 600;
+
+  @media (max-width: 1248px) {
+    padding-left: 24px;
+  }
+}
+.section {
+  min-width: 100%;
+}
+.section2 {
+  @media (max-width: 1000px) {
+    flex: 1;
+  }
+}
+.buttonContainer {
+  text-align: center;
+  @media (max-width: 1000px) {
+    padding: 0 24px;
+  }
+}
+.buttonContainer a {
+  display: inline-flex;
+
+  @media (max-width: 1000px) {
+    display: block;
+  }
+}

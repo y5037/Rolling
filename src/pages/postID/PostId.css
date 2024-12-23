@@ -1,0 +1,187 @@
+.postBodyWrap {
+
+  margin-top: 132px;
+  min-height: 100vh;
+  padding: 54px 0 246px;
+  background-color: var(--Beige200);
+
+  @media (max-width: 767px) {
+
+    padding: 54px 0 246px;
+
+    @media (max-width: 576px) {
+
+      padding: 23px 0 246px;
+
+    }
+
+  }
+
+  .postMessageList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px 2%;
+
+    @media (max-width: 767px) {
+
+      gap: 16px 2.2%;
+
+    }
+
+    .postMessageBox {
+      width: 32%;
+      height: 274px;
+
+      &.first {
+        position: relative;
+        display: block;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 16px;
+        background-color: var(--White);
+
+        >.postMessageLinkBox {
+          display: block;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+
+          .LinkIcon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px;
+            height: 56px;
+            background-color: var(--Gray500);
+            border-radius: 50%;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 27px;
+              left: 17px;
+              width: 23px;
+              height: 3px;
+              border-radius: 50px;
+              background-color: var(--White);
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              top: 17px;
+              left: 27px;
+              width: 3px;
+              height: 23px;
+              border-radius: 50px;
+              background-color: var(--White);
+            }
+
+          }
+
+        }
+
+      }
+
+      @media (max-width: 767px) {
+
+        width: 48.88%;
+
+        @media (max-width: 576px) {
+
+          width: 100%;
+          height: 227px;
+
+        }
+
+      }
+
+      &>div {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .messageCardTop {
+        p {
+          font-size: 16px;
+        }
+      }
+
+      .messageContent {
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+
+        @media (max-width: 576px) {
+
+          margin-bottom: 21px;
+          height: 46px;
+          font-size: 15px;
+          -webkit-line-clamp: 2;
+
+        }
+
+      }
+
+      .messageDate {
+
+        @media (max-width: 576px) {
+          margin: 16px 24px 24px 24px;
+        }
+
+      }
+
+    }
+
+  }
+
+  .buttonContainer {
+
+    display: flex;
+    justify-content: flex-end;
+
+    .delBtn {
+      width: auto;
+      margin: 0 0 20px;
+    }
+
+  }
+
+}
+
+.linkList {
+  opacity: 0;
+  position: fixed;
+  bottom: 20px;
+  right: 24px;
+  transition: all .5s;
+  z-index: -999;
+
+  @media (max-width: 1200px) {
+    bottom: 24px;
+
+    @media (max-width: 576px) {
+      display: flex;
+      flex-direction: column;
+      gap: 18px 0;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    z-index: 999;
+  }
+
+  .homeBtn {
+    display: none;
+
+    @media (max-width: 576px) {
+      display: flex;
+    }
+  }
+
+}

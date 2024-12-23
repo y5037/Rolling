@@ -1,43 +1,38 @@
 import { createGlobalStyle } from "styled-components";
+import PretendardLight from "../assets/fonts/pretendard/Pretendard-Light.woff";
+import PretendardRegular from "../assets/fonts/pretendard/Pretendard-Regular.woff";
+import PretendardMedium from "../assets/fonts/pretendard/Pretendard-Medium.woff";
+import PretendardSemiBold from "../assets/fonts/pretendard/Pretendard-SemiBold.woff";
+import PretendardBold from "../assets/fonts/pretendard/Pretendard-Bold.woff";
 
 const GlobalStyle = createGlobalStyle`
 
 /* 폰트 */
 
 @font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
+  src: url(${PretendardLight});
+  font-family: "pretendard";
   font-weight: 300;
-  src: url(/assets/fonts/pretendard/Pretendard-Light.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Light.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Light.otf) format('opentype');
 }
-
 @font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
+  src: url(${PretendardRegular});
+  font-family: "pretendard";
   font-weight: 400;
-  src: url(/assets/fonts/pretendard/Pretendard-Regular.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Regular.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Regular.otf) format('opentype');
 }
-
 @font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
+  src: url(${PretendardMedium});
+  font-family: "pretendard";
   font-weight: 500;
-  src: url(/assets/fonts/pretendard/Pretendard-Medium.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Medium.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Medium.otf) format('opentype');
 }
-
 @font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
+  src: url(${PretendardSemiBold});
+  font-family: "pretendard";
   font-weight: 600;
-  src: url(/assets/fonts/pretendard/Pretendard-Bold.woff2) format('woff2'),
-    url(/assets/fonts/pretendard/Pretendard-Bold.woff) format('woff'),
-    url(/assets/fonts/pretendard/Pretendard-Bold.otf) format('opentype');
+}
+@font-face {
+  src: url(${PretendardBold});
+  font-family: "pretendard";
+  font-weight: 700;
 }
 
 /* 색상 변수 */
@@ -120,7 +115,7 @@ select,
 button,
 table {
 
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'pretendard', sans-serif;
   color: var(--Black);
   font-size: 16px;
 
@@ -227,11 +222,12 @@ button {
 /* 가운데영역 */
 .container{
   max-width: 1200px;
-  margin: 0 auto;
+  margin:0 auto;
 
   /* Tablet, Mobile */
    @media (max-width:1248px) {
-    padding:0 24px;
+    //개별 padding 적용시 이 컴포넌트의 스타일이 항상 최상위에 유지되어 임시로 주석처리함.
+    //padding:0 24px;
   }
 }
 
