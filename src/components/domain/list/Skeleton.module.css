@@ -27,7 +27,7 @@
   border-radius: 1rem;
   background-size: 200% 100%;
   background-position: 100% 0;
-  animation: load 1s infinite;
+  animation: load 0.8s infinite;
 }
 
 @keyframes load {
