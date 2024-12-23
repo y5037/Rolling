@@ -1,14 +1,16 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { SEC2_SLICE_SETTINGS } from "../../../constant/CarouselSettings";
 import Slider from "react-slick";
 import styles from "./List.module.css";
 import PostCard from "./PostCard";
 import GetPostCard from "../../../services/GetRecipients";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import Skeleton from "./Skeleton";
 
 function CarouselSec2() {
   const [cardList, setCardList] = useState();
   const [count, setCount] = useState();
+  const [loading, setLoading] = useState(true);
 
   const handleLoad = async (options) => {
     try {
@@ -17,6 +19,12 @@ function CarouselSec2() {
       setCardList(results);
     } catch (error) {
       console.log(error);
+    } finally {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 700);
+
+      return () => clearTimeout(timer);
     }
   };
 
@@ -30,16 +38,20 @@ function CarouselSec2() {
     <>
       <div className={`${styles.section} ${styles.section2}`}>
         <p className={styles.secTitle}>최근에 만든 롤링 페이퍼 ⭐️️</p>
-        <Slider {...SEC2_SLICE_SETTINGS}>
-          {cardList &&
-            cardList.map((item) => {
-              return (
-                <Link key={item.id} to={`/post/${item.id}`}>
-                  <PostCard item={item} />
-                </Link>
-              );
-            })}
-        </Slider>
+        {loading ? (
+          <Skeleton />
+        ) : (
+          <Slider {...SEC2_SLICE_SETTINGS}>
+            {cardList &&
+              cardList.map((item) => {
+                return (
+                  <Link key={item.id} to={`/post/${item.id}`}>
+                    <PostCard item={item} />
+                  </Link>
+                );
+              })}
+          </Slider>
+        )}
       </div>
     </>
   );
