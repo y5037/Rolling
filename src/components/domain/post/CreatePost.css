@@ -14,6 +14,15 @@
 
   margin-top: 65px;
   padding: 57px 24px;
+  @media (min-width: 769px) and (max-width: 810px) {
+    width: 768px;
+    padding: 24px;
+  }
+
+  @media (max-width: 768px) {
+    width: 368px;
+    padding: 20px;
+  }
 }
 
 .RecieverInfo {
@@ -34,6 +43,9 @@
 
   border: 1px solid var(--Gray300);
   border-radius: 8px;
+  @media (max-width: 768px) {
+    width: 320px;
+  }
 }
 
 .InputReciever::placeholder {
@@ -91,6 +103,16 @@
   gap: 18px;
 
   margin-bottom: 69px;
+
+  @media (max-width: 768px) {
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 0px; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+  }
 }
 
 .SubmitBtn {
@@ -104,6 +126,14 @@
 
   border-radius: 12px;
   border: none;
+
+  @media (min-width: 769px) and (max-width: 810px) {
+    margin-top: 320px;
+  }
+
+  @media (max-width: 768px) {
+    width: 320px;
+  }
 }
 
 .SubmitBtn:disabled {
