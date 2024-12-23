@@ -10,7 +10,7 @@ import PrimaryButton from "../../ui/button/PrimaryButton";
 
 const LinkButton = styled(PrimaryButton)`
   width: auto;
-  min-width: calc(100vw * (280 / 1200));
+  min-width: 280px;
   margin-top: 65px;
   height: 56px;
 
