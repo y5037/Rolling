@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import selectArrowIcon from "../../../assets/images/select/select_arrow_icon01.png";
-import selectArrowHoverIcon from "../../../assets/images/select/select_arrow_icon02.png";
+import selectArrowIcon from "../../../assets/images/select/arrow_down.png";
+import selectArrowHoverIcon from "../../../assets/images/select/arrow_top.png";
 
 const DropdownContainer = styled.div`
   position: relative;
