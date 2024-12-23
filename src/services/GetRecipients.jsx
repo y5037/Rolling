@@ -9,7 +9,6 @@ async function GetPostCard(params = {}) {
   }
 
   const responseBody = await response.json();
-  console.log("Response 데이터 형식은? ", typeof responseBody);
 
   return responseBody;
 }
