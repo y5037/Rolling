@@ -163,6 +163,7 @@ function PostHead() {
                   <SharedContainer
                     urlCopyRef={urlCopyRef}
                     handleToastShow={handleToastShow}
+                    isData={isData}
                   />
                 )}
               </div>
