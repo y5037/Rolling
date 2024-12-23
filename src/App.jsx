@@ -9,7 +9,7 @@ import PostMessage from "./pages/post/message/PostMessage";
 
 function App() {
   return (
-    <React.StrictMode>
+    <>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
@@ -22,7 +22,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </React.StrictMode>
+    </>
   );
 }
 
