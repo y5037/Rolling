@@ -68,7 +68,7 @@ $ npm start
 |                  |                                                                                                                                |        |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------ |
 | React            | <img src="https://github.com/user-attachments/assets/e3b49dbb-981b-4804-acf9-012c854a2fd2" alt="React" width="100">            | 18.3.1 |
-| StyledComponents | <img src="https://github.com/user-attachments/assets/c9b26078-5d79-40cc-b120-69d9b3882786" alt="StyledComponents" width="100"> | 6.1.12 |
+| StyledComponents | <img src="https://github.com/user-attachments/assets/c9b26078-5d79-40cc-b120-69d9b3882786" alt="StyledComponents" width="100"> | 6.1.13 |
 
 <br/>
 
@@ -76,7 +76,7 @@ $ npm start
 
 |      |                                                                                                                    |     |
 | ---- | ------------------------------------------------------------------------------------------------------------------ | --- |
-| Vite | <img src="https://github.com/user-attachments/assets/9ea3071d-6998-486d-bf27-0903e9a106a3" alt="Vite" width="100"> |
+| Vercel | <img src="https://github.com/user-attachments/assets/eec05496-7033-447b-917c-9e3182f5a11f" alt="Vercel" width="100"> | 39.2.2 |
 
 <br/>
 
