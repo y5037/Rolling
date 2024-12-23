@@ -39,10 +39,11 @@
         border-radius: 16px;
         background-color: var(--White);
 
-        >a {
+        >.postMessageLinkBox {
           display: block;
           width: 100%;
           height: 100%;
+          cursor: pointer;
 
           .LinkIcon {
             position: absolute;
