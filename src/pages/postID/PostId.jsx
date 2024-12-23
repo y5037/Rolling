@@ -100,7 +100,7 @@ export default function PostId() {
         <div className="container">
           <div className="postBodyBox">
             {loading ? (
-              <p>로딩 중</p>
+              <Loading />
             ) : recentMessages.length > 0 ? (
               <>
                 <div className="buttonContainer">
