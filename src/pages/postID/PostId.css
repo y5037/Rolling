@@ -1,8 +1,8 @@
 .postBodyWrap {
 
   margin-top: 132px;
+  min-height: 100vh;
   padding: 54px 0 246px;
-  height: 100vh;
   background-color: var(--Beige200);
 
   @media (max-width: 767px) {
@@ -28,8 +28,59 @@
 
     }
 
-    li {
+    .postMessageBox {
       width: 32%;
+      height: 274px;
+
+      &.first {
+        position: relative;
+        display: block;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 16px;
+        background-color: var(--White);
+
+        >a {
+          display: block;
+          width: 100%;
+          height: 100%;
+
+          .LinkIcon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px;
+            height: 56px;
+            background-color: var(--Gray500);
+            border-radius: 50%;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 27px;
+              left: 17px;
+              width: 23px;
+              height: 3px;
+              border-radius: 50px;
+              background-color: var(--White);
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              top: 17px;
+              left: 27px;
+              width: 3px;
+              height: 23px;
+              border-radius: 50px;
+              background-color: var(--White);
+            }
+
+          }
+
+        }
+
+      }
 
       @media (max-width: 767px) {
 
@@ -38,6 +89,7 @@
         @media (max-width: 576px) {
 
           width: 100%;
+          height: 227px;
 
         }
 

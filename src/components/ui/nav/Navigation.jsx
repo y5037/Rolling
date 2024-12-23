@@ -50,7 +50,9 @@ function Navigation({ $hide }) {
           <Logo src={logoImg} alt="Rolling" />
         </Link>
         {/* hide 속성의 유무에 따라 버튼이 활성화/비활성화 됩니다. _12.13 혜림 */}
-        <LinkButton $hide={$hide}>롤링 페이퍼 만들기</LinkButton>
+        <Link to="/post">
+          <LinkButton $hide={$hide}>롤링 페이퍼 만들기</LinkButton>
+        </Link>
       </Content>
     </NavigationBar>
   );

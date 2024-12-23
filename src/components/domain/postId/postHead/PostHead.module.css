@@ -15,10 +15,11 @@
 }
 .headBar {
   position: fixed;
-  top: 0;
+  top: 64px;
   left: 0;
   right: 0;
   border-bottom: 1px solid var(--Gray300);
+  background: var(--White);
 }
 .contents {
   -webkit-display: flex;
@@ -79,7 +80,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin-right: 53px;
+  margin-right: 10px;
 
   /* Mobile */
   @media (max-width: 600px) {
@@ -94,25 +95,32 @@
   border-radius: 50%;
   border: 1px solid var(--White);
 }
+.list li:nth-of-type(1) {
+  position: absolute;
+  right: 16px;
+  z-index: 2;
+}
+.list li:nth-of-type(2) {
+  position: absolute;
+  right: 32px;
+  z-index: 1;
+}
+.list li:nth-of-type(3) {
+  position: absolute;
+  right: 48px;
+}
 .list li img {
   display: block;
   width: 100%;
   object-fit: cover;
 }
-.list li:nth-of-type(2) {
-  position: absolute;
-  left: 15px;
-}
-.list li:nth-of-type(3) {
-  position: absolute;
-  left: 30px;
-}
-.list .num {
-  position: absolute;
-  left: 45px;
+.list li:last-child {
+  position: relative;
+  right: 0;
   border: 1px solid var(--Gray200);
   background: var(--White);
   font-size: 12px;
+  z-index: 3;
 }
 .numText {
   font-size: 18px;
@@ -131,16 +139,11 @@
   align-items: center;
   gap: 8px;
   position: relative;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     flex: 1;
   }
-}
-.chooseReaction > div {
-  transition: 0.2s;
-}
-.chooseReaction > div:hover {
-  background: var(--Gray500);
 }
 .chooseReaction img {
   transition: 0.2s;
@@ -163,10 +166,14 @@
   border: 1px solid var(--Gray300);
   border-radius: 6px;
   align-content: center;
+  transition: 0.2s;
 
   @media (max-width: 768px) {
     padding: 0 10px;
   }
+}
+.sharedLink:hover {
+  background-color: var(--Gray100);
 }
 .sharedLink img {
   margin-top: -3px;
@@ -177,21 +184,38 @@
 .sharedLink {
   cursor: pointer;
 }
+.emptyReactions {
+  -webkit-display: flex;
+  display: flex;
+  align-items: center;
+  min-width: 65px;
+  height: 36px;
+  line-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px;
+  border-radius: 32px;
+  background: rgba(0, 0, 0, 0.54);
+  color: var(--White);
+}
+.emptyReactions p {
+  margin-left: 3px;
+}
+.emptyReactions:hover {
+  background: rgba(0, 0, 0, 0.54) !important;
+}
 
 /* EmojiContainer */
 .emojiContainer {
   width: calc(100vw * (450 / 1200));
   max-width: 320px;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  gap: 10px 3%;
   position: absolute;
   top: 50px;
   right: 0;
-  padding: 24px;
+  padding: 15px 24px 24px;
   border-radius: 8px;
-  border: 1px solid var(--Gray400);
+  border: 1px solid var(--Gray200);
   background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
 
@@ -205,6 +229,12 @@
     min-width: 280px;
   }
 }
+.emojiContainer ul {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  gap: 10px 3%;
+}
 .emojiContainer li {
   width: 22%;
   height: 36px;
@@ -213,16 +243,51 @@
   justify-content: center;
   border-radius: 32px;
   align-items: center;
-  background: rgba(0, 0, 0, 0.54);
+  background: rgba(0, 0, 0, 0.45);
   color: var(--White);
   cursor: pointer;
   transition: 0.2s;
+  font-size: 20px;
+  position: relative;
+  color: var(--White);
+  font-weight: 400;
+  font-size: 16px;
+}
+.emojiContainer li p:first-child {
+  margin-right: 2px;
 }
 .emojiContainer li:hover {
   background: var(--Gray500);
 }
-.emojiContainer li p:first-child {
+/* .emojiContainer li p:first-child {
   margin-right: 3px;
+} */
+.emojiContainer li .fadeBadge {
+  /* position: absolute;
+  right: 0;
+  top: -20px; */
+  /* opacity: 0; */
+  /* animation: fadeUp 1s ease-in; */
+}
+/* @keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20%, 0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+} */
+.emojiContainer .textBox {
+  -webkit-display: flex;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--Gray400);
 }
 
 /* SharedContainer */
@@ -232,11 +297,11 @@
   top: 50px;
   min-width: max-content;
   border-radius: 8px;
-  border: 1px solid var(--Gray400);
+  border: 1px solid var(--Gray200);
   background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
   overflow: hidden;
-  color: var(--Gray900);
+  color: var(--Gray500);
   font-weight: 400;
 }
 .sharedContainer li {
@@ -245,4 +310,7 @@
 }
 .sharedContainer li:hover {
   background: var(--Gray100);
+}
+.sharedContainer li img {
+  width: 50px;
 }

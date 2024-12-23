@@ -1,7 +1,7 @@
 import Navigation from "../../components/ui/nav/Navigation";
 import CreatePostComponent from "../../components/domain/post/CreatePost";
 
-function CreatePost() {
+function Post() {
   return (
     <>
       <Navigation $hide />
@@ -10,4 +10,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default Post;

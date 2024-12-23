@@ -1,21 +1,33 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
 import { API_URL } from "../../constant/VariableSettings";
+import { useInView } from 'react-intersection-observer';
 
 import "./PostId.css";
+import Loading from "../../components/ui/loading/Loading";
 
 export default function PostId() {
+
   const navigate = useNavigate();
 
-  //홈버튼 클릭 시 메인이동 함수
-  function handleClick() {
+  //버튼 링크 이동 함수
+  function handleHomeClick() {
     navigate("/");
   }
+
+  //버튼 링크 이동 함수
+  function handleMessageClick() {
+    navigate(`/post/${id}/message`);
+  }
+
+  //무한스크롤
+  const [ref, inView] = useInView();
+  const [page, setPage] = useState(1);
 
   //리스트페이지 파라미터
   const { id } = useParams();
@@ -25,6 +37,8 @@ export default function PostId() {
 
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
+
+  //로딩 상태관리
   const [loading, setLoading] = useState(true);
 
   //데이터 불러오기
@@ -46,7 +60,11 @@ export default function PostId() {
       } catch (error) {
         console.error("error: ", error);
       } finally {
-        setLoading(false); // 데이터 로딩 완료 후 로딩 상태 해제
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 700);
+
+        return () => clearTimeout(timer);
       }
     }
 
@@ -74,6 +92,7 @@ export default function PostId() {
     }
     navigate(`/post/${id}/messages/`);
   }
+
 
   return (
     <>
@@ -110,9 +129,12 @@ export default function PostId() {
               <p>데이터가 없습니다.</p>
             )}
           </div>
+
+          <div id="scroll" ref={ref}>
+          </div>
+
         </div>
       </div>
-
       <ul className={`linkList ${btnShow ? "active" : ""}`}>
         <li>
           <HomeButton className="homeBtn" handleClick={handleClick} />
