@@ -84,7 +84,7 @@
   margin-right: 10px;
 
   /* Mobile */
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     display: none;
   }
 }
@@ -128,7 +128,7 @@
 
   /* Mobile */
   @media (max-width: 650px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 .numText .strong {
