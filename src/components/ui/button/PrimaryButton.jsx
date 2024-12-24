@@ -5,7 +5,7 @@ const PrimaryButton = styled.button`
   justify-content: center;
   align-items: center;
   margin: 20px auto;
-  padding: ${({ size }) => (size === "small" ? "7px 16px" : "14px 24px")};
+  padding: ${({ size }) => (size === "small" ? "12px 16px" : "14px 24px")};
   width: 100%;
   color: var(--White);
   font-size: ${({ size }) => (size === "small" ? "16px" : "18px")};
