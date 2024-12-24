@@ -121,7 +121,7 @@
 
   font-size: 18px;
 
-  width: 650px;
+  width: 720px;
   height: 56px;
 
   border-radius: 12px;
@@ -132,7 +132,7 @@
   }
 
   @media (max-width: 768px) {
-    width: 246px;
+    width: 320px;
   }
 }
 
@@ -151,12 +151,4 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.bottom_btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 14px;
-  flex-wrap: nowrap;
 }
