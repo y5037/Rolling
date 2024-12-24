@@ -134,7 +134,11 @@ export default function PostId() {
       <div className="postBodyWrap">
         <div className="container">
           <div className="postBodyBox">
-
+            <div className="buttonContainer">
+              <PrimaryButton size="small" className="delBtn" onClick={handleDeleteRollingPaper}>
+                롤링페이퍼 삭제하기
+              </PrimaryButton>
+            </div>
             {
 
               loading ? (
@@ -144,12 +148,6 @@ export default function PostId() {
               ) :
                 recentMessages.length > 0 ? (
                   <>
-                    <div className="buttonContainer">
-                      <PrimaryButton size="small" className="delBtn" onClick={handleDeleteRollingPaper}>
-                        롤링페이퍼 삭제하기
-                      </PrimaryButton>
-                    </div>
-
                     <div className="postMessageList">
 
                       <div className="postMessageBox first">
