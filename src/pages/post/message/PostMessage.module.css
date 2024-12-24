@@ -62,11 +62,12 @@ textarea {
   border: 1px solid red;
 }
 
-.buttons {
+div.buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 14px;
+  flex-wrap: nowrap;
 }
 
 @media (max-width: 500px) {

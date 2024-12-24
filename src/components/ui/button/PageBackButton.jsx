@@ -7,8 +7,9 @@ const Icon = styled.img`
 `;
 
 const BackButton = styled.button`
+  display: flex;
+  justify-content: center;
   align-items: center;
-  width: 62px;
   padding: 16px 19px;
   color: var(--White);
   font-size: 18px;

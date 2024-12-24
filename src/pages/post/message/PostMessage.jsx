@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom"; // useParams로 URL 파라미터 추출
 import styles from "./PostMessage.module.css";
 import Input from "../../../components/ui/input/Input.jsx";
@@ -9,6 +10,14 @@ import Navigation from "../../../components/ui/nav/Navigation";
 import ProfileImageSelect from "../../../components/domain/post/ProfileImageSelect.jsx";
 import defaultProfile from "../../../assets/images/common/defaultProfile.png";
 import { API_URL } from "../../../constant/VariableSettings.jsx";
+
+const BackButton = styled(PageBackButton)`
+  flex: 1;
+`;
+
+const CreateMessageButton = styled(PrimaryButton)`
+  flex: 5;
+`;
 
 function PostMessage() {
   const [content, setContent] = useState("");
@@ -179,11 +188,14 @@ function PostMessage() {
         </div>
 
         {/* 하단 버튼 */}
-        <div className="buttons">
-          <PageBackButton onClick={handlePageBack} />
-          <PrimaryButton onClick={handleSubmit} disabled={isButtonDisabled}>
+        <div className={styles.buttons}>
+          <BackButton onClick={handlePageBack} />
+          <CreateMessageButton
+            onClick={handleSubmit}
+            disabled={isButtonDisabled}
+          >
             생성하기
-          </PrimaryButton>
+          </CreateMessageButton>
         </div>
       </div>
     </>
