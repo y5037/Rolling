@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"; // useParams로 URL �
 import styles from "./PostMessage.module.css";
 import Input from "../../../components/ui/input/Input.jsx";
 import PrimaryButton from "../../../components/ui/button/PrimaryButton.jsx";
+import PageBackButton from "../../../components/ui/button/PageBackButton.jsx";
 import CustomSelect from "../../../components/ui/select/CustomSelect";
 import Navigation from "../../../components/ui/nav/Navigation";
 import ProfileImageSelect from "../../../components/domain/post/ProfileImageSelect.jsx";
@@ -23,6 +24,10 @@ function PostMessage() {
   const recipientId = id;
 
   const isButtonDisabled = !name || !content;
+
+  const handlePageBack = () => {
+    navigate(`/post/${id}`);
+  };
 
   const handleSubmit = async () => {
     console.log("handleSubmit called");
@@ -173,10 +178,13 @@ function PostMessage() {
           />
         </div>
 
-        {/* 생성하기 버튼 */}
-        <PrimaryButton onClick={handleSubmit} disabled={isButtonDisabled}>
-          생성하기
-        </PrimaryButton>
+        {/* 하단 버튼 */}
+        <div className="buttons">
+          <PageBackButton onClick={handlePageBack} />
+          <PrimaryButton onClick={handleSubmit} disabled={isButtonDisabled}>
+            생성하기
+          </PrimaryButton>
+        </div>
       </div>
     </>
   );
