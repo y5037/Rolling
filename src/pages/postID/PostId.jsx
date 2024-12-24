@@ -119,7 +119,7 @@ export default function PostId() {
                 recentMessages.length > 0 ? (
                   <>
                     <div className="buttonContainer">
-                      <PrimaryButton className="delBtn">
+                      <PrimaryButton size="small" className="delBtn">
                         롤링페이퍼 삭제하기
                       </PrimaryButton>
                     </div>
@@ -147,9 +147,17 @@ export default function PostId() {
                     </div>
                   </>
                 ) : (
-                  <p>
-                    데이터가 없습니다.
-                  </p>
+
+                  <div className="postMessageList">
+                    <div className="postMessageBox first">
+                      <div className="postMessageLinkBox" onClick={handleNavigateToPostMessage}>
+                        <div className="LinkIcon">
+                          <span className="blind"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 )
             }
           </div>
