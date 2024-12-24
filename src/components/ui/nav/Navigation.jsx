@@ -42,9 +42,9 @@ const NavigationBar = styled.div`
   background-color: var(--White);
 `;
 
-function Navigation({ $hide }) {
+function Navigation({ $hide, className }) {
   return (
-    <NavigationBar>
+    <NavigationBar className={className}>
       <Content>
         <Link to="/">
           <Logo src={logoImg} alt="Rolling" />
