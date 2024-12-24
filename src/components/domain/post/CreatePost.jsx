@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import PostBackground from "./PostBackground";
 import GetBackgoundImages from "../../../services/GetBackgroundImages";
 import enableImage from "../../../assets/images/button/enabled.png";
 import "./CreatePost.css";
 import PostRecipients from "../../../services/PostRecipients";
+import PageBackButton from "../../../components/ui/button/PageBackButton.jsx";
+
+const BackButton = styled(PageBackButton)`
+  flex: 1;
+`;
 
 function CreatePost() {
   // 롤링 페이저 생성 후 페이지 이동을 위함.
@@ -105,6 +111,10 @@ function CreatePost() {
     navigate(`/post/${createPostResponse.id}`);
   };
 
+  const handlePageBack = () => {
+    navigate(`/list/`);
+  };
+
   return (
     <div className="Container">
       <div className="Content">
@@ -171,11 +181,14 @@ function CreatePost() {
             </div>
           ))}
         </div>
-        <form className="CreateButton" onSubmit={handleSubmit}>
-          <button className="SubmitBtn" type="submit" disabled={!name.trim()}>
-            생성하기
-          </button>
-        </form>
+        <div className="bottom_btn">
+          <BackButton onClick={handlePageBack} />
+          <form className="CreateButton" onSubmit={handleSubmit}>
+            <button className="SubmitBtn" type="submit" disabled={!name.trim()}>
+              생성하기
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
