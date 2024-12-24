@@ -1,6 +1,6 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
@@ -19,11 +19,6 @@ export default function PostId() {
   //버튼 링크 이동 함수
   function handleHomeClick() {
     navigate("/");
-  }
-
-  //버튼 링크 이동 함수
-  function handleMessageClick() {
-    navigate(`/post/${id}/message`);
   }
 
   //무한스크롤
@@ -49,7 +44,7 @@ export default function PostId() {
       try {
         const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?page=${page}`);
         const result = await response.json();
-        setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
+        setRecentMessages(result.results);
 
       } catch (error) {
         console.error('error: ', error);

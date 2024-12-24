@@ -5,8 +5,8 @@ const PrimaryButton = styled.button`
   justify-content: center;
   align-items: center;
   margin: 20px auto;
-  padding: ${({ size }) => (size === "small" ? "12px 16px" : "14px 24px")};
-  width: 100%;
+  padding: ${({ size }) => (size === "small" ? "7px 16px" : "14px 24px")};
+  width: 100%; 
   color: var(--White);
   font-size: ${({ size }) => (size === "small" ? "16px" : "18px")};
   font-weight: ${({ size }) => (size === "small" ? "regular" : "bold")};
@@ -16,6 +16,7 @@ const PrimaryButton = styled.button`
   box-sizing: border-box;
   background-color: var(--Primary);
   cursor: pointer;
+  transition: 0.2s;
 
   &:hover {
     background-color: var(--Purple600);
