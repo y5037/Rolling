@@ -11,11 +11,10 @@ import DeleteMessage from "../../../services/DeleteMessage";
 const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100vw * (600 / 1920));
   min-width: 600px;
   padding: 40px;
   border-radius: 16px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -141,25 +140,32 @@ const Modal = ({
   relationship = "",
   content = "",
   createdAt = "",
-  onClose = "",
+  onClose = () => {},
+  onDelete = () => {},
 }) => {
-  const currentDate = new Date().toLocaleDateString();
-  const date = currentDate.slice(0, 12);
-
   const handleDeleteClick = async () => {
     const response = await DeleteMessage({ messageId: id });
-    if (onClose) onClose();
+    if (response.ok) {
+      if (onClose) {
+        onClose(); // 모달 닫기
+        onDelete(id); // 메시지 삭제 후 부모에게 알림
+      }
+    } else {
+      alert("메시지 삭제 실패");
+    }
   };
 
   const handleConfirmClick = () => {
-    if (onClose) onClose();
+    if (onClose) {
+      onClose(); // 확인 버튼 클릭 시 모달 닫기
+    }
   };
 
   // 화면 스크롤 비활성화
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "auto"; // 모달이 닫힐 때 원래 상태로 복원
+      document.body.style.overflow = "auto";
     };
   }, []);
 
