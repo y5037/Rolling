@@ -1,6 +1,6 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
@@ -37,14 +37,18 @@ export default function PostId() {
   //로딩 상태관리
   const [loading, setLoading] = useState(true);
 
+  //데이터 전체 개수 상태관리
+  const [count, setCount] = useState();
+
   //데이터 불러오기
   useEffect(() => {
 
     async function getRecipients() {
       try {
-        const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?page=${page}`);
+        const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?limit=${count}`);
         const result = await response.json();
         setRecentMessages(result.results);
+        setCount(result.count);
 
       } catch (error) {
         console.error('error: ', error);
@@ -96,6 +100,33 @@ export default function PostId() {
     navigate(`/post/${id}/messages/`);
   }
 
+  // 버튼 클릭 이벤트 함수
+  function handleDeleteRollingPaper() {
+    if (!id) {
+      console.error("Recipient ID가 전달되지 않았습니다");
+      return;
+    }
+
+    // 데이터 삭제
+    const deleteUrl = `${API_URL}/12-4/recipients/${id}/`;
+    fetch(deleteUrl, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("삭제 실패");
+        }
+        navigate('/list');
+      })
+      .catch((error) => {
+        console.error('error :', error);
+        alert('삭제 실패. 다시 시도해주세요.');
+      });
+  }
+
   return (
     <>
       <Navigation />
@@ -114,7 +145,7 @@ export default function PostId() {
                 recentMessages.length > 0 ? (
                   <>
                     <div className="buttonContainer">
-                      <PrimaryButton size="small" className="delBtn">
+                      <PrimaryButton size="small" className="delBtn" onClick={handleDeleteRollingPaper}>
                         롤링페이퍼 삭제하기
                       </PrimaryButton>
                     </div>
@@ -152,7 +183,6 @@ export default function PostId() {
                       </div>
                     </div>
                   </div>
-
                 )
             }
           </div>
