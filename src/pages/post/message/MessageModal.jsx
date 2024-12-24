@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../../../components/ui/modal/Modal";
 import GetMessages from "../../../services/GetMessages";
 
@@ -6,35 +6,33 @@ import GetMessages from "../../../services/GetMessages";
 // 모달의 뒷 배경 블러처리 후 스크롤 비활성화
 // API 호출하여 모달에 데이터 추가
 
-function MessageModal({ postId, messageId, onClose }) {
+function MessageModal({ messageId = 16782 }) {
   const [data, setData] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(onClose);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLoadMessages = async () => {
     try {
-      const response = await GetMessages(postId);
+      const response = await GetMessages();
+      console.log("id 확인: ", messageId);
+      console.log(typeof messageId);
+      console.log("API 호출 결과:", response);
 
       const filterResponse = response.results.filter(
         (messageInfo) => messageInfo.id === messageId
       );
 
+      console.log("filterResponse: ", filterResponse);
+
       setData(filterResponse.length > 0 ? filterResponse[0] : null);
-      setIsModalOpen(true);
     } catch (e) {
       console.log("에러 발생: ", e);
     }
   };
 
-  useEffect(() => {
-    handleLoadMessages();
-  }, [messageId]);
-
-  if (!data) return null;
-
-  // const handleClick = () => {
-  //   handleLoadMessages(messageId);
-  //   setIsModalOpen(true);
-  // };
+  const handleClick = () => {
+    handleLoadMessages(messageId);
+    setIsModalOpen(true);
+  };
 
   // const handleOpenModal = () => {
   //   setIsModalOpen(true);
@@ -46,7 +44,10 @@ function MessageModal({ postId, messageId, onClose }) {
 
   return (
     <>
-      {isModalOpen ? (
+      <button style={{ width: "100px", height: "100px" }} onClick={handleClick}>
+        클릭
+      </button>
+      {isModalOpen && data ? (
         <Modal
           id={messageId}
           sender={data.sender}

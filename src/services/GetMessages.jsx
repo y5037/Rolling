@@ -1,6 +1,6 @@
 import { API_URL } from "../constant/VariableSettings";
 
-async function GetMessages(recipientId) {
+async function GetMessages(recipientId = "9419") {
   const response = await fetch(
     `${API_URL}/12-4/recipients/${recipientId}/messages/`
   );

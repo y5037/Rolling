@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
 import iconTrashImg from "../../../assets/images/modal/trash.svg";
@@ -31,7 +29,7 @@ const ModalContainer = styled.div`
 const Backdrop = styled.div`
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
@@ -141,27 +139,22 @@ const Modal = ({
   relationship = "",
   content = "",
   createdAt = "",
-  onClose = "",
+  onClose,
 }) => {
   const currentDate = new Date().toLocaleDateString();
   const date = currentDate.slice(0, 12);
 
   const handleDeleteClick = async () => {
-    const response = await DeleteMessage({ messageId: id });
-    if (onClose) onClose();
+    console.log("======");
+    console.log(id);
+    console.log("======");
+    let messageId = id;
+    const response = await DeleteMessage({ messageId });
   };
 
-  const handleConfirmClick = () => {
-    if (onClose) onClose();
+  const handleConfirmClick = async () => {
+    if (onClose) onClose(); // 부모의 상태를 업데이트하여 모달 닫기
   };
-
-  // 화면 스크롤 비활성화
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto"; // 모달이 닫힐 때 원래 상태로 복원
-    };
-  }, []);
 
   return (
     <>
@@ -192,7 +185,7 @@ const Modal = ({
             </UserNameContainer>
           </HeadLeft>
           <HeadRight>
-            <DateText>{createdAt.slice(0, 10).replace("/-/gi", ".")}</DateText>
+            <DateText>{createdAt}</DateText>
             <BtnTrash onClick={handleDeleteClick} />
           </HeadRight>
         </ModalHead>

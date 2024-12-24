@@ -84,6 +84,7 @@ export default function CustomSelect({
   options = [],
   defaultValue = "Placeholder",
   disabled,
+  onChange, // 부모로부터 전달받는 onChange 함수
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultValue);
@@ -93,8 +94,11 @@ export default function CustomSelect({
   }
 
   function handleSelectOption(option) {
-    setSelectedOption(option);
+    setSelectedOption(option); // 내부 상태 업데이트
     setIsOpen(false);
+    if (onChange) {
+      onChange(option); // 부모로 선택된 옵션 전달
+    }
   }
 
   return (

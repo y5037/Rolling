@@ -13,7 +13,7 @@ async function DeleteMessage({ messageId = null } = {}) {
     throw new Error("데이터를 삭제하는데 실패했습니다.");
   }
 
-  const responseBody = await response;
+  const responseBody = await response.json();
 
   return responseBody;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // useParams로 URL 파라미터 추출
 import styles from "./PostMessage.module.css";
 import Input from "../../../components/ui/input/Input.jsx";
@@ -12,8 +12,8 @@ import { API_URL } from "../../../constant/VariableSettings.jsx";
 function PostMessage() {
   const [content, setContent] = useState("");
   const [name, setName] = useState("");
-  const [selectedRelationship, setSelectedRelationship] = useState("친구");
-  const [selectedFont, setSelectedFont] = useState("Noto Sans");
+  const [selectedRelationship, setSelectedRelationship] = useState("");
+  const [selectedFont, setSelectedFont] = useState("");
   const [profileImage, setProfileImage] = useState(defaultProfile);
   const [nameError, setNameError] = useState(false);
   const [contentError, setContentError] = useState(false);
@@ -24,6 +24,34 @@ function PostMessage() {
 
   const isButtonDisabled = !name || !content;
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = `${API_URL}/12-4/recipients/${recipientId}`;
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          // 데이터 받음
+          setSelectedRelationship(data.relationship || "친구");
+          setSelectedFont(data.font || "Noto Sans");
+        } else {
+          console.error(`데이터 불러오기 실패: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("API 요청 실패:", error);
+      }
+    };
+
+    fetchData();
+  }, [recipientId]); // recipientId가 변경될 때마다 호출
+
   const handleSubmit = async () => {
     console.log("handleSubmit called");
 
@@ -33,8 +61,6 @@ function PostMessage() {
       if (!content) setContentError(true);
       return;
     }
-
-    console.log("Preparing payload...");
 
     try {
       const url = `${API_URL}/12-4/recipients/${recipientId}/messages/`;
@@ -127,8 +153,11 @@ function PostMessage() {
           <CustomSelect
             defaultValue="친구"
             options={["친구", "지인", "동료", "가족"]}
-            value={selectedRelationship}
-            onChange={(value) => setSelectedRelationship(value)}
+            value={selectedRelationship} // 현재 선택된 값 유지
+            onChange={(value) => {
+              console.log("Relationship updated:", value);
+              setSelectedRelationship(value); // 선택된 값으로 상태 업데이트
+            }}
           />
         </div>
 
@@ -160,6 +189,7 @@ function PostMessage() {
         {/* 폰트 선택 */}
         <div className={styles.inputContainer}>
           <h3 className={styles.title}>폰트 선택</h3>
+
           <CustomSelect
             defaultValue="Noto Sans"
             options={[
@@ -168,8 +198,11 @@ function PostMessage() {
               "나눔명조",
               "나눔손글씨 손편지체",
             ]}
-            value={selectedFont}
-            onChange={(value) => setSelectedFont(value)}
+            value={selectedFont} // 현재 선택된 값 유지
+            onChange={(value) => {
+              console.log("Font updated:", value);
+              setSelectedFont(value); // 선택된 값으로 상태 업데이트
+            }}
           />
         </div>
 
