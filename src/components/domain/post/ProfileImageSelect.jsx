@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./ProfileImageSelect.css";
-import defaultProfile from "../../../assets/images/common/defaultProfile.png";
 
 const ProfileImageSelect = ({ onSelect }) => {
   const [images, setImages] = useState([]); // API로 가져온 이미지 목록
-  const [selectedImage, setSelectedImage] = useState(defaultProfile); // 기본 이미지
+  const [selectedImage, setSelectedImage] = useState(""); // 기본 이미지 초기값 제거
 
   // 이미지 목록 불러오기
   useEffect(() => {
@@ -16,15 +15,20 @@ const ProfileImageSelect = ({ onSelect }) => {
         if (!response.ok) throw new Error("Failed to fetch images");
         const data = await response.json();
 
-        // 올바른 키에 접근해서 상태 설정
         setImages(data.imageUrls); // imageUrls 배열을 상태에 저장
+
+        // 첫 번째 이미지를 기본값으로 설정
+        if (data.imageUrls.length > 0) {
+          setSelectedImage(data.imageUrls[0]);
+          onSelect(data.imageUrls[0]); // 부모 컴포넌트에 전달
+        }
       } catch (error) {
         console.error("이미지 불러오기 실패:", error);
       }
     };
 
     fetchImages();
-  }, []);
+  }, [onSelect]);
 
   // 이미지 선택 핸들러
   const handleImageSelect = (image) => {
@@ -43,16 +47,6 @@ const ProfileImageSelect = ({ onSelect }) => {
       </div>
 
       <div className="image-list">
-        {/* 기본 이미지 */}
-        <img
-          src={defaultProfile}
-          alt="Default Profile"
-          onClick={() => handleImageSelect(defaultProfile)}
-          className={`image-option ${
-            selectedImage === defaultProfile ? "selected" : ""
-          }`}
-        />
-
         {/* API에서 가져온 이미지 */}
         {images.map((imgUrl, index) => (
           <img

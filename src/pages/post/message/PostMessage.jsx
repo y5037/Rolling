@@ -6,7 +6,6 @@ import PrimaryButton from "../../../components/ui/button/PrimaryButton.jsx";
 import CustomSelect from "../../../components/ui/select/CustomSelect";
 import Navigation from "../../../components/ui/nav/Navigation";
 import ProfileImageSelect from "../../../components/domain/post/ProfileImageSelect.jsx";
-import defaultProfile from "../../../assets/images/common/defaultProfile.png";
 import { API_URL } from "../../../constant/VariableSettings.jsx";
 
 function PostMessage() {
@@ -14,7 +13,7 @@ function PostMessage() {
   const [name, setName] = useState("");
   const [selectedRelationship, setSelectedRelationship] = useState("친구");
   const [selectedFont, setSelectedFont] = useState("Noto Sans");
-  const [profileImage, setProfileImage] = useState(defaultProfile);
+  const [profileImage, setProfileImage] = useState("");
   const [nameError, setNameError] = useState(false);
   const [contentError, setContentError] = useState(false);
 
