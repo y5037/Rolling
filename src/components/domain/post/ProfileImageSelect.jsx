@@ -3,7 +3,7 @@ import "./ProfileImageSelect.css";
 
 const ProfileImageSelect = ({ onSelect }) => {
   const [images, setImages] = useState([]); // API로 가져온 이미지 목록
-  const [selectedImage, setSelectedImage] = useState(""); // 기본 이미지 초기값 제거
+  const [selectedImage, setSelectedImage] = useState(""); // 선택된 이미지
 
   // 이미지 목록 불러오기
   useEffect(() => {
@@ -17,10 +17,11 @@ const ProfileImageSelect = ({ onSelect }) => {
 
         setImages(data.imageUrls); // imageUrls 배열을 상태에 저장
 
-        // 첫 번째 이미지를 기본값으로 설정
-        if (data.imageUrls.length > 0) {
-          setSelectedImage(data.imageUrls[0]);
-          onSelect(data.imageUrls[0]); // 부모 컴포넌트에 전달
+        // 선택된 이미지가 없을 경우에만 기본값 설정
+        if (!selectedImage && data.imageUrls.length > 0) {
+          const firstImage = data.imageUrls[0];
+          setSelectedImage(firstImage);
+          onSelect(firstImage); // 부모 컴포넌트에 전달
         }
       } catch (error) {
         console.error("이미지 불러오기 실패:", error);
@@ -28,7 +29,7 @@ const ProfileImageSelect = ({ onSelect }) => {
     };
 
     fetchImages();
-  }, [onSelect]);
+  }, [onSelect, selectedImage]); // selectedImage를 의존성에 추가
 
   // 이미지 선택 핸들러
   const handleImageSelect = (image) => {
