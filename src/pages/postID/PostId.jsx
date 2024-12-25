@@ -13,6 +13,15 @@ import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
 
 export default function PostId() {
+
+  const { ref, inView } = useInView({
+    triggerOnce: true, // 한번만 트리거
+    threshold: 1.0, // 100% 하단에 도달했을 때 트리거
+  });
+
+  //무한스크롤
+  const [nextPageUrl, setNextPageUrl] = useState(null); // next URL을 상태로 관리
+
   //링크이동
   const navigate = useNavigate();
 
@@ -20,10 +29,6 @@ export default function PostId() {
   function handleHomeClick() {
     navigate("/");
   }
-
-  //무한스크롤
-  const [ref, inView] = useInView();
-  const [page, setPage] = useState(1);
 
   //리스트페이지 파라미터
   const { id } = useParams();
@@ -33,6 +38,7 @@ export default function PostId() {
 
   //데이터 상태관리
   const [recentMessages, setRecentMessages] = useState([]);
+  console.log(recentMessages);
 
   //로딩 상태관리
   const [loading, setLoading] = useState(true);
@@ -49,29 +55,40 @@ export default function PostId() {
     setIsModalOpen(true); // 모달 열기
   };
 
-  //데이터 불러오기
-  useEffect(() => {
-    async function getRecipients() {
-      try {
-        const response = await fetch(
-          `${API_URL}/12-4/recipients/${id}/messages/?limit=${count}`
-        );
-        const result = await response.json();
-        setRecentMessages(result.results);
-        setCount(result.count);
-      } catch (error) {
-        console.error("error: ", error);
-      } finally {
-        const timer = setTimeout(() => {
-          setLoading(false);
-        }, 700);
-
-        return () => clearTimeout(timer);
-      }
+  // 데이터 요청
+  async function getRecipients(url) {
+    setLoading(true);
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+      setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
+      setCount(result.count);
+      setNextPageUrl(result.next);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    getRecipients();
-  }, [id, page]);
+  // 무한 스크롤을 위한 loadMore
+  const loadMoreMessages = () => {
+    if (!loading && nextPageUrl) {
+      getRecipients(nextPageUrl);
+    }
+  };
+
+  useEffect(() => {
+    const initialUrl = `${API_URL}/12-4/recipients/${id}/messages/?limit=10&offset=0`;
+    getRecipients(initialUrl);
+  }, [id]);
+
+  useEffect(() => {
+    if (nextPageUrl) {
+      getRecipients(nextPageUrl);
+    }
+  }, [nextPageUrl]);
+
 
   //스크롤이벤트
   useEffect(() => {
@@ -86,13 +103,6 @@ export default function PostId() {
       window.addEventListener("scroll", scrollEvent);
     }
   }, [recentMessages]);
-
-  //무한스크롤
-  useEffect(() => {
-    if (inView && !loading) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  }, [inView, loading]);
 
   // 메시지 작성 페이지 이동 함수
   function handleNavigateToPostMessage(e) {
@@ -196,7 +206,19 @@ export default function PostId() {
             )}
           </div>
 
-          <div id="scroll" ref={ref}></div>
+          {/* Load more 버튼 */}
+          <ul className="linkList">
+            {nextPageUrl && !loading ? (
+              <li ref={ref} className="load-more-container">
+                <button onClick={loadMoreMessages} className="load-more-btn">
+                  더 많은 메시지 로드
+                </button>
+              </li>
+            ) : nextPageUrl === null ? (
+              <li className="no-more-data">더 이상 데이터가 없습니다.</li>
+            ) : null}
+          </ul>
+
         </div>
       </div>
 
