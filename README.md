@@ -95,8 +95,8 @@ $ npm run start
 ```plaintext
 project/
 ├── public/
-│   ├── index.html           # HTML 템플릿 파일
-│   └── favicon.ico          # 아이콘 파일
+│   ├── meta                 # 메타 태그와 파비콘 관련 파일 모음
+│   └── index.html           # HTML 템플릿 파일
 ├── src/
 │   ├── assets/              # 이미지, 폰트 등 정적 파일
 │   ├── components/          # 재사용 가능한 UI 컴포넌트
