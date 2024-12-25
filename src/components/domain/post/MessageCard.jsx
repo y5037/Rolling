@@ -103,8 +103,8 @@ function MessageCard({ post }) {
             {post.relationship}
           </Badge>
         </MessageSenderForm>
-      </MessageCardTop>
-      <MessageContent className="messageContent">
+      </MessageCardTop> 
+      <MessageContent className="messageContent"  style={{ fontFamily: post.font }}>
         {post.content}
       </MessageContent>
       <MessageCreateAt className="messageDate">
