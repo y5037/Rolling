@@ -99,7 +99,7 @@ project/
 │   └── index.html           # HTML 템플릿 파일
 ├── src/
 │   ├── assets/              # 이미지, 폰트 등 정적 파일
-│   ├── components/          # 재사용 가능한 UI 컴포넌트
+│   ├── components/          # 재사용 가능한 UI 컴포넌트 및 페이지 작업 컴포넌트
 │   ├── constant/            # 공통적으로 사용하는 상수 모음
 │   ├── hooks/               # 커스텀 훅 모음
 │   ├── pages/               # 각 페이지별 컴포넌트
