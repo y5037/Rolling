@@ -1,20 +1,22 @@
 .postBodyWrap {
-
   margin-top: 132px;
   min-height: 100vh;
   padding: 54px 0 246px;
   background-color: var(--Beige200);
 
-  @media (max-width: 767px) {
+  & > .container {
+    @media (max-width: 1248px) {
+      padding: 0 24px;
+    }
+  }
 
+  @media (max-width: 767px) {
     padding: 54px 0 246px;
 
     @media (max-width: 576px) {
-
+      margin-top: 165px;
       padding: 23px 0 246px;
-
     }
-
   }
 
   .postMessageList {
@@ -23,14 +25,14 @@
     gap: 28px 2%;
 
     @media (max-width: 767px) {
-
       gap: 16px 2.2%;
-
     }
 
     .postMessageBox {
       width: 32%;
       height: 274px;
+
+      cursor: pointer;
 
       &.first {
         position: relative;
@@ -39,7 +41,7 @@
         border-radius: 16px;
         background-color: var(--White);
 
-        >.postMessageLinkBox {
+        > .postMessageLinkBox {
           display: block;
           width: 100%;
           height: 100%;
@@ -56,7 +58,7 @@
             border-radius: 50%;
 
             &::after {
-              content: '';
+              content: "";
               position: absolute;
               top: 27px;
               left: 17px;
@@ -67,7 +69,7 @@
             }
 
             &::before {
-              content: '';
+              content: "";
               position: absolute;
               top: 17px;
               left: 27px;
@@ -76,27 +78,20 @@
               border-radius: 50px;
               background-color: var(--White);
             }
-
           }
-
         }
-
       }
 
       @media (max-width: 767px) {
-
         width: 48.88%;
 
-        @media (max-width: 576px) {
-
+        @media (max-width: 480px) {
           width: 100%;
           height: 227px;
-
         }
-
       }
 
-      &>div {
+      & > div {
         width: 100%;
         height: 100%;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -116,31 +111,23 @@
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
 
-        @media (max-width: 576px) {
-
+        @media (max-width: 480px) {
           margin-bottom: 21px;
           height: 46px;
           font-size: 15px;
           -webkit-line-clamp: 2;
-
         }
-
       }
 
       .messageDate {
-
-        @media (max-width: 576px) {
+        @media (max-width: 480px) {
           margin: 16px 24px 24px 24px;
         }
-
       }
-
     }
-
   }
 
   .buttonContainer {
-
     display: flex;
     justify-content: flex-end;
 
@@ -148,9 +135,7 @@
       width: auto;
       margin: 0 0 20px;
     }
-
   }
-
 }
 
 .linkList {
@@ -158,13 +143,13 @@
   position: fixed;
   bottom: 20px;
   right: 24px;
-  transition: all .5s;
+  transition: all 0.5s;
   z-index: -999;
 
   @media (max-width: 1200px) {
     bottom: 24px;
 
-    @media (max-width: 576px) {
+    @media (max-width: 480px) {
       display: flex;
       flex-direction: column;
       gap: 18px 0;
@@ -179,9 +164,8 @@
   .homeBtn {
     display: none;
 
-    @media (max-width: 576px) {
+    @media (max-width: 480px) {
       display: flex;
     }
   }
-
 }

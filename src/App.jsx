@@ -6,12 +6,14 @@ import GlobalStyle from "./styles/GlobalStyle";
 import ListPage from "./pages/list/ListPage";
 import PostId from "./pages/postID/PostId";
 import PostMessage from "./pages/post/message/PostMessage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
-    <React.StrictMode>
+    <>
       <GlobalStyle />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/list" element={<ListPage />} />
@@ -22,7 +24,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </React.StrictMode>
+    </>
   );
 }
 

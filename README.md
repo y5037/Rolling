@@ -1,4 +1,4 @@
-<a href="#" target="_blank">
+<a href="https://rolling-three.vercel.app/" target="_blank">
 <img width="100%" alt="배너" src="https://github.com/user-attachments/assets/54167b02-19e1-4db7-b2e7-3bcad59dbeae" />
 </a>
 
@@ -8,10 +8,10 @@
 # 0. Getting Started (시작하기)
 
 ```bash
-$ npm start
+$ npm run start
 ```
 
-[서비스 링크](#)
+[서비스 링크](https://rolling-three.vercel.app/)
 
 <br/>
 <br/>
@@ -68,15 +68,15 @@ $ npm start
 |                  |                                                                                                                                |        |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------ |
 | React            | <img src="https://github.com/user-attachments/assets/e3b49dbb-981b-4804-acf9-012c854a2fd2" alt="React" width="100">            | 18.3.1 |
-| StyledComponents | <img src="https://github.com/user-attachments/assets/c9b26078-5d79-40cc-b120-69d9b3882786" alt="StyledComponents" width="100"> | 6.1.12 |
+| StyledComponents | <img src="https://github.com/user-attachments/assets/c9b26078-5d79-40cc-b120-69d9b3882786" alt="StyledComponents" width="100"> | 6.1.13 |
 
 <br/>
 
-## 4.3 Backend
+## 4.3 Release
 
-|      |                                                                                                                    |     |
-| ---- | ------------------------------------------------------------------------------------------------------------------ | --- |
-| Vite | <img src="https://github.com/user-attachments/assets/9ea3071d-6998-486d-bf27-0903e9a106a3" alt="Vite" width="100"> |
+|        |                                                                                                                      |        |
+| ------ | -------------------------------------------------------------------------------------------------------------------- | ------ |
+| Vercel | <img src="https://github.com/user-attachments/assets/eec05496-7033-447b-917c-9e3182f5a11f" alt="Vercel" width="192"> | 39.2.2 |
 
 <br/>
 

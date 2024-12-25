@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
 import iconTrashImg from "../../../assets/images/modal/trash.svg";
@@ -9,11 +11,10 @@ import DeleteMessage from "../../../services/DeleteMessage";
 const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100vw * (600 / 1920));
   min-width: 600px;
   padding: 40px;
   border-radius: 16px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -29,7 +30,7 @@ const ModalContainer = styled.div`
 const Backdrop = styled.div`
   width: 100vw;
   height: 100vh;
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
@@ -139,22 +140,34 @@ const Modal = ({
   relationship = "",
   content = "",
   createdAt = "",
-  onClose,
+  onClose = () => {},
+  onDelete = () => {},
 }) => {
-  const currentDate = new Date().toLocaleDateString();
-  const date = currentDate.slice(0, 12);
-
   const handleDeleteClick = async () => {
-    console.log("======");
-    console.log(id);
-    console.log("======");
-    let messageId = id;
-    const response = await DeleteMessage({ messageId });
+    const response = await DeleteMessage({ messageId: id });
+    if (response.ok) {
+      if (onClose) {
+        onClose(); // 모달 닫기
+        onDelete(id); // 메시지 삭제 후 부모에게 알림
+      }
+    } else {
+      alert("메시지 삭제 실패");
+    }
   };
 
-  const handleConfirmClick = async () => {
-    if (onClose) onClose(); // 부모의 상태를 업데이트하여 모달 닫기
+  const handleConfirmClick = () => {
+    if (onClose) {
+      onClose(); // 확인 버튼 클릭 시 모달 닫기
+    }
   };
+
+  // 화면 스크롤 비활성화
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <>
@@ -185,7 +198,7 @@ const Modal = ({
             </UserNameContainer>
           </HeadLeft>
           <HeadRight>
-            <DateText>{createdAt}</DateText>
+            <DateText>{createdAt.slice(0, 10).replace("/-/gi", ".")}</DateText>
             <BtnTrash onClick={handleDeleteClick} />
           </HeadRight>
         </ModalHead>

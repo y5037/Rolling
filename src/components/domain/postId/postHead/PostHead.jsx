@@ -10,7 +10,7 @@ import SharedContainer from "./SharedContainer";
 import Toast from "../../../ui/toast/Toast";
 import GetRecipientsId from "../../../../services/GetRecipientsId";
 
-function PostHead() {
+function PostHead({className}) {
   const [emojiDrop, setEmojiDrop] = useState(false);
   const [sharedDrop, setSharedDrop] = useState(false);
   const [urlCopy, setUrlCopy] = useState(false);
@@ -163,6 +163,7 @@ function PostHead() {
                   <SharedContainer
                     urlCopyRef={urlCopyRef}
                     handleToastShow={handleToastShow}
+                    isData={isData}
                   />
                 )}
               </div>
