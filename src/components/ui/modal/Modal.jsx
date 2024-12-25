@@ -9,7 +9,6 @@ import PrimaryButton from "../button/PrimaryButton";
 import DeleteMessage from "../../../services/DeleteMessage";
 
 const ModalContainer = styled.div`
-  font-family: ${(props) => props.font};
   display: flex;
   flex-direction: column;
   min-width: 600px;
@@ -55,6 +54,7 @@ const DateText = styled.p`
 `;
 
 const ContentText = styled.p`
+  font-family: ${(props) => props.font};
   height: calc(100vh * (255 / 1200));
   overflow-y: scroll;
   padding: 15px 10px 15px 0;
@@ -174,7 +174,7 @@ const Modal = ({
   return (
     <>
       <Backdrop onClick={onClose} />
-      <ModalContainer font={font}>
+      <ModalContainer>
         <ModalHead>
           <HeadLeft>
             <ProfileImgContainer>
@@ -204,7 +204,7 @@ const Modal = ({
             <BtnTrash onClick={handleDeleteClick} />
           </HeadRight>
         </ModalHead>
-        <ContentText>{content}</ContentText>
+        <ContentText font={font}>{content}</ContentText>
         <Button onClick={handleConfirmClick}>확인</Button>
       </ModalContainer>
     </>
