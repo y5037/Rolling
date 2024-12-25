@@ -9,6 +9,7 @@ import PrimaryButton from "../button/PrimaryButton";
 import DeleteMessage from "../../../services/DeleteMessage";
 
 const ModalContainer = styled.div`
+  font-family: ${(props) => props.font};
   display: flex;
   flex-direction: column;
   min-width: 600px;
@@ -142,6 +143,7 @@ const Modal = ({
   createdAt = "",
   onClose = () => {},
   onDelete = () => {},
+  font = "",
 }) => {
   const handleDeleteClick = async () => {
     const response = await DeleteMessage({ messageId: id });
@@ -172,7 +174,7 @@ const Modal = ({
   return (
     <>
       <Backdrop onClick={onClose} />
-      <ModalContainer>
+      <ModalContainer font={font}>
         <ModalHead>
           <HeadLeft>
             <ProfileImgContainer>
