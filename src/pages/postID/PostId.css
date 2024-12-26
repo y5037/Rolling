@@ -170,13 +170,14 @@
   }
 }
 
-@media (max-width: 767px){
-
-  .postNav{display: none;}
-  .PostHead_headBar__VReyi{top:0;}
-
+@media (max-width: 767px) {
+  .postNav {
+    display: none;
+  }
+  [class*="PostHead_headBar"] {
+    top: 0;
+  }
 }
-
 
 .load-more-container {
   text-align: center;
