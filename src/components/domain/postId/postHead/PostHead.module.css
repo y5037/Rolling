@@ -21,6 +21,11 @@
   z-index: 1;
   border-bottom: 1px solid var(--Gray300);
   background: var(--White);
+
+  /* Mobile*/
+  @media (max-width: 768px) {
+    top: 0;
+  }
 }
 .contents {
   -webkit-display: flex;
