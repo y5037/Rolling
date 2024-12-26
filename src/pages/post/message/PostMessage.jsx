@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom"; // useParams로 URL 파라미터 추출
 import styles from "./PostMessage.module.css";
@@ -32,6 +32,34 @@ function PostMessage() {
   const recipientId = id;
 
   const isButtonDisabled = !name || !content;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = `${API_URL}/12-4/recipients/${recipientId}`;
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          // 데이터 받음
+          setSelectedRelationship(data.relationship || "친구");
+          setSelectedFont(data.font || "Noto Sans");
+        } else {
+          console.error(`데이터 불러오기 실패: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("API 요청 실패:", error);
+      }
+    };
+
+    fetchData();
+  }, [recipientId]);
 
   const handlePageBack = () => {
     navigate(`/post/${id}`);

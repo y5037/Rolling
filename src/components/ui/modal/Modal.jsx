@@ -54,6 +54,7 @@ const DateText = styled.p`
 `;
 
 const ContentText = styled.p`
+  font-family: ${(props) => props.font};
   height: calc(100vh * (255 / 1200));
   overflow-y: scroll;
   padding: 15px 10px 15px 0;
@@ -142,6 +143,7 @@ const Modal = ({
   createdAt = "",
   onClose = () => {},
   onDelete = () => {},
+  font = "",
 }) => {
   const handleDeleteClick = async () => {
     const response = await DeleteMessage({ messageId: id });
@@ -202,7 +204,7 @@ const Modal = ({
             <BtnTrash onClick={handleDeleteClick} />
           </HeadRight>
         </ModalHead>
-        <ContentText>{content}</ContentText>
+        <ContentText font={font}>{content}</ContentText>
         <Button onClick={handleConfirmClick}>확인</Button>
       </ModalContainer>
     </>

@@ -1,5 +1,5 @@
 <a href="https://rolling-three.vercel.app/" target="_blank">
-<img width="100%" alt="배너" src="https://github.com/user-attachments/assets/54167b02-19e1-4db7-b2e7-3bcad59dbeae" />
+<img width="100%" alt="배너" src="https://github.com/user-attachments/assets/9779e574-e3af-4fd3-acd5-758f4d94b1d3" />
 </a>
 
 <br/>
@@ -95,11 +95,11 @@ $ npm run start
 ```plaintext
 project/
 ├── public/
-│   ├── index.html           # HTML 템플릿 파일
-│   └── favicon.ico          # 아이콘 파일
+│   ├── meta                 # 메타 태그와 파비콘 관련 파일 모음
+│   └── index.html           # HTML 템플릿 파일
 ├── src/
 │   ├── assets/              # 이미지, 폰트 등 정적 파일
-│   ├── components/          # 재사용 가능한 UI 컴포넌트
+│   ├── components/          # 재사용 가능한 UI 컴포넌트 및 페이지 작업 컴포넌트
 │   ├── constant/            # 공통적으로 사용하는 상수 모음
 │   ├── hooks/               # 커스텀 훅 모음
 │   ├── pages/               # 각 페이지별 컴포넌트

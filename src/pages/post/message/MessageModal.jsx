@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import Modal from "../../../components/ui/modal/Modal";
 import GetMessages from "../../../services/GetMessages";
 
-function MessageModal({ postId, messageId, onClose }) {
+function MessageModal({ postId, messageId, onClose, font }) {
   const [data, setData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(onClose);
   const [selectedMessageId, setSelectedMessageId] = useState(messageId); // messageId 상태 관리
+  const [isFont, setIsFont] = useState(null);
 
   const handleLoadMessage = async () => {
     try {
@@ -14,7 +15,7 @@ function MessageModal({ postId, messageId, onClose }) {
       const filterResponse = response.results.filter(
         (messageInfo) => messageInfo.id === messageId
       );
-
+      setIsFont(filterResponse[0].font);
       setData(filterResponse[0]);
       setIsModalOpen(true);
     } catch (e) {
@@ -51,6 +52,7 @@ function MessageModal({ postId, messageId, onClose }) {
           content={data.content}
           onClose={handleCloseModal}
           onDelete={handleDelete}
+          font={isFont}
         ></Modal>
       ) : null}
     </>
