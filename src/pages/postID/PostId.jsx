@@ -13,7 +13,6 @@ import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
 
 export default function PostId() {
-
   const { ref, inView } = useInView({
     triggerOnce: true, // 한번만 트리거
     threshold: 1.0, // 100% 하단에 도달했을 때 트리거
@@ -88,7 +87,6 @@ export default function PostId() {
       getRecipients(nextPageUrl);
     }
   }, [nextPageUrl]);
-
 
   //스크롤이벤트
   useEffect(() => {
@@ -218,7 +216,6 @@ export default function PostId() {
               <li className="no-more-data">더 이상 데이터가 없습니다.</li>
             ) : null}
           </ul>
-
         </div>
       </div>
 
