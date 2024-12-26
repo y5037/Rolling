@@ -122,7 +122,7 @@ const ProfileImgContainer = styled.div`
 
 const ProfileImg = styled.img.attrs({
   // 프로필 이미지 데이터 작업 시 이미지 경로를 prop으로 받아서 이쪽으로 연결 작업 해주시면 됩니다. _12.14 혜림
-  src: defaultImg,
+  // src: defaultImg,
 })`
   width: 100%;
   height: 100%;
