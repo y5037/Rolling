@@ -91,20 +91,18 @@ function MessageCard({ post }) {
           </MessageSenderInfo>
           <Badge
             $value={
-              post.relationship === "가족"
-                ? "type3"
-                : post.relationship === "친구"
-                  ? "type4"
-                  : post.relationship === "지인" || post.relationship === "동료"
-                    ? "type1"
-                    : "type2"
+              post.relationship === "가족" ? "type3" :
+                post.relationship === "친구" ? "type4" :
+                  post.relationship === "지인" ? "type1" :
+                    post.relationship === "동료" ? "type2" :
+                      "default" // 여기에 기본값을 설정합니다.
             }
           >
             {post.relationship}
           </Badge>
         </MessageSenderForm>
-      </MessageCardTop> 
-      <MessageContent className="messageContent"  style={{ fontFamily: post.font }}>
+      </MessageCardTop>
+      <MessageContent className="messageContent" style={{ fontFamily: post.font }}>
         {post.content}
       </MessageContent>
       <MessageCreateAt className="messageDate">
