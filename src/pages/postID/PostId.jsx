@@ -9,9 +9,51 @@ import { API_URL } from "../../constant/VariableSettings";
 import "./PostId.css";
 import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
+import AlarmModal from "../../components/ui/modal/AlarmModal";
 
 export default function PostId() {
+
+  //메세지 데이터 상태관리
   const [message, setMessage] = useState([]);
+
+  // 데이터 삭제 모달의 열림/닫힘 상태관리
+  const [ModalOpen, setModalOpen] = useState(false);
+
+  //모달 열림 함수
+  const handleDeleteRollingPaper = () => {
+    if (id) {
+      setModalOpen(true);
+    }
+  };
+
+  //모달 닫힘 함수 
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  //데이터 삭제 함수
+  const handleConfirmDelete = () => {
+    const deleteUrl = `${API_URL}/12-4/recipients/${id}/`;
+    fetch(deleteUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("삭제 실패");
+        }
+        navigate("/list");
+      })
+      .catch((error) => {
+        console.error("error :", error);
+        alert("삭제 실패. 다시 시도해주세요.");
+      })
+      .finally(() => {
+        setModalOpen(false);
+      });
+  };
 
   //링크이동
   const navigate = useNavigate();
@@ -102,45 +144,18 @@ export default function PostId() {
     navigate(`/post/${id}/messages/`);
   }
 
-  // 버튼 클릭 이벤트 함수
-  function handleDeleteRollingPaper() {
-    if (!id) {
-      console.error("Recipient ID가 전달되지 않았습니다");
-      return;
-    }
-
-    // 데이터 삭제
-    const deleteUrl = `${API_URL}/12-4/recipients/${id}/`;
-    fetch(deleteUrl, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("삭제 실패");
-        }
-        navigate("/list");
-      })
-      .catch((error) => {
-        console.error("error :", error);
-        alert("삭제 실패. 다시 시도해주세요.");
-      });
-  }
-
   // 스타일 객체
   const postBodyStyle = {
     backgroundColor:
       (recentMessages.backgroundColor === "purple"
         ? "var(--Purple200)"
         : recentMessages.backgroundColor === "beige"
-        ? "var(--Beige100)"
-        : recentMessages.backgroundColor === "blue"
-        ? "var(--Blue200)"
-        : recentMessages.backgroundColor === "green"
-        ? "var(--Green200)"
-        : recentMessages.backgroundColor) || "transparent",
+          ? "var(--Beige200)"
+          : recentMessages.backgroundColor === "blue"
+            ? "var(--Blue200)"
+            : recentMessages.backgroundColor === "green"
+              ? "var(--Green200)"
+              : recentMessages.backgroundColor) || "transparent",
     backgroundImage: recentMessages.backgroundImageURL
       ? `url(${recentMessages.backgroundImageURL})`
       : "none",
@@ -154,9 +169,8 @@ export default function PostId() {
       <Navigation />
       <PostHead />
       <div
-        className={`postBodyWrap ${
-          recentMessages.backgroundImageURL ? "imgBg" : ""
-        }`}
+        className={`postBodyWrap ${recentMessages.backgroundImageURL ? "imgBg" : ""
+          }`}
         style={postBodyStyle}
       >
         <div className="container">
@@ -242,6 +256,11 @@ export default function PostId() {
           setMessageId={setSelectedMessageId}
         />
       )}
+      <AlarmModal
+        isOpen={ModalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleConfirmDelete}
+      />
     </>
   );
 }
