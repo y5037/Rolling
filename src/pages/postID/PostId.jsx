@@ -6,21 +6,13 @@ import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
 import { API_URL } from "../../constant/VariableSettings";
-import { useInView } from "react-intersection-observer";
-
 import "./PostId.css";
 import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
 
 export default function PostId() {
 
-  const { ref, inView } = useInView({
-    triggerOnce: true, // 한번만 트리거
-    threshold: 1.0, // 100% 하단에 도달했을 때 트리거
-  });
-
-  //무한스크롤
-  const [nextPageUrl, setNextPageUrl] = useState(null); // next URL을 상태로 관리
+  const [message, setMessage] = useState([]);
 
   //링크이동
   const navigate = useNavigate();
@@ -44,7 +36,6 @@ export default function PostId() {
   const [loading, setLoading] = useState(true);
 
   //데이터 전체 개수 상태관리
-  const [count, setCount] = useState();
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,40 +46,35 @@ export default function PostId() {
     setIsModalOpen(true); // 모달 열기
   };
 
-  // 데이터 요청
-  async function getRecipients(url) {
+  // 메세지카드 데이터 요청
+  async function getRecipients() {
     setLoading(true);
     try {
-      const response = await fetch(url);
+      const response = await fetch(`${API_URL}/12-4/recipients/${id}/?limit=10&offset=0`);
       const result = await response.json();
-      setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
-      setCount(result.count);
-      setNextPageUrl(result.next);
+      setRecentMessages(result);
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      console.error("error:", error);
     } finally {
       setLoading(false);
     }
   }
 
-  // 무한 스크롤을 위한 loadMore
-  const loadMoreMessages = () => {
-    if (!loading && nextPageUrl) {
-      getRecipients(nextPageUrl);
+  //메세지카드 데이터 요청
+  async function getMessages() {
+    try {
+      const response = await fetch(`${API_URL}/12-4/recipients/${id}/messages/?limit=10&offset=0`);
+      const result = await response.json();
+      setMessage(result.results);
+    } catch (error) {
+      console.error("error", error);
     }
-  };
+  }
 
   useEffect(() => {
-    const initialUrl = `${API_URL}/12-4/recipients/${id}/messages/?limit=10&offset=0`;
-    getRecipients(initialUrl);
+    getMessages();
+    getRecipients();
   }, [id]);
-
-  useEffect(() => {
-    if (nextPageUrl) {
-      getRecipients(nextPageUrl);
-    }
-  }, [nextPageUrl]);
-
 
   //스크롤이벤트
   useEffect(() => {
@@ -140,11 +126,24 @@ export default function PostId() {
       });
   }
 
+  // 스타일 객체
+  const postBodyStyle = {
+    backgroundColor: (recentMessages.backgroundColor === 'purple' ? 'var(--Purple200)' :
+      recentMessages.backgroundColor === 'beige' ? 'var(--Beige100)' :
+        recentMessages.backgroundColor === 'blue' ? 'var(--Blue200)' :
+          recentMessages.backgroundColor === 'green' ? 'var(--Green200)' :
+            recentMessages.backgroundColor) || 'transparent',
+    backgroundImage: recentMessages.backgroundImageURL ? `url(${recentMessages.backgroundImageURL})` : 'none',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  };
+
   return (
     <>
       <Navigation />
       <PostHead />
-      <div className="postBodyWrap">
+      <div className={`postBodyWrap ${recentMessages.backgroundImageURL ? 'imgBg' : ''}`} style={postBodyStyle}>
         <div className="container">
           <div className="postBodyBox">
             <div className="buttonContainer">
@@ -158,7 +157,7 @@ export default function PostId() {
             </div>
             {loading ? (
               <Loading />
-            ) : recentMessages.length > 0 ? (
+            ) : message.length > 0 ? (
               <>
                 <div className="postMessageList">
                   <div className="postMessageBox first">
@@ -172,7 +171,7 @@ export default function PostId() {
                     </div>
                   </div>
 
-                  {recentMessages.map((post, i) => {
+                  {message.map((post, i) => {
                     return (
                       <div
                         className="postMessageBox"
@@ -205,20 +204,6 @@ export default function PostId() {
               </div>
             )}
           </div>
-
-          {/* Load more 버튼 */}
-          <ul className="linkList">
-            {nextPageUrl && !loading ? (
-              <li ref={ref} className="load-more-container">
-                <button onClick={loadMoreMessages} className="load-more-btn">
-                  더 많은 메시지 로드
-                </button>
-              </li>
-            ) : nextPageUrl === null ? (
-              <li className="no-more-data">더 이상 데이터가 없습니다.</li>
-            ) : null}
-          </ul>
-
         </div>
       </div>
 

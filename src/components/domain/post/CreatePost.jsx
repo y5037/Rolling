@@ -129,9 +129,8 @@ function CreatePost() {
         </div>
         <div className="BackgroundOptionBtn">
           <button
-            className={`ColorBackgroundBtn ${
-              selectedOption === "color" ? "selected" : ""
-            }`}
+            className={`ColorBackgroundBtn ${selectedOption === "color" ? "selected" : ""
+              }`}
             value="color"
             type="button"
             onClick={() => handleOptionClick("color")}
@@ -139,9 +138,8 @@ function CreatePost() {
             컬러
           </button>
           <button
-            className={`ImageBackgroundBtn ${
-              selectedOption === "image" ? "selected" : ""
-            }`}
+            className={`ImageBackgroundBtn ${selectedOption === "image" ? "selected" : ""
+              }`}
             value="image"
             type="button"
             onClick={() => handleOptionClick("image")}
@@ -153,21 +151,20 @@ function CreatePost() {
           {background.map((bg) => (
             <div className="BackgroundForm" key={bg}>
               <PostBackground
-                className={`Background ${
-                  (selectedOption === "color" &&
+                className={`Background ${(selectedOption === "color" &&
                     selectBackgroundColor === bg) ||
-                  (selectedOption === "image" && selectBackgroundImage === bg)
+                    (selectedOption === "image" && selectBackgroundImage === bg)
                     ? "selected"
                     : ""
-                }`}
+                  }`}
                 option={selectedOption}
                 value={bg}
                 onClick={() => handleBackgroundClick(bg)}
               />
               {(selectBackgroundColor === bg ||
                 selectBackgroundImage === bg) && (
-                <img className="selectBtn" src={enableImage} alt="Selected" />
-              )}
+                  <img className="selectBtn" src={enableImage} alt="Selected" />
+                )}
             </div>
           ))}
         </div>
