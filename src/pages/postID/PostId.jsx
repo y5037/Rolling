@@ -235,6 +235,8 @@ export default function PostId() {
           postId={selectedPostId}
           messageId={selectedMessageId}
           onClose={isModalOpen}
+          // 모달 Hidden 시, messageId 값을 초기화 해서 다시 모달을 출력할 수 있게끔 버그 처리(12.28_혜림)
+          setMessageId={setSelectedMessageId}
         />
       )}
     </>

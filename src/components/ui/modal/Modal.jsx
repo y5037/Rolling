@@ -53,7 +53,10 @@ const DateText = styled.p`
   }
 `;
 
+// 모달 크기 버그가 있어 메시지 출력 쪽 CSS 수정(12.28_혜림)
 const ContentText = styled.p`
+  max-width: 300px;
+  min-width: 100%;
   font-family: ${(props) => props.font};
   height: calc(100vh * (255 / 1200));
   overflow-y: scroll;
@@ -62,6 +65,10 @@ const ContentText = styled.p`
   border-top: 1px solid var(--Gray200);
   color: var(--Gray600);
   font-weight: 400;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Button = styled(PrimaryButton)`
