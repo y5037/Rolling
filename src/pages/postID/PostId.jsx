@@ -11,13 +11,35 @@ import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
 import AlarmModal from "../../components/ui/modal/AlarmModal";
 
+
 export default function PostId() {
+
+  //리스트페이지 파라미터
+  const { id } = useParams();
+
+  //무한스크롤 상태관리
+  const [prevUrl, setPrevUrl] = useState(null);
+  const [nextUrl, setNextUrl] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
+
+  //메세지 모달 열림/닫힘 상태관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 페이지 로딩 상태 관리
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   //메세지 데이터 상태관리
   const [message, setMessage] = useState([]);
 
   // 데이터 삭제 모달의 열림/닫힘 상태관리
   const [ModalOpen, setModalOpen] = useState(false);
+
+  //스크롤 이벤트 상태관리
+  const [btnShow, setBtnShow] = useState(false);
+
+  //데이터 상태관리
+  const [recentMessages, setRecentMessages] = useState([]);
 
   //모달 열림 함수
   const handleDeleteRollingPaper = () => {
@@ -63,29 +85,62 @@ export default function PostId() {
     navigate("/");
   }
 
-  //리스트페이지 파라미터
-  const { id } = useParams();
-
-  //스크롤 이벤트 상태관리
-  const [btnShow, setBtnShow] = useState(false);
-
-  //데이터 상태관리
-  const [recentMessages, setRecentMessages] = useState([]);
-  console.log(recentMessages);
-
-  //로딩 상태관리
-  const [loading, setLoading] = useState(true);
-
-  //데이터 전체 개수 상태관리
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const [selectedPostId, setSelectedPostId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMessageCardClick = ({ postId: postId, messageId: messageId }) => {
     setSelectedPostId(postId);
     setSelectedMessageId(messageId); // 선택된 메시지 ID 설정
     setIsModalOpen(true); // 모달 열기
   };
+
+  useEffect(() => {
+    if (id) {
+      setPageLoading(true);
+      getMessages(`${API_URL}/12-4/recipients/${id}/messages/?limit=5&offset=0`);
+      getRecipients();
+    }
+  }, [id]);
+
+  // 페이지 로딩 완료 후 처리
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 스크롤 이벤트 처리 함수
+  const handleScroll = () => {
+    const bottom =
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.scrollHeight;
+
+    if (bottom && hasMore && nextUrl) {
+      getMessages(nextUrl);  // nextUrl로 다음 페이지 데이터 요청
+    }
+  };
+
+  useEffect(() => {
+    if (recentMessages.length > 0) {
+      const scrollEvent = () => {
+        setBtnShow(window.scrollY > 50);  // 버튼을 스크롤 위치에 따라 표시
+      };
+      window.addEventListener("scroll", scrollEvent);
+      return () => window.removeEventListener("scroll", scrollEvent);
+    }
+  }, [recentMessages]);
+
+  // 스크롤 이벤트 리스너 추가 및 제거
+  useEffect(() => {
+    if (nextUrl) {
+      window.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [nextUrl]);
 
   // 메세지카드 데이터 요청
   async function getRecipients() {
@@ -103,23 +158,29 @@ export default function PostId() {
     }
   }
 
-  //메세지카드 데이터 요청
-  async function getMessages() {
+  // 메시지 데이터 요청 함수
+  async function getMessages(url) {
+    setLoading(true); // 메시지 데이터 로딩 시작
     try {
-      const response = await fetch(
-        `${API_URL}/12-4/recipients/${id}/messages/?limit=10&offset=0`
-      );
+      const response = await fetch(url);
       const result = await response.json();
-      setMessage(result.results);
+      const { next, previous, results, count } = result;
+
+      // 새로운 메시지 추가 (기존 데이터를 덮어쓰지 않도록)
+      setMessage((prevData) => [...prevData, ...results]);
+
+      // 다음 페이지 및 이전 페이지 URL 갱신
+      setNextUrl(next);
+      setPrevUrl(previous);
+
+      // 더 이상 데이터가 없으면 'hasMore'를 false로 설정
+      if (!next || results.length === 0 || message.length >= count) {
+        setHasMore(false);
+      }
     } catch (error) {
-      console.error("error", error);
+      console.error("error:", error);
     }
   }
-
-  useEffect(() => {
-    getMessages();
-    getRecipients();
-  }, [id]);
 
   //스크롤이벤트
   useEffect(() => {
@@ -184,8 +245,9 @@ export default function PostId() {
                 롤링페이퍼 삭제하기
               </PrimaryButton>
             </div>
-            {loading ? (
-              <Loading />
+
+            {pageLoading ? (
+              <Loading className="poageLoading" />
             ) : message.length > 0 ? (
               <>
                 <div className="postMessageList">
@@ -217,6 +279,10 @@ export default function PostId() {
                     );
                   })}
                 </div>
+
+                {!hasMore && message.length > 5 && <p className="noDataText">데이터가 없습니다.</p>}
+
+                {hasMore && loading && !pageLoading && <Loading className="scrollLoading" />}
               </>
             ) : (
               <div className="postMessageList">

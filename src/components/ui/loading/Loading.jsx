@@ -4,18 +4,11 @@ import React from "react";
 import FadeLoader from "react-spinners/FadeLoader";
 
 
-export default function Loading() {
+export default function Loading({ className }) {
 
   return (
     <div
-      className="loadingBox"
-      style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
+      className={className}>
       <FadeLoader
         color="var(--Primary)"
         height={15}
