@@ -11,9 +11,7 @@ import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
 import AlarmModal from "../../components/ui/modal/AlarmModal";
 
-
 export default function PostId() {
-
   //리스트페이지 파라미터
   const { id } = useParams();
 
@@ -48,12 +46,14 @@ export default function PostId() {
   //모달 열림 함수
   const handleDeleteRollingPaper = () => {
     if (id) {
+      document.body.style.overflow = "hidden";
       setModalOpen(true);
     }
   };
 
-  //모달 닫힘 함수 
+  //모달 닫힘 함수
   const handleModalClose = () => {
+    document.body.style.overflow = "auto";
     setModalOpen(false);
   };
 
@@ -101,7 +101,9 @@ export default function PostId() {
   useEffect(() => {
     if (id) {
       setPageLoading(true);
-      getMessages(`${API_URL}/12-4/recipients/${id}/messages/?limit=5&offset=0`);
+      getMessages(
+        `${API_URL}/12-4/recipients/${id}/messages/?limit=5&offset=0`
+      );
       getRecipients();
     }
   }, [id]);
@@ -118,7 +120,8 @@ export default function PostId() {
   // 스크롤 이벤트 처리 함수
   const handleScroll = (event) => {
     const bottom =
-      window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight;
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.scrollHeight;
 
     if (bottom && hasMore && nextUrl) {
       getMessages(nextUrl);
@@ -127,7 +130,8 @@ export default function PostId() {
 
   const handleTouchMove = (event) => {
     const bottom =
-      window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight;
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.scrollHeight;
 
     if (bottom && hasMore && nextUrl) {
       getMessages(nextUrl);
@@ -137,7 +141,7 @@ export default function PostId() {
   useEffect(() => {
     if (message.length > 0) {
       const scrollEvent = () => {
-        setBtnShow(window.scrollY > 50);  // 버튼을 스크롤 위치에 따라 표시
+        setBtnShow(window.scrollY > 50); // 버튼을 스크롤 위치에 따라 표시
       };
       window.addEventListener("scroll", scrollEvent);
       return () => window.removeEventListener("scroll", scrollEvent);
@@ -187,7 +191,7 @@ export default function PostId() {
       // 다음 페이지 및 이전 페이지 URL 갱신
       setNextUrl(next);
       setPrevUrl(previous);
-      setCount(count)
+      setCount(count);
 
       // 더 이상 데이터가 없으면 'hasMore'를 false로 설정
       if (!next || results.length === 0 || message.length >= count) {
@@ -227,12 +231,12 @@ export default function PostId() {
       (recentMessages.backgroundColor === "purple"
         ? "var(--Purple200)"
         : recentMessages.backgroundColor === "beige"
-          ? "var(--Beige200)"
-          : recentMessages.backgroundColor === "blue"
-            ? "var(--Blue200)"
-            : recentMessages.backgroundColor === "green"
-              ? "var(--Green200)"
-              : recentMessages.backgroundColor) || "transparent",
+        ? "var(--Beige200)"
+        : recentMessages.backgroundColor === "blue"
+        ? "var(--Blue200)"
+        : recentMessages.backgroundColor === "green"
+        ? "var(--Green200)"
+        : recentMessages.backgroundColor) || "transparent",
     backgroundImage: recentMessages.backgroundImageURL
       ? `url(${recentMessages.backgroundImageURL})`
       : "none",
@@ -246,8 +250,9 @@ export default function PostId() {
       <Navigation />
       <PostHead />
       <div
-        className={`postBodyWrap ${recentMessages.backgroundImageURL ? "imgBg" : ""
-          }`}
+        className={`postBodyWrap ${
+          recentMessages.backgroundImageURL ? "imgBg" : ""
+        }`}
         style={postBodyStyle}
       >
         <div className="container">
@@ -296,9 +301,14 @@ export default function PostId() {
                   })}
                 </div>
 
-                {!hasMore && message.length > 5 && <p className="noDataText">데이터가 없습니다.</p>}
+                {
+                  !hasMore && message.length > 5 && ""
+                  // <p className="noDataText">마지막 메시지 입니다.</p>
+                }
 
-                {hasMore && loading && !pageLoading && <Loading className="scrollLoading" />}
+                {hasMore && loading && !pageLoading && (
+                  <Loading className="scrollLoading" />
+                )}
               </>
             ) : (
               <div className="postMessageList">

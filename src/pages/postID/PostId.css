@@ -4,7 +4,7 @@
   padding: 54px 0 246px;
   z-index: 1;
 
-  &>.container {
+  & > .container {
     @media (max-width: 1248px) {
       padding: 0 24px;
     }
@@ -27,10 +27,10 @@
 
   @media (max-width: 767px) {
     margin-top: 106px;
-    padding: 54px 0 246px;
+    padding: 54px 0 calc(env(safe-area-inset-bottom) + 130px);
 
     @media (max-width: 576px) {
-      padding: 23px 0 246px;
+      padding: 23px 0 calc(env(safe-area-inset-bottom) + 130px);
     }
   }
 
@@ -56,7 +56,7 @@
         border-radius: 16px;
         background-color: var(--White);
 
-        >.postMessageLinkBox {
+        > .postMessageLinkBox {
           display: block;
           width: 100%;
           height: 100%;
@@ -106,7 +106,7 @@
         }
       }
 
-      &>div {
+      & > div {
         width: 100%;
         height: 100%;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -200,8 +200,9 @@
   height: 50px;
   line-height: 50px;
   text-align: center;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--Gray500);
 }
 
 .poageLoading {
