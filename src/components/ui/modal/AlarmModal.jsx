@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 // 모달 오버레이 (배경)
@@ -70,6 +70,7 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   const handleOverlayClick = (e) => {
     // ModalContent를 클릭한 경우에는 닫히지 않도록 방지
     if (e.target === e.currentTarget) {
+      document.body.style.overflow = "auto";
       onClose(); // 배경 클릭 시 모달 닫기
     }
   };
