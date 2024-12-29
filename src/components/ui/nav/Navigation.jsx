@@ -37,7 +37,7 @@ const NavigationBar = styled.div`
   right: 0;
   top: 0;
   border-bottom: 1px solid var(--Gray300);
-  z-index: 1;
+  z-index: 10;
   box-sizing: border-box;
   background-color: var(--White);
 `;
