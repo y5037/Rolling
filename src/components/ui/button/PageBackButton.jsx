@@ -20,10 +20,10 @@ const BackButton = styled.button`
   box-sizing: border-box;
   background-color: var(--White);
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: 0.3s;
 
   &:hover {
-    background-color: var(--Gray400);
+    background-color: var(--Gray200);
   }
 
   &:active {
@@ -31,7 +31,7 @@ const BackButton = styled.button`
   }
 
   &:focus {
-    background-color: var(--Gray400);
+    background-color: var(--Gray200);
   }
 `;
 

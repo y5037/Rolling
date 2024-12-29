@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
@@ -7,6 +7,7 @@ import RelationBadge from "../badge/Relation";
 import DeleteIconButton from "../button/DeleteIconButton";
 import PrimaryButton from "../button/PrimaryButton";
 import DeleteMessage from "../../../services/DeleteMessage";
+import AlarmModal from "../modal/AlarmModal";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ const ModalContainer = styled.div`
   z-index: 20;
   background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
+  overflow: hidden;
 
   @media (max-width: 768px) {
     min-width: 85%;
@@ -152,7 +154,16 @@ const Modal = ({
   onDelete = () => {},
   font = "",
 }) => {
+  // 데이터 삭제 모달의 열림/닫힘 상태관리
+  const [ModalOpen, setModalOpen] = useState(false);
+
   const handleDeleteClick = async () => {
+    if (id) {
+      setModalOpen(true);
+    }
+  };
+
+  const handleConfirmDelete = async () => {
     const response = await DeleteMessage({ messageId: id });
     if (response.ok) {
       if (onClose) {
@@ -209,6 +220,11 @@ const Modal = ({
           <HeadRight>
             <DateText>{createdAt.slice(0, 10).replace("/-/gi", ".")}</DateText>
             <BtnTrash onClick={handleDeleteClick} />
+            <AlarmModal
+              isOpen={ModalOpen}
+              onClose={onClose}
+              onConfirm={handleConfirmDelete}
+            />
           </HeadRight>
         </ModalHead>
         <ContentText font={font}>{content}</ContentText>

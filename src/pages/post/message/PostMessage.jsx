@@ -12,6 +12,7 @@ import { API_URL } from "../../../constant/VariableSettings.jsx";
 
 const BackButton = styled(PageBackButton)`
   flex: 1;
+  max-width: 80px;
 `;
 
 const CreateMessageButton = styled(PrimaryButton)`
