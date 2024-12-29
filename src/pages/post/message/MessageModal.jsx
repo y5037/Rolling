@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../../components/ui/modal/Modal";
 import GetMessages from "../../../services/GetMessages";
 
-function MessageModal({ postId, messageId, onClose, font, setMessageId }) {
+function MessageModal({ count, postId, messageId, onClose, font, setMessageId }) {
   const [data, setData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(onClose);
   const [selectedMessageId, setSelectedMessageId] = useState(messageId); // messageId 상태 관리
@@ -10,7 +10,7 @@ function MessageModal({ postId, messageId, onClose, font, setMessageId }) {
 
   const handleLoadMessage = async () => {
     try {
-      const response = await GetMessages(postId);
+      const response = await GetMessages(postId, count);
 
       const filterResponse = response.results.filter(
         (messageInfo) => messageInfo.id === messageId

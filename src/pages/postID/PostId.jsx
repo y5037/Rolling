@@ -1,5 +1,5 @@
 import MessageCard from "../../components/domain/post/MessageCard";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/ui/nav/Navigation";
 import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
@@ -16,6 +16,10 @@ export default function PostId() {
 
   //리스트페이지 파라미터
   const { id } = useParams();
+
+  //전체 데이터 개수 상태관리
+  const [count, setCount] = useState();
+  console.log(count);
 
   //무한스크롤 상태관리
   const [prevUrl, setPrevUrl] = useState(null);
@@ -131,14 +135,14 @@ export default function PostId() {
   };
 
   useEffect(() => {
-    if (recentMessages.length > 0) {
+    if (message.length > 0) {
       const scrollEvent = () => {
         setBtnShow(window.scrollY > 50);  // 버튼을 스크롤 위치에 따라 표시
       };
       window.addEventListener("scroll", scrollEvent);
       return () => window.removeEventListener("scroll", scrollEvent);
     }
-  }, [recentMessages]);
+  }, [message]);
 
   // 스크롤 이벤트 리스너 추가 및 제거
   useEffect(() => {
@@ -183,6 +187,7 @@ export default function PostId() {
       // 다음 페이지 및 이전 페이지 URL 갱신
       setNextUrl(next);
       setPrevUrl(previous);
+      setCount(count)
 
       // 더 이상 데이터가 없으면 'hasMore'를 false로 설정
       if (!next || results.length === 0 || message.length >= count) {
@@ -329,6 +334,7 @@ export default function PostId() {
           postId={selectedPostId}
           messageId={selectedMessageId}
           onClose={isModalOpen}
+          count={count}
           // 모달 Hidden 시, messageId 값을 초기화 해서 다시 모달을 출력할 수 있게끔 버그 처리(12.28_혜림)
           setMessageId={setSelectedMessageId}
         />
