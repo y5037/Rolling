@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import PostBackground from "./PostBackground";
 import GetBackgoundImages from "../../../services/GetBackgroundImages";
 import enableImage from "../../../assets/images/button/enabled.png";
 import "./CreatePost.css";
 import PostRecipients from "../../../services/PostRecipients";
+import PageBackButton from "../../../components/ui/button/PageBackButton.jsx";
+
+const BackButton = styled(PageBackButton)`
+  flex: 1;
+  max-width: 80px;
+`;
 
 function CreatePost() {
   // 롤링 페이저 생성 후 페이지 이동을 위함.
@@ -105,6 +112,10 @@ function CreatePost() {
     navigate(`/post/${createPostResponse.id}`);
   };
 
+  // const handlePageBack = () => {
+  //   navigate(`/list`);
+  // };
+
   return (
     <div className="Container">
       <div className="Content">
@@ -129,8 +140,9 @@ function CreatePost() {
         </div>
         <div className="BackgroundOptionBtn">
           <button
-            className={`ColorBackgroundBtn ${selectedOption === "color" ? "selected" : ""
-              }`}
+            className={`ColorBackgroundBtn ${
+              selectedOption === "color" ? "selected" : ""
+            }`}
             value="color"
             type="button"
             onClick={() => handleOptionClick("color")}
@@ -138,8 +150,9 @@ function CreatePost() {
             컬러
           </button>
           <button
-            className={`ImageBackgroundBtn ${selectedOption === "image" ? "selected" : ""
-              }`}
+            className={`ImageBackgroundBtn ${
+              selectedOption === "image" ? "selected" : ""
+            }`}
             value="image"
             type="button"
             onClick={() => handleOptionClick("image")}
@@ -151,24 +164,29 @@ function CreatePost() {
           {background.map((bg) => (
             <div className="BackgroundForm" key={bg}>
               <PostBackground
-                className={`Background ${(selectedOption === "color" &&
+                className={`Background ${
+                  (selectedOption === "color" &&
                     selectBackgroundColor === bg) ||
-                    (selectedOption === "image" && selectBackgroundImage === bg)
+                  (selectedOption === "image" && selectBackgroundImage === bg)
                     ? "selected"
                     : ""
-                  }`}
+                }`}
                 option={selectedOption}
                 value={bg}
                 onClick={() => handleBackgroundClick(bg)}
               />
               {(selectBackgroundColor === bg ||
                 selectBackgroundImage === bg) && (
-                  <img className="selectBtn" src={enableImage} alt="Selected" />
-                )}
+                <img className="selectBtn" src={enableImage} alt="Selected" />
+              )}
             </div>
           ))}
         </div>
         <form className="CreateButton" onSubmit={handleSubmit}>
+          {/* handlePageBack 뒤로가기 클릭 시 데이터 호출에 에러가 발생하여 Link 컴포넌트로 변경 (12.29_혜림) */}
+          <Link to="/list">
+            <BackButton />
+          </Link>
           <button className="SubmitBtn" type="submit" disabled={!name.trim()}>
             생성하기
           </button>
