@@ -112,13 +112,21 @@ export default function PostId() {
   }, []);
 
   // 스크롤 이벤트 처리 함수
-  const handleScroll = () => {
+  const handleScroll = (event) => {
     const bottom =
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.scrollHeight;
+      window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight;
 
     if (bottom && hasMore && nextUrl) {
-      getMessages(nextUrl);  // nextUrl로 다음 페이지 데이터 요청
+      getMessages(nextUrl);
+    }
+  };
+
+  const handleTouchMove = (event) => {
+    const bottom =
+      window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight;
+
+    if (bottom && hasMore && nextUrl) {
+      getMessages(nextUrl);
     }
   };
 
@@ -136,9 +144,12 @@ export default function PostId() {
   useEffect(() => {
     if (nextUrl) {
       window.addEventListener("scroll", handleScroll);
+      window.addEventListener("touchmove", handleTouchMove);
     }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [nextUrl]);
 
