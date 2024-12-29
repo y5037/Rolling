@@ -101,6 +101,10 @@ body {
 
 }
 
+body::-webkit-scrollbar{
+  display:none;
+}
+
 table {
 
   border-collapse: collapse;
