@@ -22,6 +22,7 @@ const ModalContainer = styled.div`
   z-index: 20;
   background: var(--White);
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.2);
+  overflow: hidden;
 
   @media (max-width: 768px) {
     min-width: 85%;

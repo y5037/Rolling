@@ -37,23 +37,32 @@ const ModalContent = styled.div`
 
 const ModalTitle = styled.h2`
   margin-bottom: 30px;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 400;
 `;
 
 const ModalButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 0 10px;
+  gap: 0 25px;
   margin-top: 20px;
 `;
 
 const ModalButton = styled.button`
-  padding: 10px 20px;
+  padding: 10px 30px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
-  background-color: ${(props) => (props.primary ? "var(--Error)" : "#95a5a6")};
-  color: white;
+  background-color: ${(props) =>
+    props.primary ? "var(--Primary)" : "var(--White)"};
+  color: ${(props) => (props.primary ? "var(--White)" : "var(--Gray400)")};
+  border: 1px solid
+    ${(props) => (props.primary ? "var(--Primary)" : "var(--Gray300)")};
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
