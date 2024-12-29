@@ -24,7 +24,10 @@ function MessageModal({ postId, messageId, onClose, font, setMessageId }) {
   };
 
   useEffect(() => {
-    handleLoadMessage();
+    // 모달 Hidden 시, messageId 값을 초기화 해서 다시 모달을 출력할 수 있게끔 버그 처리와 동시에 빈 값으로 인한 에러 발생을 막기 위해 if문 추가(12.29_혜림)
+    if (messageId) {
+      handleLoadMessage();
+    }
   }, [messageId]);
 
   if (!data) return null;
