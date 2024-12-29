@@ -21,7 +21,7 @@
 
   @media (max-width: 768px) {
     width: 368px;
-    padding: 20px;
+    padding: 20px 20px calc(env(safe-area-inset-bottom) + 20px);
   }
 }
 
