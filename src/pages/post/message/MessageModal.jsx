@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../../components/ui/modal/Modal";
 import GetMessages from "../../../services/GetMessages";
 
-function MessageModal({ postId, messageId, onClose, font }) {
+function MessageModal({ postId, messageId, onClose, font, setMessageId }) {
   const [data, setData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(onClose);
   const [selectedMessageId, setSelectedMessageId] = useState(messageId); // messageId 상태 관리
@@ -31,6 +31,8 @@ function MessageModal({ postId, messageId, onClose, font }) {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    // 모달 Hidden 시, messageId 값을 초기화 해서 다시 모달을 출력할 수 있게끔 버그 처리(12.28_혜림)
+    setMessageId(null);
     // window.location.reload();
   };
 

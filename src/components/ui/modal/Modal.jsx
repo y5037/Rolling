@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import styled from "styled-components";
 import defaultImg from "../../../assets/images/common/defaultProfile.png";
@@ -7,6 +7,7 @@ import RelationBadge from "../badge/Relation";
 import DeleteIconButton from "../button/DeleteIconButton";
 import PrimaryButton from "../button/PrimaryButton";
 import DeleteMessage from "../../../services/DeleteMessage";
+import AlarmModal from "../modal/AlarmModal";
 
 const ModalContainer = styled.div`
   display: flex;
@@ -53,7 +54,10 @@ const DateText = styled.p`
   }
 `;
 
+// 모달 크기 버그가 있어 메시지 출력 쪽 CSS 수정(12.28_혜림)
 const ContentText = styled.p`
+  max-width: 300px;
+  min-width: 100%;
   font-family: ${(props) => props.font};
   height: calc(100vh * (255 / 1200));
   overflow-y: scroll;
@@ -62,6 +66,10 @@ const ContentText = styled.p`
   border-top: 1px solid var(--Gray200);
   color: var(--Gray600);
   font-weight: 400;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Button = styled(PrimaryButton)`
@@ -122,7 +130,7 @@ const ProfileImgContainer = styled.div`
 
 const ProfileImg = styled.img.attrs({
   // 프로필 이미지 데이터 작업 시 이미지 경로를 prop으로 받아서 이쪽으로 연결 작업 해주시면 됩니다. _12.14 혜림
-  src: defaultImg,
+  // src: defaultImg,
 })`
   width: 100%;
   height: 100%;
@@ -145,7 +153,16 @@ const Modal = ({
   onDelete = () => {},
   font = "",
 }) => {
+  // 데이터 삭제 모달의 열림/닫힘 상태관리
+  const [ModalOpen, setModalOpen] = useState(false);
+
   const handleDeleteClick = async () => {
+    if (id) {
+      setModalOpen(true);
+    }
+  };
+
+  const handleConfirmDelete = async () => {
     const response = await DeleteMessage({ messageId: id });
     if (response.ok) {
       if (onClose) {
@@ -202,6 +219,11 @@ const Modal = ({
           <HeadRight>
             <DateText>{createdAt.slice(0, 10).replace("/-/gi", ".")}</DateText>
             <BtnTrash onClick={handleDeleteClick} />
+            <AlarmModal
+              isOpen={ModalOpen}
+              onClose={onClose}
+              onConfirm={handleConfirmDelete}
+            />
           </HeadRight>
         </ModalHead>
         <ContentText font={font}>{content}</ContentText>
