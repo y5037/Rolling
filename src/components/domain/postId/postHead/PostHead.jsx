@@ -10,7 +10,7 @@ import SharedContainer from "./SharedContainer";
 import Toast from "../../../ui/toast/Toast";
 import GetRecipientsId from "../../../../services/GetRecipientsId";
 
-function PostHead({className}) {
+function PostHead({ className }) {
   const [emojiDrop, setEmojiDrop] = useState(false);
   const [sharedDrop, setSharedDrop] = useState(false);
   const [urlCopy, setUrlCopy] = useState(false);
@@ -87,7 +87,7 @@ function PostHead({className}) {
       <div className={styles.headBar}>
         <div className={styles.container}>
           <div className={styles.contents}>
-            <p className={styles.toName}>To.{isData?.name}</p>
+            <p className={styles.toName}>To. {isData?.name}</p>
             <div className={styles.servicesContainer}>
               <div className={styles.AuthorContainer}>
                 <ul className={styles.list}>

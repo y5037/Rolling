@@ -3,7 +3,7 @@
 }
 
 .container {
-  margin: 111px auto;
+  margin: 111px auto calc(env(safe-area-inset-bottom) + 111px);
   padding: 0 24px;
   width: 720px;
 }
@@ -72,7 +72,7 @@ div.buttons {
 
 @media (max-width: 500px) {
   .container {
-    margin: 50px auto;
+    margin: 50px auto calc(env(safe-area-inset-bottom) + 50px);
     padding: 0 20px;
     width: 100%;
 

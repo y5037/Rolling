@@ -6,21 +6,76 @@ import { HomeButton, PlusButton } from "../../components/ui/button/RoundButton";
 import PrimaryButton from "../../components/ui/button/PrimaryButton";
 import PostHead from "../../components/domain/postId/postHead/PostHead";
 import { API_URL } from "../../constant/VariableSettings";
-import { useInView } from "react-intersection-observer";
-
 import "./PostId.css";
 import Loading from "../../components/ui/loading/Loading";
 import MessageModal from "../post/message/MessageModal";
+import AlarmModal from "../../components/ui/modal/AlarmModal";
 
 export default function PostId() {
+  //리스트페이지 파라미터
+  const { id } = useParams();
 
-  const { ref, inView } = useInView({
-    triggerOnce: true, // 한번만 트리거
-    threshold: 1.0, // 100% 하단에 도달했을 때 트리거
-  });
+  //무한스크롤 상태관리
+  const [prevUrl, setPrevUrl] = useState(null);
+  const [nextUrl, setNextUrl] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
 
-  //무한스크롤
-  const [nextPageUrl, setNextPageUrl] = useState(null); // next URL을 상태로 관리
+  //메세지 모달 열림/닫힘 상태관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 페이지 로딩 상태 관리
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  //메세지 데이터 상태관리
+  const [message, setMessage] = useState([]);
+
+  // 데이터 삭제 모달의 열림/닫힘 상태관리
+  const [ModalOpen, setModalOpen] = useState(false);
+
+  //스크롤 이벤트 상태관리
+  const [btnShow, setBtnShow] = useState(false);
+
+  //데이터 상태관리
+  const [recentMessages, setRecentMessages] = useState([]);
+
+  //모달 열림 함수
+  const handleDeleteRollingPaper = () => {
+    if (id) {
+      document.body.style.overflow = "hidden";
+      setModalOpen(true);
+    }
+  };
+
+  //모달 닫힘 함수
+  const handleModalClose = () => {
+    document.body.style.overflow = "auto";
+    setModalOpen(false);
+  };
+
+  //데이터 삭제 함수
+  const handleConfirmDelete = () => {
+    const deleteUrl = `${API_URL}/12-4/recipients/${id}/`;
+    fetch(deleteUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("삭제 실패");
+        }
+        navigate("/list");
+      })
+      .catch((error) => {
+        console.error("error :", error);
+        alert("삭제 실패. 다시 시도해주세요.");
+      })
+      .finally(() => {
+        setModalOpen(false);
+      });
+  };
 
   //링크이동
   const navigate = useNavigate();
@@ -30,24 +85,8 @@ export default function PostId() {
     navigate("/");
   }
 
-  //리스트페이지 파라미터
-  const { id } = useParams();
-
-  //스크롤 이벤트 상태관리
-  const [btnShow, setBtnShow] = useState(false);
-
-  //데이터 상태관리
-  const [recentMessages, setRecentMessages] = useState([]);
-  console.log(recentMessages);
-
-  //로딩 상태관리
-  const [loading, setLoading] = useState(true);
-
-  //데이터 전체 개수 상태관리
-  const [count, setCount] = useState();
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const [selectedPostId, setSelectedPostId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMessageCardClick = ({ postId: postId, messageId: messageId }) => {
     setSelectedPostId(postId);
@@ -55,40 +94,108 @@ export default function PostId() {
     setIsModalOpen(true); // 모달 열기
   };
 
-  // 데이터 요청
-  async function getRecipients(url) {
+  useEffect(() => {
+    if (id) {
+      setPageLoading(true);
+      getMessages(
+        `${API_URL}/12-4/recipients/${id}/messages/?limit=5&offset=0`
+      );
+      getRecipients();
+    }
+  }, [id]);
+
+  // 페이지 로딩 완료 후 처리
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 스크롤 이벤트 처리 함수
+  const handleScroll = (event) => {
+    const bottom =
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.scrollHeight;
+
+    if (bottom && hasMore && nextUrl) {
+      getMessages(nextUrl);
+    }
+  };
+
+  const handleTouchMove = (event) => {
+    const bottom =
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.scrollHeight;
+
+    if (bottom && hasMore && nextUrl) {
+      getMessages(nextUrl);
+    }
+  };
+
+  useEffect(() => {
+    if (recentMessages.length > 0) {
+      const scrollEvent = () => {
+        setBtnShow(window.scrollY > 50); // 버튼을 스크롤 위치에 따라 표시
+      };
+      window.addEventListener("scroll", scrollEvent);
+      return () => window.removeEventListener("scroll", scrollEvent);
+    }
+  }, [recentMessages]);
+
+  // 스크롤 이벤트 리스너 추가 및 제거
+  useEffect(() => {
+    if (nextUrl) {
+      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("touchmove", handleTouchMove);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [nextUrl]);
+
+  // 메세지카드 데이터 요청
+  async function getRecipients() {
     setLoading(true);
     try {
-      const response = await fetch(url);
+      const response = await fetch(
+        `${API_URL}/12-4/recipients/${id}/?limit=10&offset=0`
+      );
       const result = await response.json();
-      setRecentMessages((prevMessages) => [...prevMessages, ...result.results]);
-      setCount(result.count);
-      setNextPageUrl(result.next);
+      setRecentMessages(result);
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      console.error("error:", error);
     } finally {
       setLoading(false);
     }
   }
 
-  // 무한 스크롤을 위한 loadMore
-  const loadMoreMessages = () => {
-    if (!loading && nextPageUrl) {
-      getRecipients(nextPageUrl);
+  // 메시지 데이터 요청 함수
+  async function getMessages(url) {
+    setLoading(true); // 메시지 데이터 로딩 시작
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+      const { next, previous, results, count } = result;
+
+      // 새로운 메시지 추가 (기존 데이터를 덮어쓰지 않도록)
+      setMessage((prevData) => [...prevData, ...results]);
+
+      // 다음 페이지 및 이전 페이지 URL 갱신
+      setNextUrl(next);
+      setPrevUrl(previous);
+
+      // 더 이상 데이터가 없으면 'hasMore'를 false로 설정
+      if (!next || results.length === 0 || message.length >= count) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("error:", error);
     }
-  };
-
-  useEffect(() => {
-    const initialUrl = `${API_URL}/12-4/recipients/${id}/messages/?limit=10&offset=0`;
-    getRecipients(initialUrl);
-  }, [id]);
-
-  useEffect(() => {
-    if (nextPageUrl) {
-      getRecipients(nextPageUrl);
-    }
-  }, [nextPageUrl]);
-
+  }
 
   //스크롤이벤트
   useEffect(() => {
@@ -113,38 +220,36 @@ export default function PostId() {
     navigate(`/post/${id}/messages/`);
   }
 
-  // 버튼 클릭 이벤트 함수
-  function handleDeleteRollingPaper() {
-    if (!id) {
-      console.error("Recipient ID가 전달되지 않았습니다");
-      return;
-    }
-
-    // 데이터 삭제
-    const deleteUrl = `${API_URL}/12-4/recipients/${id}/`;
-    fetch(deleteUrl, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("삭제 실패");
-        }
-        navigate("/list");
-      })
-      .catch((error) => {
-        console.error("error :", error);
-        alert("삭제 실패. 다시 시도해주세요.");
-      });
-  }
+  // 스타일 객체
+  const postBodyStyle = {
+    backgroundColor:
+      (recentMessages.backgroundColor === "purple"
+        ? "var(--Purple200)"
+        : recentMessages.backgroundColor === "beige"
+        ? "var(--Beige200)"
+        : recentMessages.backgroundColor === "blue"
+        ? "var(--Blue200)"
+        : recentMessages.backgroundColor === "green"
+        ? "var(--Green200)"
+        : recentMessages.backgroundColor) || "transparent",
+    backgroundImage: recentMessages.backgroundImageURL
+      ? `url(${recentMessages.backgroundImageURL})`
+      : "none",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  };
 
   return (
     <>
       <Navigation />
       <PostHead />
-      <div className="postBodyWrap">
+      <div
+        className={`postBodyWrap ${
+          recentMessages.backgroundImageURL ? "imgBg" : ""
+        }`}
+        style={postBodyStyle}
+      >
         <div className="container">
           <div className="postBodyBox">
             <div className="buttonContainer">
@@ -156,9 +261,10 @@ export default function PostId() {
                 롤링페이퍼 삭제하기
               </PrimaryButton>
             </div>
-            {loading ? (
-              <Loading />
-            ) : recentMessages.length > 0 ? (
+
+            {pageLoading ? (
+              <Loading className="poageLoading" />
+            ) : message.length > 0 ? (
               <>
                 <div className="postMessageList">
                   <div className="postMessageBox first">
@@ -172,7 +278,7 @@ export default function PostId() {
                     </div>
                   </div>
 
-                  {recentMessages.map((post, i) => {
+                  {message.map((post, i) => {
                     return (
                       <div
                         className="postMessageBox"
@@ -189,6 +295,14 @@ export default function PostId() {
                     );
                   })}
                 </div>
+
+                {!hasMore && message.length > 5 && (
+                  <p className="noDataText">데이터가 없습니다.</p>
+                )}
+
+                {hasMore && loading && !pageLoading && (
+                  <Loading className="scrollLoading" />
+                )}
               </>
             ) : (
               <div className="postMessageList">
@@ -205,20 +319,6 @@ export default function PostId() {
               </div>
             )}
           </div>
-
-          {/* Load more 버튼 */}
-          <ul className="linkList">
-            {nextPageUrl && !loading ? (
-              <li ref={ref} className="load-more-container">
-                <button onClick={loadMoreMessages} className="load-more-btn">
-                  더 많은 메시지 로드
-                </button>
-              </li>
-            ) : nextPageUrl === null ? (
-              <li className="no-more-data">더 이상 데이터가 없습니다.</li>
-            ) : null}
-          </ul>
-
         </div>
       </div>
 
@@ -238,8 +338,15 @@ export default function PostId() {
           postId={selectedPostId}
           messageId={selectedMessageId}
           onClose={isModalOpen}
+          // 모달 Hidden 시, messageId 값을 초기화 해서 다시 모달을 출력할 수 있게끔 버그 처리(12.28_혜림)
+          setMessageId={setSelectedMessageId}
         />
       )}
+      <AlarmModal
+        isOpen={ModalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleConfirmDelete}
+      />
     </>
   );
 }
