@@ -93,12 +93,13 @@ function PostHead({ className }) {
                 <ul className={styles.list}>
                   {isData?.recentMessages ? (
                     sliceMessages.map((item) => {
+                      console.log(item);
                       return (
                         <li key={item.id}>
                           <img
                             src={
-                              item.backgroundImageURL
-                                ? item.backgroundImageURL
+                              item.profileImageURL
+                                ? item.profileImageURL
                                 : defaultImg
                             }
                             alt=""
