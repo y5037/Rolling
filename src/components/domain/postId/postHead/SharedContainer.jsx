@@ -47,7 +47,7 @@ function SharedContainer({ handleToastShow, isData }) {
           handleToastShow();
         }}
       >
-        URL 공유
+        URL 복사
       </li>
     </ul>
   );
