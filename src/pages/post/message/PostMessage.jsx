@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom"; // useParams로 URL 파라미터 추출
 import styles from "./PostMessage.module.css";

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
-import defaultImg from "../../../assets/images/common/defaultProfile.png";
-import iconTrashImg from "../../../assets/images/modal/trash.svg";
 import RelationBadge from "../badge/Relation";
 import DeleteIconButton from "../button/DeleteIconButton";
 import PrimaryButton from "../button/PrimaryButton";

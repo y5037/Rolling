@@ -10,7 +10,7 @@ import SharedContainer from "./SharedContainer";
 import Toast from "../../../ui/toast/Toast";
 import GetRecipientsId from "../../../../services/GetRecipientsId";
 
-function PostHead({ className }) {
+function PostHead() {
   const [emojiDrop, setEmojiDrop] = useState(false);
   const [sharedDrop, setSharedDrop] = useState(false);
   const [urlCopy, setUrlCopy] = useState(false);

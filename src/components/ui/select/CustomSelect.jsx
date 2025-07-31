@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import selectArrowIcon from "../../../assets/images/select/arrow_down.png";
 import selectArrowHoverIcon from "../../../assets/images/select/arrow_top.png";

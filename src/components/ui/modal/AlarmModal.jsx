@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
 
 // 모달 오버레이 (배경)

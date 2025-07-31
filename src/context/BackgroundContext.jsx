@@ -1,5 +1,5 @@
 // src/context/BackgroundContext.js
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 // 배경 상태를 관리할 Context 생성
 const BackgroundContext = createContext();
