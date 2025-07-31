@@ -21,7 +21,7 @@ const SecondaryButton = styled.button`
 
   &:disabled {
     background-color: var(--Gray300);
-    color: var(--Primary)
+    color: var(--Primary);
     border: 2px solid transparent;
   }
 
